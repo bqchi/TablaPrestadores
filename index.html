@@ -13,10 +13,27 @@
     <style>  
         body { font-family: Arial, sans-serif; margin:20px; background:#f5f5f5;}  
         h1 { color: #497e76; }  
-        .filtros {   
+        .filtros-container {   
             margin-bottom: 20px;   
             display: flex;   
-            gap: 20px;   
+            gap: 30px;  
+            flex-wrap: wrap;  
+        }  
+        .filtros-group {  
+            flex: 1;  
+            min-width: 300px;  
+            padding: 15px;  
+            border: 1px solid #497e76;  
+            border-radius: 6px;  
+            background: #f9f9f9;  
+        }  
+        .filtros-group h3 {  
+            margin-top: 0;  
+            color: #497e76;  
+        }  
+        .filtros {   
+            display: flex;   
+            gap: 10px;   
             flex-wrap: wrap;  
             align-items: center;  
         }  
@@ -29,7 +46,7 @@
             background:#497e76;   
             color:white;   
             border:none;   
-            min-width:160px;  
+            min-width:120px;  
         }  
         .filtros .reset-btn {   
             background: #8c4a4a;   
@@ -84,24 +101,45 @@
 </head>  
 <body>  
     <h1>Tabla de Prestadores Médicos</h1>  
-    <div class="filtros">  
-        <label>Seccional:  
-            <select id="filtro-seccional"><option value="">Todas</option></select>  
-        </label>  
-        <label>Clasificación:  
-            <select id="filtro-clasificacion"><option value="">Todas</option></select>  
-        </label>  
-        <label>Tipo de Prestador:  
-            <select id="filtro-tipo"><option value="">Todos</option></select>  
-        </label>  
-        <label>Especialidad:  
-            <select id="filtro-especialidad"><option value="">Todas</option></select>  
-        </label>  
-        <label>Plan:  
-            <select id="filtro-plan"><option value="">Todos</option></select>  
-        </label>  
-        <button id="reset-btn" type="button" class="reset-btn">Borrar Filtros</button>  
-    </div>  
+    
+    <div class="filtros-container">
+        <!-- Grupo 1: Filtros por Seccional, Clasificación y Plan -->
+        <div class="filtros-group">
+            <h3>Filtros por Plan</h3>
+            <div class="filtros">
+                <label>Seccional:
+                    <select id="filtro-seccional"><option value="">Todas</option></select>
+                </label>
+                <label>Clasificación:
+                    <select id="filtro-clasificacion"><option value="">Todas</option></select>
+                </label>
+                <label>Plan:
+                    <select id="filtro-plan"><option value="">Todos</option></select>
+                </label>
+                <button id="apply-btn-plan" type="button">Aplicar</button>
+                <button id="reset-btn-plan" type="button" class="reset-btn">Borrar</button>
+            </div>
+        </div>
+
+        <!-- Grupo 2: Filtros por Tipo y Especialidad -->
+        <div class="filtros-group">
+            <h3>Filtros por Especialidad</h3>
+            <div class="filtros">
+                <label>Seccional:
+                    <select id="filtro-seccional-esp"><option value="">Todas</option></select>
+                </label>
+                <label>Tipo de Prestador:
+                    <select id="filtro-tipo"><option value="">Todos</option></select>
+                </label>
+                <label>Especialidad:
+                    <select id="filtro-especialidad"><option value="">Todas</option></select>
+                </label>
+                <button id="apply-btn-esp" type="button">Aplicar</button>
+                <button id="reset-btn-esp" type="button" class="reset-btn">Borrar</button>
+            </div>
+        </div>
+    </div>
+    
     <table id="tabla-prestadores" class="display" style="width:100%;">  
         <thead>  
             <tr>  
@@ -121,13 +159,17 @@ const tipoEspecialidad = {
     "EspecialidadesAmbulatorio": ["Adolescencia","Alergia e Inmunologia","Alergia e Inmunologia Infantil","Andrologia","Cardiologia","Cardiologia Infantil","Clinica Medica","Dermatologia","Dermatologia Infantil","Diabetologia","Diabetologia Infantil","Endocrinologia","Endocrinologia Infantil","Estomatologia","Fisiatria","Flebologia y Linfologia","Fonoaudiologia","Gastroenterologia","Gastroenterologia Infantil","Genetica","Geriatria","Ginecologia","Ginecologia Infanto Juvenil","Hematologia e Inmunologia","Hematologia e Inmunologia Infantil","Hemoterapia","Hemoterapia Infantil","Hepatologia","Infectologia","Infectologia Infantil","Medicina Familiar","Micologia","Nefrologia","Nefrologia Infantil","Neonatologia","Neumonologia","Neumonologia Infantil","Neurocirugia","Neurologia","Neurologia Infantil","Nutricion","Nutricion Infantil","Obstetricia","Odontologia","Oftalmologia","Oftalmologia Infantil","Oncologia","Oncologia Infantil","Osteoporosis y Litiasis renal","Otorrinolaringologia","Otorrinolaringologia Infantil","Patologia Mamaria","Pediatria","Proctologia","Psicologia","Psiquiatria","Psiquiatria Infantil","Quemados","Reumatologia","Traumatologia y Ortopedia","Traumatologia y Ortopedia Infantil","Urologia","Urologia Infantil"],  
     "Internacion": ["Internacion Cardiologica","Internacion Neurologia","Internacion Oftalmologica","Internacion Otorrinolaringologica","Internacion por Rehabilitacion","Internacion Psiquiatrica","Internacion Traumatologica","Maternidad","Pediatrica","Piso","Respirador","Telemetria","Terapia Intermedia","UCO","UTI","UTINeo","UTIP"],  
     "Cirugias": ["Artroscopica","Cabeza y Cuello","Cardiaca","Cardiaca Infantil","Endoscopica","General","Ginecologia","Infantil","Laparoscopica","Miembro Superior y Mano","Nariz y oido","Neurocirugia","Oftalmologica","Pierna y Pie","Plastica Reparadora","Toracica","Urologia","Vascular Periferica"],  
-    "Diagnostico": ["Anatomia Patologia","Audiometria","Camara Gamma - Medicina Nuclear - Radioisotopos","Campo visual computarizado","Colposcopia","Densitometria Osea","Drenaje Linfatico","Eco-Doppler","Ecografia","Ecografia Infantil","Eco Estres","Electrocardiograma","Electroencefalograma","Electromiograma","Endoscopia Digestiva","Endoscopia Ginecologica","Endoscopia Respiratoria","Endoscopia Urologica","Ergometria","Espinograma","Espirometria","Espirometria Infantil","Estudios mamarios","Fonoaudiologia y Foniatria","Hemodinamia","Holter","Infiltraciones","Kinesiologia","Kinesiologia en interancion","Laboratorio Alergia e Inmunologia","Laboratorio Bacteriologia y Serologia","Laboratorio Dosaje Hormonal","Laboratorio Estudios Metabolicos - Fosfacalcicos","Laboratorio Estudios Nefrologicos","Laboratorio Hematologia - Hemostasia - Trombosis","Laboratorio Micologia","Laboratorio Radioinmunoensayo","Laboratorio Virologia","Litotricia","Mapeo Cerebral","Monitoreo Fetal","PET","Polisomnografia","Potenciales Evocados","Presurometria","Psicologia","Psicologia Infantil","Psicopedagogia","Psicoprofilaxis del parto","Puncion Mamaria","Puncion Tiroide","Quimioterapia","Radiologia","Radiologia Infantil","Radioterapia","Rehabilitacion Cardiaca","Rehabilitacion Vestibular","Resonador abierto","Resonancia Magnetica Nuclear","RPG","Tomografia Computada","Tomografo abierto","Urodinamia","Urodinamia Infantil"]  
+    "Diagnostico": ["Anatomia Patologia","Audiometria","Camara Gamma - Medicina Nuclear - Radioisotopos","Campo visual computarizado","Colposcopia","Densitometria Osea","Drenaje Linfatico","Eco-Doppler","Ecografia","Ecografia Infantil","Eco Estres","Electrocardiograma","Electroencefalograma","Electromiograma","Endoscopia Digestive","Endoscopia Ginecologica","Endoscopia Respiratoria","Endoscopia Urologica","Ergometria","Espinograma","Espirometria","Espirometria Infantil","Estudios mamarios","Fonoaudiologia y Foniatria","Hemodinamia","Holter","Infiltraciones","Kinesiologia","Kinesiologia en interancion","Laboratorio Alergia e Inmunologia","Laboratorio Bacteriologia y Serologia","Laboratorio Dosaje Hormonal","Laboratorio Estudios Metabolicos - Fosfacalcicos","Laboratorio Estudios Nefrologicos","Laboratorio Hematologia - Hemostasia - Trombosis","Laboratorio Micologia","Laboratorio Radioinmunoensayo","Laboratorio Virologia","Litotricia","Mapeo Cerebral","Monitoreo Fetal","PET","Polisomnografia","Potenciales Evocados","Presurometria","Psicologia","Psicologia Infantil","Psicopedagogia","Psicoprofilaxis del parto","Puncion Mamaria","Puncion Tiroide","Quimioterapia","Radiologia","Radiologia Infantil","Radioterapia","Rehabilitacion Cardiaca","Rehabilitacion Vestibular","Resonador abierto","Resonancia Magnetica Nuclear","RPG","Tomografia Computada","Tomografo abierto","Urodinamia","Urodinamia Infantil"]  
 };  
 const seccionales = ["BAHIA BLANCA","BUENOS AIRES ZONA 1","BUENOS AIRES ZONA 2","BUENOS AIRES ZONA 3","CAPITAL","CATAMARCA","CHACO","CHUBUT","CORDOBA","CORRIENTES","ENTRE RIOS","FORMOSA","GBA NOROESTE","GBA NORTE","GBA OESTE","GBA SUR","JUJUY","LA PAMPA","LA PLATA","LA RIOJA","MAR DEL PLATA","MENDOZA","MISIONES","NEUQUEN","RIO NEGRO","ROSARIO","SALTA","SAN JUAN","SAN LUIS","SANTA CRUZ","SANTA FE","SANTIAGO DEL ESTERO","TIERRA DEL FUEGO","TRENQUE LAUQUEN","TUCUMAN"];  
 
 $(function() {  
-    // Llenar seccionales  
-    seccionales.forEach(sec => $('#filtro-seccional').append(`<option value="${sec}">${sec}</option>`));  
+    // Llenar seccionales en ambos grupos
+    seccionales.forEach(sec => {
+        $('#filtro-seccional').append(`<option value="${sec}">${sec}</option>`);
+        $('#filtro-seccional-esp').append(`<option value="${sec}">${sec}</option>`);
+    });
+    
     // Llenar tipos  
     Object.keys(tipoEspecialidad).forEach(tipo => $('#filtro-tipo').append(`<option value="${tipo}">${tipo}</option>`));  
 
@@ -150,7 +192,6 @@ $(function() {
     // Evento para actualizar las especialidades cuando cambia el tipo de prestador  
     $('#filtro-tipo').on('change', function() {  
         updateEspecialidades();  
-        filterTable();  
     });  
 
     Papa.parse("Data.csv", {  
@@ -247,16 +288,25 @@ $(function() {
                 }  
             });  
 
-            // Filtros  
-            $('.filtros select').on('change', function() {  
-                filterTable();  
-            });  
+            // Botones de aplicar filtros
+            $('#apply-btn-plan').click(function() {
+                filterTableByPlan();
+            });
+            
+            $('#apply-btn-esp').click(function() {
+                filterTableBySpecialty();
+            });
 
-            // Botón reset  
-            $('#reset-btn').click(function() {  
-                $('#filtro-seccional, #filtro-clasificacion, #filtro-tipo, #filtro-especialidad, #filtro-plan').val('');  
-                updateEspecialidades();  
-                filterTable();  
+            // Botones de reset
+            $('#reset-btn-plan').click(function() {  
+                $('#filtro-seccional, #filtro-clasificacion, #filtro-plan').val('');  
+                filterTableByPlan();
+            });  
+            
+            $('#reset-btn-esp').click(function() {  
+                $('#filtro-seccional-esp, #filtro-tipo, #filtro-especialidad').val('');  
+                updateEspecialidades();
+                filterTableBySpecialty();
             });  
 
             // Mostrar/ocultar detalles  
@@ -328,41 +378,37 @@ $(function() {
                 }
             });
 
-            // Función para filtrar la tabla según los filtros
-            function filterTable() {
+            // Función para filtrar por plan
+            function filterTableByPlan() {
                 const seccional = $('#filtro-seccional').val();
                 const clasificacion = $('#filtro-clasificacion').val();
-                const tipo = $('#filtro-tipo').val();
-                const especialidad = $('#filtro-especialidad').val();
                 const plan = $('#filtro-plan').val();
 
-                // Filtramos los proveedores compactos
                 const filteredData = providersCompact.filter(provider => {
-                    // Seccional
-                    if (seccional && provider.Seccional !== seccional) {
-                        return false;
-                    }
-                    // Clasificación
-                    if (clasificacion && provider.Clasificacion !== clasificacion) {
-                        return false;
-                    }
-                    // Tipo: si se seleccionó un tipo, debemos verificar que el proveedor tenga al menos una práctica de ese tipo
+                    if (seccional && provider.Seccional !== seccional) return false;
+                    if (clasificacion && provider.Clasificacion !== clasificacion) return false;
+                    if (plan && !provider.Plan.includes(plan)) return false;
+                    return true;
+                });
+
+                tabla.clear().rows.add(filteredData).draw();
+            }
+
+            // Función para filtrar por especialidad
+            function filterTableBySpecialty() {
+                const seccional = $('#filtro-seccional-esp').val();
+                const tipo = $('#filtro-tipo').val();
+                const especialidad = $('#filtro-especialidad').val();
+
+                const filteredData = providersCompact.filter(provider => {
+                    if (seccional && provider.Seccional !== seccional) return false;
                     if (tipo) {
                         const hasPracticeType = provider.practices.some(p => p.tipo === tipo);
-                        if (!hasPracticeType) {
-                            return false;
-                        }
+                        if (!hasPracticeType) return false;
                     }
-                    // Especialidad: si se seleccionó una especialidad, debemos verificar que el proveedor tenga al menos una práctica con esa especialidad
                     if (especialidad) {
                         const hasSpecialty = provider.practices.some(p => p.especialidad === especialidad);
-                        if (!hasSpecialty) {
-                            return false;
-                        }
-                    }
-                    // Plan: si el proveedor tiene varios planes, verificar si el plan filtrado está incluido
-                    if (plan && !provider.Plan.includes(plan)) {
-                        return false;
+                        if (!hasSpecialty) return false;
                     }
                     return true;
                 });
