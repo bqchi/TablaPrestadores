@@ -97,11 +97,41 @@
         tr.superador { background-color: #f0e6ff !important; }  
         tr.universal td:first-child { background-color: #e6f7e6 !important; }  
         tr.superador td:first-child { background-color: #f0e6ff !important; }  
+        /* Estilos para el buscador y botón de borrar */  
+        .search-container {  
+            display: flex;  
+            justify-content: center;  
+            margin-bottom: 20px;  
+            gap: 10px;  
+        }  
+        .search-container input {  
+            padding: 8px;  
+            border-radius: 4px;  
+            border: 1px solid #bbb;  
+            width: 300px;  
+        }  
+        .search-container button {  
+            background: #8c4a4a;  
+            color: white;  
+            border: none;  
+            padding: 8px 15px;  
+            border-radius: 4px;  
+            cursor: pointer;  
+        }  
+        .search-container button:disabled {  
+            background: #cccccc;  
+            cursor: not-allowed;  
+        }  
     </style>  
 </head>  
 <body>  
     <h1>Tabla de Prestadores Médicos</h1>  
     
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Buscar prestador...">
+        <button id="clear-all-btn" disabled>Borrar todo</button>
+    </div>
+
     <div class="filtros-container">
         <!-- Grupo 1: Filtros por Seccional, Clasificación y Plan -->
         <div class="filtros-group">
@@ -117,7 +147,6 @@
                     <select id="filtro-plan"><option value="">Todos</option></select>
                 </label>
                 <button id="apply-btn-plan" type="button">Aplicar</button>
-                <button id="reset-btn-plan" type="button" class="reset-btn">Borrar</button>
             </div>
         </div>
 
@@ -135,7 +164,6 @@
                     <select id="filtro-especialidad"><option value="">Todas</option></select>
                 </label>
                 <button id="apply-btn-esp" type="button">Aplicar</button>
-                <button id="reset-btn-esp" type="button" class="reset-btn">Borrar</button>
             </div>
         </div>
     </div>
@@ -147,6 +175,7 @@
                 <th>Nombre</th>  
                 <th>Nro Prestador</th>  
                 <th>Seccional</th>  
+                <th>Localidad</th>  
                 <th>Plan</th>  
             </tr>  
         </thead>  
@@ -269,6 +298,7 @@ $(function() {
                     {data: 'Nombre', defaultContent: '' },  
                     {data: 'NroPrestador', defaultContent: '' },  
                     {data: 'Seccional', defaultContent: '' },  
+                    {data: 'Localidad', defaultContent: '' },  
                     {data: 'Plan', defaultContent: '' }  
                 ],  
                 language: {url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'},  
@@ -285,29 +315,88 @@ $(function() {
                     // Mantener los colores al redibujar  
                     $('tr.universal td:first-child').css('background-color', '#e6f7e6');  
                     $('tr.superador td:first-child').css('background-color', '#f0e6ff');  
+                    // Actualizar estado del botón de borrar todo  
+                    updateClearAllButton();  
                 }  
+            });  
+
+            // Evento para el buscador  
+            $('#search-input').on('keyup', function() {  
+                tabla.search(this.value).draw();  
+                updateClearAllButton();  
+            });  
+
+            // Botón de borrar todo  
+            $('#clear-all-btn').click(function() {  
+                $('#filtro-seccional, #filtro-clasificacion, #filtro-plan, #filtro-seccional-esp, #filtro-tipo, #filtro-especialidad').val('');  
+                $('#search-input').val('');  
+                updateEspecialidades();  
+                tabla.search('').draw();  
+                tabla.clear().rows.add(providersCompact).draw();  
+                updateClearAllButton();  
             });  
 
             // Botones de aplicar filtros
             $('#apply-btn-plan').click(function() {
                 filterTableByPlan();
+                updateClearAllButton();
             });
             
             $('#apply-btn-esp').click(function() {
                 filterTableBySpecialty();
+                updateClearAllButton();
             });
 
-            // Botones de reset
-            $('#reset-btn-plan').click(function() {  
-                $('#filtro-seccional, #filtro-clasificacion, #filtro-plan').val('');  
-                filterTableByPlan();
-            });  
-            
-            $('#reset-btn-esp').click(function() {  
-                $('#filtro-seccional-esp, #filtro-tipo, #filtro-especialidad').val('');  
-                updateEspecialidades();
-                filterTableBySpecialty();
-            });  
+            // Función para actualizar el estado del botón de borrar todo  
+            function updateClearAllButton() {  
+                const hasFilters =  
+                    $('#filtro-seccional').val() ||  
+                    $('#filtro-clasificacion').val() ||  
+                    $('#filtro-plan').val() ||  
+                    $('#filtro-seccional-esp').val() ||  
+                    $('#filtro-tipo').val() ||  
+                    $('#filtro-especialidad').val() ||  
+                    $('#search-input').val();  
+                $('#clear-all-btn').prop('disabled', !hasFilters);  
+            }  
+
+            // Función para filtrar por plan
+            function filterTableByPlan() {
+                const seccional = $('#filtro-seccional').val();
+                const clasificacion = $('#filtro-clasificacion').val();
+                const plan = $('#filtro-plan').val();
+
+                const filteredData = providersCompact.filter(provider => {
+                    if (seccional && provider.Seccional !== seccional) return false;
+                    if (clasificacion && provider.Clasificacion !== clasificacion) return false;
+                    if (plan && !provider.Plan.includes(plan)) return false;
+                    return true;
+                });
+
+                tabla.clear().rows.add(filteredData).draw();
+            }
+
+            // Función para filtrar por especialidad
+            function filterTableBySpecialty() {
+                const seccional = $('#filtro-seccional-esp').val();
+                const tipo = $('#filtro-tipo').val();
+                const especialidad = $('#filtro-especialidad').val();
+
+                const filteredData = providersCompact.filter(provider => {
+                    if (seccional && provider.Seccional !== seccional) return false;
+                    if (tipo) {
+                        const hasPracticeType = provider.practices.some(p => p.tipo === tipo);
+                        if (!hasPracticeType) return false;
+                    }
+                    if (especialidad) {
+                        const hasSpecialty = provider.practices.some(p => p.especialidad === especialidad);
+                        if (!hasSpecialty) return false;
+                    }
+                    return true;
+                });
+
+                tabla.clear().rows.add(filteredData).draw();
+            }
 
             // Mostrar/ocultar detalles  
             $('#tabla-prestadores tbody').on('click', 'button.details-control', async function () {  
@@ -377,44 +466,6 @@ $(function() {
                     }
                 }
             });
-
-            // Función para filtrar por plan
-            function filterTableByPlan() {
-                const seccional = $('#filtro-seccional').val();
-                const clasificacion = $('#filtro-clasificacion').val();
-                const plan = $('#filtro-plan').val();
-
-                const filteredData = providersCompact.filter(provider => {
-                    if (seccional && provider.Seccional !== seccional) return false;
-                    if (clasificacion && provider.Clasificacion !== clasificacion) return false;
-                    if (plan && !provider.Plan.includes(plan)) return false;
-                    return true;
-                });
-
-                tabla.clear().rows.add(filteredData).draw();
-            }
-
-            // Función para filtrar por especialidad
-            function filterTableBySpecialty() {
-                const seccional = $('#filtro-seccional-esp').val();
-                const tipo = $('#filtro-tipo').val();
-                const especialidad = $('#filtro-especialidad').val();
-
-                const filteredData = providersCompact.filter(provider => {
-                    if (seccional && provider.Seccional !== seccional) return false;
-                    if (tipo) {
-                        const hasPracticeType = provider.practices.some(p => p.tipo === tipo);
-                        if (!hasPracticeType) return false;
-                    }
-                    if (especialidad) {
-                        const hasSpecialty = provider.practices.some(p => p.especialidad === especialidad);
-                        if (!hasSpecialty) return false;
-                    }
-                    return true;
-                });
-
-                tabla.clear().rows.add(filteredData).draw();
-            }
         }
     });
 });
