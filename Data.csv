@@ -191,12 +191,12 @@ SANATORIO MODELO QUILMES;30571958941;1103;1;Buenos Aires;GBA SUR;Quilmes;Quilmes
 SANATORIO MODELO QUILMES;30571958941;1103;1;Buenos Aires;GBA SUR;Quilmes;Quilmes;Andres Baranda 282;43503800;Clinicas y Sanatorios;DiagnosticoTratamiento;Tomografia Computada;Universal
 SANATORIO MODELO QUILMES;30571958941;1103;1;Buenos Aires;GBA SUR;Quilmes;Quilmes;Andres Baranda 282;43503800;Clinicas y Sanatorios;DiagnosticoTratamiento;Tomografo abierto;Universal
 TC HAEDO (Hospital Vicente Lopez y Planes);30630264495;2461;2;Buenos Aires;BUENOS AIRES ZONA 1;General Rodriguez;General Rodriguez;Av. 25 de Mayo 699;1124673111;Diagnostico y tratamiento;DiagnosticoTratamiento;Resonancia Magnetica Nuclear;Superador
-TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresc 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Eco-Doppler;Superador
-TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresc 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Ecografia;Superador
-TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresc 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Resonador abierto;Superador
-TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresc 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Resonancia Magnetica Nuclear;Superador
-TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresc 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Tomografia Computada;Superador
-TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresc 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Tomografo abierto;Superador
+TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresco 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Eco-Doppler;Superador
+TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresco 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Ecografia;Superador
+TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresco 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Resonador abierto;Superador
+TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresco 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Resonancia Magnetica Nuclear;Superador
+TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresco 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Tomografia Computada;Superador
+TC HAEDO;30630264495;2461;1;Buenos Aires;GBA OESTE;Moron;Haedo;Manuel Fresco 128;1144030073;Diagnostico y tratamiento;DiagnosticoTratamiento;Tomografo abierto;Superador
 ARGUS;30630465199;3311;4;Buenos Aires;BUENOS AIRES ZONA 1;Escobar;Ingeniero Maschwitz;Panamericana Este 1249 KM 42.7;4014-8900;Diagnostico y tratamiento;DiagnosticoTratamiento;Camara Gamma - Medicina Nuclear - Radioisotopos;Superador
 ARGUS;30630465199;3311;4;Buenos Aires;BUENOS AIRES ZONA 1;Escobar;Ingeniero Maschwitz;Panamericana Este 1249 KM 42.7;4014-8900;Diagnostico y tratamiento;DiagnosticoTratamiento;Densitometria Osea;Superador
 ARGUS;30630465199;3311;4;Buenos Aires;BUENOS AIRES ZONA 1;Escobar;Ingeniero Maschwitz;Panamericana Este 1249 KM 42.7;4014-8900;Diagnostico y tratamiento;DiagnosticoTratamiento;Eco-Doppler;Superador
@@ -3507,6 +3507,7 @@ CLINICA SANTA MARIA OSTEON;30628291485;4746;1;Buenos Aires;GBA NOROESTE;Ciudad L
 CLINICA SANTA MARIA OSTEON;30628291485;4746;1;Buenos Aires;GBA NOROESTE;Ciudad Libertador San Martin;Villa Ballester;Enrique Marengo 3908;011 6339-4600;Clinicas y Sanatorios;DiagnosticoTratamiento;Radiologia;Universal
 CLINICA SANTA MARIA OSTEON;30628291485;4746;1;Buenos Aires;GBA NOROESTE;Ciudad Libertador San Martin;Villa Ballester;Enrique Marengo 3908;011 6339-4600;Clinicas y Sanatorios;DiagnosticoTratamiento;Tomografia Computada;Universal
 CLINICA SANTA MARIA OSTEON;30628291485;4746;1;Buenos Aires;GBA NOROESTE;Ciudad Libertador San Martin;Villa Ballester;Enrique Marengo 3908;011 6339-4600;Clinicas y Sanatorios;DiagnosticoTratamiento;Urodinamia;Universal
+
 
 
 
