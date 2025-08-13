@@ -192,7 +192,7 @@ const tipoEspecialidad = {
 };  
 const seccionales = ["BAHIA BLANCA","BUENOS AIRES ZONA 1","BUENOS AIRES ZONA 2","BUENOS AIRES ZONA 3","CAPITAL","CATAMARCA","CHACO","CHUBUT","CORDOBA","CORRIENTES","ENTRE RIOS","FORMOSA","GBA NOROESTE","GBA NORTE","GBA OESTE","GBA SUR","JUJUY","LA PAMPA","LA PLATA","LA RIOJA","MAR DEL PLATA","MENDOZA","MISIONES","NEUQUEN","RIO NEGRO","ROSARIO","SALTA","SAN JUAN","SAN LUIS","SANTA CRUZ","SANTA FE","SANTIAGO DEL ESTERO","TIERRA DEL FUEGO","TRENQUE LAUQUEN","TUCUMAN"];  
 
-$(function() {  
+&nbsp;$(function() {  
     // Llenar seccionales en ambos grupos
     seccionales.forEach(sec => {
         $('#filtro-seccional').append(`<option value="${sec}">${sec}</option>`);
@@ -228,7 +228,13 @@ $(function() {
         header: true,  
         delimiter: ";",  
         complete: function(results) {  
-            datosFiltrados = results.data.filter(row => row.CUIT && row.CUIT.trim() !== "");  
+            // Filtro inicial: excluir registros no deseados (Clínicas y Sanatorios + DiagnosticoTratamiento)
+            datosFiltrados = results.data.filter(row => {
+                return row.CUIT && row.CUIT.trim() !== "" && 
+                       !(row['Clasificacion prestador'] === 'Clinicas y Sanatorios' && 
+                         row['Tipo de prestador'] === 'DiagnosticoTratamiento');
+            });
+
             const providersMap = {};  
             const uniquePlans = new Set();  
 
@@ -367,6 +373,12 @@ $(function() {
                 const plan = $('#filtro-plan').val();
 
                 const filteredData = providersCompact.filter(provider => {
+                    // Excluir registros no deseados (Clínicas y Sanatorios + DiagnosticoTratamiento)
+                    if (provider.Clasificacion === 'Clinicas y Sanatorios' && 
+                        provider.practices.some(p => p.tipo === 'DiagnosticoTratamiento')) {
+                        return false;
+                    }
+
                     if (seccional && provider.Seccional !== seccional) return false;
                     if (clasificacion && provider.Clasificacion !== clasificacion) return false;
                     if (plan && !provider.Plan.includes(plan)) return false;
@@ -383,6 +395,12 @@ $(function() {
                 const especialidad = $('#filtro-especialidad').val();
 
                 const filteredData = providersCompact.filter(provider => {
+                    // Excluir registros no deseados (Clínicas y Sanatorios + DiagnosticoTratamiento)
+                    if (provider.Clasificacion === 'Clinicas y Sanatorios' && 
+                        provider.practices.some(p => p.tipo === 'DiagnosticoTratamiento')) {
+                        return false;
+                    }
+
                     if (seccional && provider.Seccional !== seccional) return false;
                     if (tipo) {
                         const hasPracticeType = provider.practices.some(p => p.tipo === tipo);
@@ -412,10 +430,13 @@ $(function() {
                     $(this).text('-');  
                     const practicesByType = {};  
                     rowData.practices.forEach(practice => {  
-                        if (!practicesByType[practice.tipo]) {  
-                            practicesByType[practice.tipo] = [];  
-                        }  
-                        practicesByType[practice.tipo].push(practice.especialidad);  
+                        // Excluir prácticas no deseadas (Clínicas y Sanatorios + DiagnosticoTratamiento)
+                        if (!(rowData.Clasificacion === 'Clinicas y Sanatorios' && practice.tipo === 'DiagnosticoTratamiento')) {
+                            if (!practicesByType[practice.tipo]) {  
+                                practicesByType[practice.tipo] = [];  
+                            }  
+                            practicesByType[practice.tipo].push(practice.especialidad);  
+                        }
                     });  
 
                     let practicesHtml = '<div class="practices-container">';  
