@@ -192,7 +192,7 @@ const tipoEspecialidad = {
 };  
 const seccionales = ["BAHIA BLANCA","BUENOS AIRES ZONA 1","BUENOS AIRES ZONA 2","BUENOS AIRES ZONA 3","CAPITAL","CATAMARCA","CHACO","CHUBUT","CORDOBA","CORRIENTES","ENTRE RIOS","FORMOSA","GBA NOROESTE","GBA NORTE","GBA OESTE","GBA SUR","JUJUY","LA PAMPA","LA PLATA","LA RIOJA","MAR DEL PLATA","MENDOZA","MISIONES","NEUQUEN","RIO NEGRO","ROSARIO","SALTA","SAN JUAN","SAN LUIS","SANTA CRUZ","SANTA FE","SANTIAGO DEL ESTERO","TIERRA DEL FUEGO","TRENQUE LAUQUEN","TUCUMAN"];  
 
-nbsp;$(function() {  
+$(function() {  
     // Llenar seccionales en ambos grupos
     seccionales.forEach(sec => {
         $('#filtro-seccional').append(`<option value="${sec}">${sec}</option>`);
@@ -228,13 +228,13 @@ nbsp;$(function() {
         header: true,  
         delimiter: ";",  
         complete: function(results) {  
-            // Filtro inicial: excluir registros no deseados (Clínicas y Sanatorios + DiagnosticoTratamiento)
-            datosFiltrados = results.data.filter(row => {
-                return row.CUIT && row.CUIT.trim() !== "" && 
-                       !(row['Clasificacion prestador'] === 'Clinicas y Sanatorios' && 
-                         row['Tipo de prestador'] === 'DiagnosticoTratamiento');
-            });
 
+            datosFiltrados = results.data.filter(row => {
+                return row.CUIT && row.CUIT.trim() !== "" &&
+                    !(row['Clasificacion prestador'] === 'Clinicas y Sanatorios' &&
+                        row['Tipo de prestador'] === 'DiagnosticoTratamiento');
+            });
+                       
             const providersMap = {};  
             const uniquePlans = new Set();  
 
@@ -298,7 +298,10 @@ nbsp;$(function() {
 
             // Inicializar tabla con proveedores compactos  
             tabla = $('#tabla-prestadores').DataTable({  
-                data: providersCompact,  
+                data: providersCompact.filter(provider => {
+                    return !(provider.Clasificacion === 'Clinicas y Sanatorios' &&
+                            provider.practices.some(p => p.tipo === 'DiagnosticoTratamiento'));
+                }),  
                 columns: [  
                     {data: null, defaultContent: '<button class="details-control">+</button>', orderable: false },  
                     {data: 'Nombre', defaultContent: '' },  
@@ -373,12 +376,12 @@ nbsp;$(function() {
                 const plan = $('#filtro-plan').val();
 
                 const filteredData = providersCompact.filter(provider => {
-                    // Excluir registros no deseados (Clínicas y Sanatorios + DiagnosticoTratamiento)
-                    if (provider.Clasificacion === 'Clinicas y Sanatorios' && 
-                        provider.practices.some(p => p.tipo === 'DiagnosticoTratamiento')) {
+                    // Excluir combinacion no deseada
+                    if(provider.Clasificacion === 'Clinicas y Sanatorios' &&
+                        provider.practices.some(p=> p.tipo === 'DiagnosticoTratamiento')){
                         return false;
                     }
-
+                    
                     if (seccional && provider.Seccional !== seccional) return false;
                     if (clasificacion && provider.Clasificacion !== clasificacion) return false;
                     if (plan && !provider.Plan.includes(plan)) return false;
@@ -395,11 +398,12 @@ nbsp;$(function() {
                 const especialidad = $('#filtro-especialidad').val();
 
                 const filteredData = providersCompact.filter(provider => {
-                    // Excluir registros no deseados (Clínicas y Sanatorios + DiagnosticoTratamiento)
-                    if (provider.Clasificacion === 'Clinicas y Sanatorios' && 
-                        provider.practices.some(p => p.tipo === 'DiagnosticoTratamiento')) {
+
+                    if (provider.Clasificacion === 'Clinicas y Sanatorios' &&
+                       provider.practices.some(p=> p.tipo === 'DiagnosticoTratamiento')) {
                         return false;
-                    }
+                       }
+                       
 
                     if (seccional && provider.Seccional !== seccional) return false;
                     if (tipo) {
@@ -429,14 +433,15 @@ nbsp;$(function() {
                 } else {  
                     $(this).text('-');  
                     const practicesByType = {};  
-                    rowData.practices.forEach(practice => {  
-                        // Excluir prácticas no deseadas (Clínicas y Sanatorios + DiagnosticoTratamiento)
-                        if (!(rowData.Clasificacion === 'Clinicas y Sanatorios' && practice.tipo === 'DiagnosticoTratamiento')) {
+
+                    
+                    rowData.practices.forEach(practice => {
+                        if(!(rowData.Clasificacion === 'Clinicas y Sanatorios' ** practice.tipo === 'DiagnosticoTratamiento')){  
                             if (!practicesByType[practice.tipo]) {  
                                 practicesByType[practice.tipo] = [];  
                             }  
-                            practicesByType[practice.tipo].push(practice.especialidad);  
-                        }
+                            practicesByType[practice.tipo].push(practice.especialidad); 
+                        } 
                     });  
 
                     let practicesHtml = '<div class="practices-container">';  
