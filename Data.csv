@@ -68,24 +68,24 @@ CLINICA DEL NIÑO DE QUILMES;30589121518;996;1;Buenos Aires;GBA SUR;Quilmes;Quil
 CLINICA DEL NIÑO DE QUILMES;30589121518;996;1;Buenos Aires;GBA SUR;Quilmes;Quilmes;Av. Lamadrid 444;43649900;Clinicas y Sanatorios;DiagnosticoyTratamiento;Radiologia;Universal;
 CLINICA DEL NIÑO DE QUILMES;30589121518;996;1;Buenos Aires;GBA SUR;Quilmes;Quilmes;Av. Lamadrid 444;43649900;Clinicas y Sanatorios;DiagnosticoyTratamiento;Radiologia Infantil;Universal;
 CLINICA DEL NIÑO DE QUILMES;30589121518;996;1;Buenos Aires;GBA SUR;Quilmes;Quilmes;Av. Lamadrid 444;43649900;Clinicas y Sanatorios;DiagnosticoyTratamiento;Tomografia Computada;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Adolescencia;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Alergia e Inmunologia Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Cardiologia Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Clinica Medica;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Dermatologia Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Diabetologia Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Endocrinologia Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Gastroenterologia Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Genetica;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Hepatologia;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Neumonologia Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Neurocirugia;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Neurologia Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Nutricion Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Oftalmologia Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Otorrinolaringologia Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;DiagnosticoyTratamiento;Ecografia Infantil;Universal;
-API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469 piso 1;1132260694;Clinicas y Sanatorios;DiagnosticoyTratamiento;Radiologia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Adolescencia;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Alergia e Inmunologia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Cardiologia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Clinica Medica;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Dermatologia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Diabetologia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Endocrinologia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Gastroenterologia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Genetica;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Hepatologia;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Neumonologia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Neurocirugia;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Neurologia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Nutricion Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Oftalmologia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Otorrinolaringologia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;DiagnosticoyTratamiento;Ecografia Infantil;Universal;
+API ATENCION PEDIATRICA INTEGRAL;30584974563;6932;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Talcahuano 469;1132260694;Clinicas y Sanatorios;DiagnosticoyTratamiento;Radiologia Infantil;Universal;
 IACA LABORATORIOS Capital Federal;30555888925;56406;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;Retiro;Suipacha 1322 PB B;1137838229;Diagnostico y tratamiento;DiagnosticoyTratamiento;Laboratorio;Superador;
 SANATORIO MODELO QUILMES;30571958941;1103;1;Buenos Aires;GBA SUR;Quilmes;Quilmes;Andres Baranda 282;43503800;Clinicas y Sanatorios;GuardiaActiva;Clinica;Superador;
 SANATORIO MODELO QUILMES;30571958941;1103;1;Buenos Aires;GBA SUR;Quilmes;Quilmes;Andres Baranda 282;43503800;Clinicas y Sanatorios;GuardiaActiva;General;Superador;
@@ -4870,5 +4870,6 @@ CLINICA PRIVADA BANFIELD;30546007754;2825;1;Buenos Aires;GBA SUR;Lomas de Zamora
 CLINICA PRIVADA BANFIELD;30546007754;2825;1;Buenos Aires;GBA SUR;Lomas de Zamora;Banfield;Avenida Felix de Azara 1780;011 3754 0050;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
 CLINICA PRIVADA BANFIELD (Consultorios Externos);30546007754;2825;2;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 3;Balvanera;Avenida Corrientes 2014;011 4953 3033;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
 CLINICA PRIVADA DE REPOSO ABRINES;30546104792;55578;1;Buenos Aires;GBA SUR;Quilmes;Quilmes Oeste;Benito Perez Galdos 2647;011 6065 2000;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
+
 
 
