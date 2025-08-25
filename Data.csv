@@ -3712,9 +3712,12 @@ INSTITUTO MEDICO AGUERO;30619329550;900030;1;Buenos Aires;GBA OESTE;Moron;Moron;
 INSTITUTO MEDICO AGUERO;30619329550;900030;1;Buenos Aires;GBA OESTE;Moron;Moron;Azul 1831;4645 9000;Clinicas y Sanatorios;DiagnosticoyTratamiento;Psicoprofilaxis del parto;Universal;
 INSTITUTO MEDICO AGUERO;30619329550;900030;1;Buenos Aires;GBA OESTE;Moron;Moron;Azul 1831;4645 9000;Clinicas y Sanatorios;DiagnosticoyTratamiento;Resonancia Magnetica Nuclear;Universal;
 INSTITUTO MEDICO AGUERO;30619329550;900030;1;Buenos Aires;GBA OESTE;Moron;Moron;Azul 1831;4645 9000;Clinicas y Sanatorios;DiagnosticoyTratamiento;Tomografia Computada;Universal;
-INSTITUTOS MEDICOS (Sanatorio Modelo Moron);30545849212;57775;1;Buenos Aires;GBA OESTE;Moron;Moron;Republica Oriental del Uruiguay 234;4133 1000;Clinicas y Sanatorios;GuardiaActiva;Cardiologica;Superador;
+INSTITUTOS MEDICOS (Sanatorio Modelo Moron);30545849212;57775;1;Buenos Aires;GBA OESTE;Moron;Moron;Republica Oriental del Uruiguay 234;4133 1000;Clinicas y Sanatorios;GuardiaActiva;Traumatologica;Superador;
 INSTITUTOS MEDICOS (Sanatorio Modelo Moron);30545849212;57775;1;Buenos Aires;GBA OESTE;Moron;Moron;Republica Oriental del Uruiguay 234;4133 1000;Clinicas y Sanatorios;GuardiaActiva;Clinica;Superador;
 INSTITUTOS MEDICOS (Sanatorio Modelo Moron);30545849212;57775;1;Buenos Aires;GBA OESTE;Moron;Moron;Republica Oriental del Uruiguay 234;4133 1000;Clinicas y Sanatorios;GuardiaActiva;General;Superador;
+INSTITUTOS MEDICOS (Sanatorio Modelo Moron);30545849212;57775;1;Buenos Aires;GBA OESTE;Moron;Moron;Republica Oriental del Uruiguay 234;4133 1000;Clinicas y Sanatorios;GuardiaActiva;Ginecologica;Superador;
+INSTITUTOS MEDICOS (Sanatorio Modelo Moron);30545849212;57775;1;Buenos Aires;GBA OESTE;Moron;Moron;Republica Oriental del Uruiguay 234;4133 1000;Clinicas y Sanatorios;GuardiaActiva;Obstetrica;Superador;
+INSTITUTOS MEDICOS (Sanatorio Modelo Moron);30545849212;57775;1;Buenos Aires;GBA OESTE;Moron;Moron;Republica Oriental del Uruiguay 234;4133 1000;Clinicas y Sanatorios;GuardiaActiva;Pediatrica;Superador;
 INSTITUTOS MEDICOS (Sanatorio Modelo Moron);30545849212;57775;1;Buenos Aires;GBA OESTE;Moron;Moron;Republica Oriental del Uruiguay 234;4133 1000;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Cardiologia;Superador;
 INSTITUTOS MEDICOS (Sanatorio Modelo Moron);30545849212;57775;1;Buenos Aires;GBA OESTE;Moron;Moron;Republica Oriental del Uruiguay 234;4133 1000;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Clinica Medica;Superador;
 INSTITUTOS MEDICOS (Sanatorio Modelo Moron);30545849212;57775;1;Buenos Aires;GBA OESTE;Moron;Moron;Republica Oriental del Uruiguay 234;4133 1000;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Dermatologia;Superador;
@@ -4870,6 +4873,7 @@ CLINICA PRIVADA BANFIELD;30546007754;2825;1;Buenos Aires;GBA SUR;Lomas de Zamora
 CLINICA PRIVADA BANFIELD;30546007754;2825;1;Buenos Aires;GBA SUR;Lomas de Zamora;Banfield; Felix de Azara 1780;011 3754 0050;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
 CLINICA PRIVADA BANFIELD (Consultorios Externos);30546007754;2825;2;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 3;Balvanera; Corrientes 2014;011 4953 3033;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
 CLINICA PRIVADA DE REPOSO ABRINES;30546104792;55578;1;Buenos Aires;GBA SUR;Quilmes;Quilmes Oeste;Benito Perez Galdos 2647;011 6065 2000;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
+
 
 
 
