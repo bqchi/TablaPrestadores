@@ -4847,7 +4847,7 @@ SANATORIO SOLANO INSTITUTO MEDICO MODELO;30627326463;900006;1;Buenos Aires;GBA S
 SANATORIO SOLANO INSTITUTO MEDICO MODELO;30627326463;900006;1;Buenos Aires;GBA SUR;Quilmes;San Francisco Solano;Calle 841 2469;11 3623 8402;Clinicas y Sanatorios;DiagnosticoyTratamiento;Anatomia Patologia;Universal;
 SANATORIO SOLANO INSTITUTO MEDICO MODELO;30627326463;900006;1;Buenos Aires;GBA SUR;Quilmes;San Francisco Solano;Calle 841 2469;11 3623 8402;Clinicas y Sanatorios;DiagnosticoyTratamiento;Endoscopia Digestiva;Universal;
 REVERIE;30712130373;11457;1;Buenos Aires;BUENOS AIRES ZONA 1;Pilar;Pilar;Lauria Francisco 2125;(0230)4672991 / 4426617;Rehabilitacion;Internacion;Internacion por Rehabilitacion;Universal;
-APE SALUD PRIDELSA SA;30700988992;71679;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 5;Almagro;Yatay 848;0810-222-8633;;Internacion;Internacion Psiquiatrica;;
+APE SALUD PRIDELSA SA;30700988992;71679;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 5;Almagro;Yatay 848;0810-222-8633;;Internacion;Internacion Psiquiatrica;Universal;
 KLAUE BARRETO ANA PAULA;27938701356;59821;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Avenida Cordoba 1324;11-3408 2722;Especialistas;EspecialidadesAmbulatorio;Kinesiologia;Superador;
 KLAUE BARRETO ANA PAULA;27938701356;59821;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 1;San Nicolas;Avenida Cordoba 1324;11-3408 2722;Especialistas;DiagnosticoyTratamiento;RPG;Superador;
 CHOKGARIAN SILVANA MONICA;27922974042;2507;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 13;Nuñez;Quesada 2392;15-5386-0202;Especialistas;EspecialidadesAmbulatorio;Kinesiologia;Superador;
@@ -4873,4 +4873,5 @@ CLINICA PRIVADA BANFIELD;30546007754;2825;1;Buenos Aires;GBA SUR;Lomas de Zamora
 CLINICA PRIVADA BANFIELD;30546007754;2825;1;Buenos Aires;GBA SUR;Lomas de Zamora;Banfield;Avenida Felix de Azara 1780;011 3754 0050;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
 CLINICA PRIVADA BANFIELD (Consultorios Externos);30546007754;2825;2;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 3;Balvanera;Avenida Corrientes 2014;011 4953 3033;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
 CLINICA PRIVADA DE REPOSO ABRINES;30546104792;55578;1;Buenos Aires;GBA SUR;Quilmes;Quilmes Oeste;Benito Perez Galdos 2647;011 6065 2000;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
+
 
