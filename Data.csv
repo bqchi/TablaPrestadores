@@ -2053,8 +2053,8 @@ IMAXE;30709696412;7799;3;Buenos Aires;LA PLATA;Berazategui;Berazategui;Av. 14 58
 IMAXE;30709696412;7799;3;Buenos Aires;LA PLATA;Berazategui;Berazategui;Av. 14 5889;0810-345-4700;Diagnostico y tratamiento;DiagnosticoyTratamiento;Resonancia Magnetica Nuclear;Superador;
 IMAXE;30709696412;7799;4;Buenos Aires;LA PLATA;La Plata;La Plata;Calle 34 785;0810-345-4700;Diagnostico y tratamiento;DiagnosticoyTratamiento;PET;Superador;
 IMAXE;30709696412;7799;4;Buenos Aires;LA PLATA;La Plata;La Plata;Calle 34 785;0810-345-4700;Diagnostico y tratamiento;DiagnosticoyTratamiento;Tomografia Computada;Superador;
-IMAXE;30709696412;7799;5;Buenos Aires;BUENOS AIRES ZONA 3;Junin;Junin;Ruta 188 y Alberdi;+549-2364-582-247;Diagnostico y tratamiento;DiagnosticoyTratamiento;PET;Superador;
-IMAXE;30709696412;7799;5;Buenos Aires;BUENOS AIRES ZONA 3;Junin;Junin;Ruta 188 y Alberdi;+549-2364-582-247;Diagnostico y tratamiento;DiagnosticoyTratamiento;Tomografia Computada;Superador;
+IMAXE;30709696412;7799;5;Buenos Aires;BUENOS AIRES ZONA 3;Junin;Junin;Alberdi 188;+549-2364-582-247;Diagnostico y tratamiento;DiagnosticoyTratamiento;PET;Superador;
+IMAXE;30709696412;7799;5;Buenos Aires;BUENOS AIRES ZONA 3;Junin;Junin;Alberdi 188;+549-2364-582-247;Diagnostico y tratamiento;DiagnosticoyTratamiento;Tomografia Computada;Superador;
 Centro Medico Helguera;30631649188;8423;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 11;Villa Del Parque;Helguera 2578;4501-4864;Diagnostico y tratamiento;EspecialidadesAmbulatorio;Alergia e Inmunologia;Superador;
 Centro Medico Helguera;30631649188;8423;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 11;Villa Del Parque;Helguera 2578;4501-4864;Diagnostico y tratamiento;EspecialidadesAmbulatorio;Cardiologia;Superador;
 Centro Medico Helguera;30631649188;8423;1;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 11;Villa Del Parque;Helguera 2578;4501-4864;Diagnostico y tratamiento;EspecialidadesAmbulatorio;Dermatologia;Superador;
@@ -4873,6 +4873,7 @@ CLINICA PRIVADA BANFIELD;30546007754;2825;1;Buenos Aires;GBA SUR;Lomas de Zamora
 CLINICA PRIVADA BANFIELD;30546007754;2825;1;Buenos Aires;GBA SUR;Lomas de Zamora;Banfield;Avenida Felix de Azara 1780;011 3754 0050;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
 CLINICA PRIVADA BANFIELD (Consultorios Externos);30546007754;2825;2;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 3;Balvanera;Avenida Corrientes 2014;011 4953 3033;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
 CLINICA PRIVADA DE REPOSO ABRINES;30546104792;55578;1;Buenos Aires;GBA SUR;Quilmes;Quilmes Oeste;Benito Perez Galdos 2647;011 6065 2000;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
+
 
 
 
