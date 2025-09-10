@@ -2391,7 +2391,7 @@ GRUPO PEDIATRICO SA (HOSPITAL CENTRAL MILITAR);30710208456;8305;3;Ciudad Autonom
 GRUPO PEDIATRICO SA (HOSPITAL CENTRAL MILITAR);30710208456;8305;3;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 14;Palermo;Av. Cabildo 957 8D;;Clinicas y Sanatorios;DiagnosticoyTratamiento;Presurometria;Superador;
 GRUPO PEDIATRICO SA (HOSPITAL CENTRAL MILITAR);30710208456;8305;3;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 14;Palermo;Av. Cabildo 957 8D;;Clinicas y Sanatorios;DiagnosticoyTratamiento;Radiologia Infantil;Superador;
 GRUPO PEDIATRICO SA (HOSPITAL CENTRAL MILITAR);30710208456;8305;3;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 14;Palermo;Av. Cabildo 957 8D;;Clinicas y Sanatorios;DiagnosticoyTratamiento;Urodinamia Infantil;Superador;
-HIGH MEDIC GROUP;33700579919;6587;2;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 14;Palermo;Av. Scalabrini Ortiz 3355 3G;2151-8436;Diagnostico y tratamiento;DiagnosticoyTratamiento;Laboratorio;Universal;
+HIGH MEDIC GROUP;33700579919;6587;2;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 14;Palermo;Av. Scalabrini Ortiz 3355;2151-8436;Diagnostico y tratamiento;DiagnosticoyTratamiento;Laboratorio;Universal;
 TCBA;30585402970;1724;4;Buenos Aires;GBA OESTE;Ituzaingo;Ituzaingo Centro;Av. Martin Fierro 3290;112150-1500;Diagnostico y tratamiento;EspecialidadesAmbulatorio;Cardiologia;Superador;
 TCBA;30585402970;1724;4;Buenos Aires;GBA OESTE;Ituzaingo;Ituzaingo Centro;Av. Martin Fierro 3290;112150-1500;Diagnostico y tratamiento;DiagnosticoyTratamiento;Densitometria Osea;Superador;
 TCBA;30585402970;1724;4;Buenos Aires;GBA OESTE;Ituzaingo;Ituzaingo Centro;Av. Martin Fierro 3290;112150-1500;Diagnostico y tratamiento;DiagnosticoyTratamiento;Eco-Doppler;Superador;
@@ -4800,6 +4800,7 @@ CLINICA PRIVADA BANFIELD;30546007754;2825;1;Buenos Aires;GBA SUR;Lomas de Zamora
 CLINICA PRIVADA BANFIELD;30546007754;2825;1;Buenos Aires;GBA SUR;Lomas de Zamora;Banfield;Avenida Felix de Azara 1780;011 3754 0050;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
 CLINICA PRIVADA BANFIELD (Consultorios Externos);30546007754;2825;2;Ciudad Autonoma de Buenos Aires;CAPITAL;Comuna 3;Balvanera;Avenida Corrientes 2014;011 4953 3033;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
 CLINICA PRIVADA DE REPOSO ABRINES;30546104792;55578;1;Buenos Aires;GBA SUR;Quilmes;Quilmes Oeste;Benito Perez Galdos 2647;011 6065 2000;Rehabilitacion;Internacion;Internacion Psiquiatrica;Universal;
+
 
 
 
