@@ -32,6 +32,8 @@
             --details-bg: #f9f9f9;  
             --button-bg: #497e76;  
             --reset-bg: #8c4a4a;  
+            --chart-bg: #fff;  
+            --chart-text: #000;  
         }  
         body.dark-mode {  
             --bg-color: #1e1e1e;  
@@ -45,6 +47,8 @@
             --details-bg: #2c2c2c;  
             --button-bg: #76b8a8;  
             --reset-bg: #b85a5a;  
+            --chart-bg: #333;  
+            --chart-text: #fff;  
         }  
         body {  
             font-family: Arial, sans-serif; margin:20px; background:var(--bg-color); color:var(--text-color); position: relative; min-height: 100vh; transition: background 0.3s;  
@@ -101,7 +105,11 @@
         .dataTable thead .sorting_desc {  
             background-image: none !important;  
         }  
-        .details-child { background: var(--details-bg); padding: 18px; }  
+        .details-child { background: var(--details-bg); padding: 18px; color: var(--text-color); }  
+        .details-child table { width: 100%; }  
+        .details-child th, .details-child td { border: 1px solid var(--border-color); padding: 8px; color: var(--text-color); }  
+        .details-child th { background: var(--filter-bg); }  
+        .details-child td { background: var(--details-bg); }  
         .practices-container {   
             display: flex;   
             flex-wrap: wrap;   
@@ -111,7 +119,7 @@
             flex: 1 0 300px;   
             background: var(--practice-bg);  
             padding: 10px;   
-            border-radius: 6px;   
+            border-radius: 6px; color: var(--text-color);  
         }  
         .practice-type-title {   
             font-weight: bold;   
@@ -121,7 +129,7 @@
         }  
         .practice-list {   
             padding-left: 20px;   
-            text-align: left;   
+            text-align: left; color: var(--text-color);  
         }  
         .map-container {   
             height: 220px;   
@@ -217,7 +225,7 @@
             width: 90%;  
             max-width: 1200px;  
             border-radius: 8px;  
-            position: relative;  
+            position: relative; color: var(--text-color);  
         }  
         .close-btn {  
             position: absolute;  
@@ -229,7 +237,7 @@
         }  
         #global-map { height: 600px; }  
         #stats-container { display: flex; gap: 20px; }  
-        #stats-container canvas { max-width: 500px; }  
+        #stats-container canvas { max-width: 500px; background: var(--chart-bg); }  
         /* Loader */  
         .loader { display: none; text-align: center; padding: 20px; color: var(--text-color); }  
         /* Botones de modos */  
@@ -359,6 +367,17 @@ themeToggle.addEventListener('click', () => {
     const isDark = body.classList.contains('dark-mode');
     themeToggle.innerHTML = isDark ? '🌙' : '☀️';
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    // Re-dibujar mapas y gráficos si están abiertos
+    if (globalMap) globalMap.invalidateSize();
+    if (seccionalChart) seccionalChart.update();
+    if (planChart) planChart.update();
+    // Si hay detalles expandidos, cerrar y reabrir para refrescar
+    tabla.rows().every(function() {
+        if (this.child.isShown()) {
+            this.child.hide();
+            this.nodes().to$().removeClass('shown');
+        }
+    });
 });
 
 // ============================================================
@@ -605,7 +624,7 @@ $(function() {
                 tabla.clear().rows.add(filteredData).draw();  
             }  
 
-            // Mostrar/ocultar detalles  
+            // Mostrar/ocultar detalles con soporte para modo oscuro  
             $('#tabla-prestadores tbody').on('click', 'button.details-control', async function () {  
                 const tr = $(this).closest('tr');  
                 const row = tabla.row(tr);  
@@ -646,7 +665,7 @@ $(function() {
                     const mapId = `mapa-${(rowData.CUIT).replace(/\W/g,'')}-${(rowData.Domicilio).replace(/\W/g,'')}`;  
                     let detalleHtml = `  
                     <div class="details-child">  
-                        <table style="width:100%;">  
+                        <table class="details-table">  
                             <tr><th>Provincia:</th><td>${rowData.Provincia||'N/A'}</td></tr>  
                             <tr><th>Partido:</th><td>${rowData.Partido||'N/A'}</td></tr>  
                             <tr><th>Localidad:</th><td>${rowData.Localidad||'N/A'}</td></tr>  
@@ -669,7 +688,9 @@ $(function() {
                         .then(r=>r.json()).then(d=>d[0] ? {lat:+d[0].lat, lon:+d[0].lon} : null).catch(()=>null);  
                     if (coords) {  
                         const map = L.map(mapId).setView([coords.lat, coords.lon], 16);  
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'OpenStreetMap'}).addTo(map);  
+                        const isDark = body.classList.contains('dark-mode');  
+                        const tileUrl = isDark ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png' : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';  
+                        L.tileLayer(tileUrl, {attribution: isDark ? 'CartoDB Dark' : 'OpenStreetMap'}).addTo(map);  
                         L.marker([coords.lat, coords.lon]).addTo(map).bindPopup(address).openPopup();  
                     } else {  
                         document.getElementById(mapId).innerHTML = "<div style='color:#b71c1c;padding:30px;text-align:center;'>No se pudo localizar la dirección.</div>";  
@@ -688,10 +709,12 @@ $(function() {
             mapBtn.onclick = async function() {  
                 mapModal.style.display = 'block';  
                 document.getElementById('map-loader').style.display = 'block';  
+                const isDark = body.classList.contains('dark-mode');  
                 if (!globalMap) {  
                     globalMap = L.map('global-map').setView([-34.6037, -58.3816], 5); // Centro en Argentina  
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'OpenStreetMap'}).addTo(globalMap);  
                 }  
+                const tileUrl = isDark ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png' : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';  
+                L.tileLayer(tileUrl, {attribution: isDark ? 'CartoDB Dark' : 'OpenStreetMap'}).addTo(globalMap);  
                 const markers = L.markerClusterGroup();  
                 const filteredData = tabla.rows({search: 'applied'}).data().toArray();  
                 for (let provider of filteredData) {  
@@ -725,6 +748,7 @@ $(function() {
             statsBtn.onclick = function() {  
                 statsModal.style.display = 'block';  
                 const filteredData = tabla.rows({search: 'applied'}).data().toArray();  
+                const isDark = body.classList.contains('dark-mode');  
 
                 // Datos para gráfico de seccionales  
                 const seccionalCount = {};  
@@ -733,16 +757,22 @@ $(function() {
                 });  
                 const seccionalLabels = Object.keys(seccionalCount);  
                 const seccionalData = Object.values(seccionalCount);  
+                const chartTextColor = isDark ? '#fff' : '#000';  
+                const chartBgColors = seccionalLabels.map(() => isDark ? '#76b8a8' : '#497e76');  
 
                 if (!seccionalChart) {  
                     seccionalChart = new Chart(document.getElementById('seccional-chart'), {  
                         type: 'bar',  
-                        data: { labels: seccionalLabels, datasets: [{ label: 'Prestadores por Seccional', data: seccionalData, backgroundColor: '#497e76' }] },  
-                        options: { scales: { y: { beginAtZero: true } } }  
+                        data: { labels: seccionalLabels, datasets: [{ label: 'Prestadores por Seccional', data: seccionalData, backgroundColor: chartBgColors }] },  
+                        options: { scales: { y: { beginAtZero: true, ticks: { color: chartTextColor } }, x: { ticks: { color: chartTextColor } } }, plugins: { legend: { labels: { color: chartTextColor } } } }  
                     });  
                 } else {  
                     seccionalChart.data.labels = seccionalLabels;  
                     seccionalChart.data.datasets[0].data = seccionalData;  
+                    seccionalChart.data.datasets[0].backgroundColor = chartBgColors;  
+                    seccionalChart.options.scales.y.ticks.color = chartTextColor;  
+                    seccionalChart.options.scales.x.ticks.color = chartTextColor;  
+                    seccionalChart.options.plugins.legend.labels.color = chartTextColor;  
                     seccionalChart.update();  
                 }  
 
@@ -752,14 +782,18 @@ $(function() {
                     if (provider.Plan.includes('Universal')) planCount.Universal++;  
                     if (provider.Plan.includes('Superador')) planCount.Superador++;  
                 });  
+                const planBgColors = isDark ? ['#3a6159', '#5e3a4d'] : ['#e6f7e6', '#f0e6ff'];  
 
                 if (!planChart) {  
                     planChart = new Chart(document.getElementById('plan-chart'), {  
                         type: 'pie',  
-                        data: { labels: ['Universal', 'Superador'], datasets: [{ data: [planCount.Universal, planCount.Superador], backgroundColor: ['#e6f7e6', '#f0e6ff'] }] }  
+                        data: { labels: ['Universal', 'Superador'], datasets: [{ data: [planCount.Universal, planCount.Superador], backgroundColor: planBgColors }] },  
+                        options: { plugins: { legend: { labels: { color: chartTextColor } } } }  
                     });  
                 } else {  
                     planChart.data.datasets[0].data = [planCount.Universal, planCount.Superador];  
+                    planChart.data.datasets[0].backgroundColor = planBgColors;  
+                    planChart.options.plugins.legend.labels.color = chartTextColor;  
                     planChart.update();  
                 }  
             };  
