@@ -122,20 +122,21 @@
             background: #cccccc;  
             cursor: not-allowed;  
         }  
-        /* Contador de visitas */  
+        /* Contador de visitas GLOBAL */  
         .visitor-counter {  
             position: fixed;  
             bottom: 10px;  
             right: 10px;  
-            background: rgba(73, 126, 118, 0.9);  
+            background: rgba(73, 126, 118, 0.95);  
             color: white;  
             padding: 8px 12px;  
             border-radius: 8px;  
             font-size: 12px;  
             z-index: 1000;  
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);  
-            min-width: 120px;  
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);  
+            min-width: 140px;  
             text-align: center;  
+            border: 1px solid #3a6159;  
         }  
         .visitor-counter .count {  
             font-weight: bold;  
@@ -144,6 +145,11 @@
         .visitor-counter .last-visit {  
             font-size: 10px;  
             opacity: 0.9;  
+            margin-top: 3px;  
+        }  
+        .visitor-counter .loading {  
+            font-style: italic;  
+            opacity: 0.8;  
         }  
     </style>  
 </head>  
@@ -205,44 +211,66 @@
         <tbody></tbody>  
     </table>
 
-    <!-- Contador de visitas -->
+    <!-- Contador de visitas GLOBAL -->
     <div id="visitor-counter" class="visitor-counter">
-        <div class="count">Cargando...</div>
-        <div class="last-visit"></div>
+        <div class="count">Cargando visitas...</div>
+        <div class="last-visit">Contador global</div>
     </div>
     
 <script>  
-// Función para manejar el contador de visitas
-function updateVisitorCounter() {
-    // Obtener datos actuales del localStorage
-    let visitData = JSON.parse(localStorage.getItem('visitorData')) || {
-        count: 0,
-        lastVisit: null
-    };
+// ================================================================
+// CONTADOR GLOBAL DE VISITAS - COUNTERAPI
+// ================================================================
+
+// Función para actualizar el contador global usando CounterAPI
+async function updateGlobalCounter() {
+    const counterElement = $('#visitor-counter .count');
+    const lastVisitElement = $('#visitor-counter .last-visit');
     
-    // Incrementar contador
-    visitData.count++;
-    
-    // Actualizar fecha y hora de última visita
-    const now = new Date();
-    visitData.lastVisit = now.toLocaleString('es-ES', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-    });
-    
-    // Guardar en localStorage
-    localStorage.setItem('visitorData', JSON.stringify(visitData));
-    
-    // Actualizar la interfaz
-    $('#visitor-counter .count').text(`Visitas: ${visitData.count}`);
-    $('#visitor-counter .last-visit').text(`Último: ${visitData.lastVisit}`);
+    try {
+        // ID único para tu contador (puedes cambiarlo si quieres)
+        const counterId = 'prestadores-medicos-directorio';
+        
+        // 1. Obtener el contador actual
+        const response = await fetch(`https://api.counterapi.dev/v1/${counterId}/get`);
+        const data = await response.json();
+        
+        if (data && data.value !== undefined) {
+            // 2. Incrementar el contador
+            const incrementResponse = await fetch(`https://api.counterapi.dev/v1/${counterId}/increment`, {
+                method: 'POST'
+            });
+            const incrementData = await incrementResponse.json();
+            
+            // 3. Actualizar la interfaz
+            counterElement.text(`Visitas: ${incrementData.value}`);
+            
+            // Mostrar última actualización
+            const now = new Date();
+            const lastUpdate = now.toLocaleString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            lastVisitElement.text(`Último: ${lastUpdate}`);
+        }
+    } catch (error) {
+        console.error('Error con el contador:', error);
+        counterElement.text('Visitas: Error');
+        lastVisitElement.text('No se pudo cargar');
+    }
 }
 
-// Inicializar contador de visitas
-updateVisitorCounter();
+// Inicializar contador global cuando la página cargue
+$(document).ready(function() {
+    updateGlobalCounter();
+});
+
+// ================================================================
+// CÓDIGO ORIGINAL DE LA TABLA
+// ================================================================
 
 const tipoEspecialidad = {  
     "GuardiaActiva": ["Cardiologica","Clinica","General","Ginecologica","Obstetrica","Odontologica","Oftalmologica","Otorrinolaringologia","Pediatrica","Por Electrocucion","Por envenenamiento","Por intoxicacion","Por mordedura de animales","Psiquiatrica","Quemados","Quirurgica","Traumatologica"],  
@@ -560,7 +588,3 @@ $(function() {
 </script>
 </body>
 </html>
-
-
-
-
