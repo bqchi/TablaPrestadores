@@ -6,13 +6,50 @@
     <title>Directorio de Prestadores Médicos</title>  
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">  
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>  
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />  
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />  
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>  
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>  
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>  
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>  
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>  
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
     <style>  
-        body { font-family: Arial, sans-serif; margin:20px; background:#f5f5f5; position: relative; min-height: 100vh; }  
-        h1 { color: #497e76; }  
+        :root {  
+            --bg-color: #f5f5f5;  
+            --text-color: #000;  
+            --header-color: #497e76;  
+            --border-color: #497e76;  
+            --filter-bg: #f9f9f9;  
+            --practice-bg: #e8f4f8;  
+            --universal-bg: #e6f7e6;  
+            --superador-bg: #f0e6ff;  
+            --details-bg: #f9f9f9;  
+            --button-bg: #497e76;  
+            --reset-bg: #8c4a4a;  
+        }  
+        body.dark-mode {  
+            --bg-color: #1e1e1e;  
+            --text-color: #fff;  
+            --header-color: #76b8a8;  
+            --border-color: #76b8a8;  
+            --filter-bg: #2c2c2c;  
+            --practice-bg: #3a4f5a;  
+            --universal-bg: #2a4d2a;  
+            --superador-bg: #4d3a5e;  
+            --details-bg: #2c2c2c;  
+            --button-bg: #76b8a8;  
+            --reset-bg: #b85a5a;  
+        }  
+        body {  
+            font-family: Arial, sans-serif; margin:20px; background:var(--bg-color); color:var(--text-color); position: relative; min-height: 100vh; transition: background 0.3s;  
+        }  
+        h1 { color: var(--header-color); }  
         .filtros-container {   
             margin-bottom: 20px;   
             display: flex;   
@@ -23,13 +60,13 @@
             flex: 1;  
             min-width: 300px;  
             padding: 15px;  
-            border: 1px solid #497e76;  
+            border: 1px solid var(--border-color);  
             border-radius: 6px;  
-            background: #f9f9f9;  
+            background: var(--filter-bg);  
         }  
         .filtros-group h3 {  
             margin-top: 0;  
-            color: #497e76;  
+            color: var(--header-color);  
         }  
         .filtros {   
             display: flex;   
@@ -40,22 +77,23 @@
         select, button {   
             padding: 8px;   
             border-radius:4px;   
-            border:1px solid #bbb;   
+            border:1px solid #bbb;  
+            background: var(--filter-bg); color: var(--text-color);  
         }  
         .filtros button {   
-            background:#497e76;   
+            background:var(--button-bg);   
             color:white;   
             border:none;   
             min-width:120px;  
         }  
         .filtros .reset-btn {   
-            background: #8c4a4a;   
+            background: var(--reset-bg);   
         }  
         table { font-size: 14px; }  
         th, td {   
             text-align: center;   
             padding: 4px 8px !important;   
-            height: 28px !important;  
+            height: 28px !important; color: var(--text-color);  
         }  
         /* Eliminar iconos de ordenamiento */  
         .dataTable thead .sorting,   
@@ -63,7 +101,7 @@
         .dataTable thead .sorting_desc {  
             background-image: none !important;  
         }  
-        .details-child { background: #f9f9f9; padding: 18px; }  
+        .details-child { background: var(--details-bg); padding: 18px; }  
         .practices-container {   
             display: flex;   
             flex-wrap: wrap;   
@@ -71,7 +109,7 @@
         }  
         .practice-type-container {   
             flex: 1 0 300px;   
-            background: #e8f4f8;  
+            background: var(--practice-bg);  
             padding: 10px;   
             border-radius: 6px;   
         }  
@@ -79,7 +117,7 @@
             font-weight: bold;   
             margin-bottom: 8px;   
             text-align: center;  
-            color: #497e76;  
+            color: var(--header-color);  
         }  
         .practice-list {   
             padding-left: 20px;   
@@ -90,13 +128,13 @@
             width: 99%;   
             margin-top:10px;   
             border-radius:6px;   
-            border:1px solid #497e76;  
+            border:1px solid var(--border-color);  
         }  
         /* Colores para los planes */  
-        tr.universal { background-color: #e6f7e6 !important; }  
-        tr.superador { background-color: #f0e6ff !important; }  
-        tr.universal td:first-child { background-color: #e6f7e6 !important; }  
-        tr.superador td:first-child { background-color: #f0e6ff !important; }  
+        tr.universal { background-color: var(--universal-bg) !important; }  
+        tr.superador { background-color: var(--superador-bg) !important; }  
+        tr.universal td:first-child { background-color: var(--universal-bg) !important; }  
+        tr.superador td:first-child { background-color: var(--superador-bg) !important; }  
         /* Estilos para el buscador y botón de borrar */  
         .search-container {  
             display: flex;  
@@ -108,10 +146,10 @@
             padding: 8px;  
             border-radius: 4px;  
             border: 1px solid #bbb;  
-            width: 300px;  
+            width: 300px; background: var(--filter-bg); color: var(--text-color);  
         }  
         .search-container button {  
-            background: #8c4a4a;  
+            background: var(--reset-bg);  
             color: white;  
             border: none;  
             padding: 8px 15px;  
@@ -121,42 +159,108 @@
         .search-container button:disabled {  
             background: #cccccc;  
             cursor: not-allowed;  
-        }
-        /* CONTADOR DE VISITAS */
-        .visitor-counter {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            background: rgba(73, 126, 118, 0.95);
-            color: white;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            z-index: 1000;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-            text-align: center;
-            border: 2px solid #3a6159;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .visitor-counter img {
-            vertical-align: middle;
-            height: 20px;
-        }
-        /* Ocultar el buscador predeterminado de DataTables */
-        .dataTables_filter {
-            display: none !important;
-        }
+        }  
+        /* CONTADOR DE VISITAS */  
+        .visitor-counter {  
+            position: fixed;  
+            bottom: 15px;  
+            right: 15px;  
+            background: rgba(73, 126, 118, 0.95);  
+            color: white;  
+            padding: 10px 14px;  
+            border-radius: 8px;  
+            font-size: 13px;  
+            z-index: 1000;  
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);  
+            text-align: center;  
+            border: 2px solid #3a6159;  
+            font-weight: bold;  
+            display: flex;  
+            align-items: center;  
+            gap: 8px;  
+        }  
+        .visitor-counter img {  
+            vertical-align: middle;  
+            height: 20px;  
+        }  
+        /* Ocultar el buscador predeterminado de DataTables */  
+        .dataTables_filter {  
+            display: none !important;  
+        }  
+        /* Modo Oscuro Toggle */  
+        .theme-toggle {  
+            position: absolute;  
+            top: 20px;  
+            right: 20px;  
+            background: none;  
+            border: none;  
+            cursor: pointer;  
+            font-size: 24px;  
+        }  
+        /* Modales */  
+        .modal {  
+            display: none;  
+            position: fixed;  
+            z-index: 1001;  
+            left: 0;  
+            top: 0;  
+            width: 100%;  
+            height: 100%;  
+            overflow: auto;  
+            background-color: rgba(0,0,0,0.5);  
+        }  
+        .modal-content {  
+            background: var(--bg-color);  
+            margin: 5% auto;  
+            padding: 20px;  
+            border: 1px solid var(--border-color);  
+            width: 90%;  
+            max-width: 1200px;  
+            border-radius: 8px;  
+            position: relative;  
+        }  
+        .close-btn {  
+            position: absolute;  
+            top: 10px;  
+            right: 20px;  
+            font-size: 28px;  
+            cursor: pointer;  
+            color: var(--text-color);  
+        }  
+        #global-map { height: 600px; }  
+        #stats-container { display: flex; gap: 20px; }  
+        #stats-container canvas { max-width: 500px; }  
+        /* Loader */  
+        .loader { display: none; text-align: center; padding: 20px; color: var(--text-color); }  
+        /* Botones de modos */  
+        .mode-buttons {  
+            display: flex;  
+            justify-content: center;  
+            gap: 10px;  
+            margin-bottom: 20px;  
+        }  
+        .mode-buttons button {  
+            background: var(--button-bg);  
+            color: white;  
+            border: none;  
+            padding: 8px 15px;  
+            border-radius: 4px;  
+            cursor: pointer;  
+        }  
     </style>  
 </head>  
 <body>  
+    <button class="theme-toggle" id="theme-toggle">☀️</button>  
     <h1>Tabla de Prestadores Médicos</h1>  
     
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Buscar prestador...">
         <button id="clear-all-btn" disabled>Borrar todo</button>
+    </div>
+
+    <div class="mode-buttons">
+        <button id="map-btn">Ver Mapa Global</button>
+        <button id="stats-btn">Ver Estadísticas</button>
     </div>
 
     <div class="filtros-container">
@@ -209,15 +313,56 @@
         <tbody></tbody>  
     </table>
 
-    <!-- CONTADOR DE VISITAS CON BADGE EMBEBIDO (CORREGIDO) -->
+    <!-- CONTADOR DE VISITAS CON BADGE EMBEBIDO -->
     <div class="visitor-counter">
         <span>👥 Visitas:</span>
         <img src="https://visitor-badge.laobi.icu/badge?page_id=prestadores-medicos.2024&left_color=gray&right_color=green&left_text=Visitas" alt="visitas"/>
     </div>
 
+    <!-- Modal para Mapa Global -->
+    <div id="map-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-map">&times;</span>
+            <h2>Mapa Global de Prestadores</h2>
+            <div class="loader" id="map-loader">Cargando mapa y geolocalizaciones...</div>
+            <div id="global-map"></div>
+        </div>
+    </div>
+
+    <!-- Modal para Estadísticas -->
+    <div id="stats-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-stats">&times;</span>
+            <h2>Estadísticas de Prestadores</h2>
+            <div id="stats-container">
+                <canvas id="seccional-chart"></canvas>
+                <canvas id="plan-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
 <script>  
 // ============================================================
-// CÓDIGO ORIGINAL DE LA TABLA
+// MODO OSCURO
+// ============================================================
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+const currentTheme = localStorage.getItem('theme') || 'light';
+if (currentTheme === 'dark') {
+    body.classList.add('dark-mode');
+    themeToggle.innerHTML = '🌙';
+} else {
+    themeToggle.innerHTML = '☀️';
+}
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    themeToggle.innerHTML = isDark ? '🌙' : '☀️';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
+
+// ============================================================
+// CÓDIGO ORIGINAL DE LA TABLA + MEJORAS
 // ============================================================
 const tipoEspecialidad = {  
     "GuardiaActiva": ["Cardiologica","Clinica","General","Ginecologica","Obstetrica","Odontologica","Oftalmologica","Otorrinolaringologia","Pediatrica","Por Electrocucion","Por envenenamiento","Por intoxicacion","Por mordedura de animales","Psiquiatrica","Quemados","Quirurgica","Traumatologica"],  
@@ -333,7 +478,7 @@ $(function() {
             // Llenar opciones de planes  
             uniquePlans.forEach(plan => $('#filtro-plan').append(`<option value="${plan}">${plan}</option>`));  
 
-            // Inicializar tabla con proveedores compactos  
+            // Inicializar tabla con proveedores compactos y botones de exportación  
             tabla = $('#tabla-prestadores').DataTable({  
                 data: providersCompact.filter(provider => {
                     return !(provider.Clasificacion === 'Clinicas y Sanatorios' &&
@@ -349,8 +494,15 @@ $(function() {
                 ],  
                 language: {url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'},  
                 pageLength: 25,  
-                ordering: false,
-                searching: false,
+                ordering: false,  
+                searching: false,  
+                dom: 'Bfrtip', // Agregar botones  
+                buttons: [  
+                    'copyHtml5',  
+                    'excelHtml5',  
+                    'csvHtml5',  
+                    'pdfHtml5'  
+                ],  
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
                         $(row).addClass('universal');  
@@ -359,8 +511,8 @@ $(function() {
                     }  
                 },  
                 drawCallback: function() {  
-                    $('tr.universal td:first-child').css('background-color', '#e6f7e6');  
-                    $('tr.superador td:first-child').css('background-color', '#f0e6ff');  
+                    $('tr.universal td:first-child').css('background-color', 'var(--universal-bg)');  
+                    $('tr.superador td:first-child').css('background-color', 'var(--superador-bg)');  
                     updateClearAllButton();  
                 }  
             });  
@@ -381,16 +533,16 @@ $(function() {
                 updateClearAllButton();  
             });  
 
-            // Botones de aplicar filtros
-            $('#apply-btn-plan').click(function() {
-                filterTableByPlan();
-                updateClearAllButton();
-            });
+            // Botones de aplicar filtros  
+            $('#apply-btn-plan').click(function() {  
+                filterTableByPlan();  
+                updateClearAllButton();  
+            });  
             
-            $('#apply-btn-esp').click(function() {
-                filterTableBySpecialty();
-                updateClearAllButton();
-            });
+            $('#apply-btn-esp').click(function() {  
+                filterTableBySpecialty();  
+                updateClearAllButton();  
+            });  
 
             // Función para actualizar el estado del botón de borrar todo  
             function updateClearAllButton() {  
@@ -405,53 +557,53 @@ $(function() {
                 $('#clear-all-btn').prop('disabled', !hasFilters);  
             }  
 
-            // Función para filtrar por plan
-            function filterTableByPlan() {
-                const seccional = $('#filtro-seccional').val();
-                const clasificacion = $('#filtro-clasificacion').val();
-                const plan = $('#filtro-plan').val();
+            // Función para filtrar por plan  
+            function filterTableByPlan() {  
+                const seccional = $('#filtro-seccional').val();  
+                const clasificacion = $('#filtro-clasificacion').val();  
+                const plan = $('#filtro-plan').val();  
 
-                const filteredData = providersCompact.filter(provider => {
-                    if(provider.Clasificacion === 'Clinicas y Sanatorios' &&
-                        provider.practices.some(p=> p.tipo === 'DiagnosticoyTratamiento')){
-                        return false;
-                    }
-                    
-                    if (seccional && provider.Seccional !== seccional) return false;
-                    if (clasificacion && provider.Clasificacion !== clasificacion) return false;
-                    if (plan && !provider.Plan.includes(plan)) return false;
-                    return true;
-                });
+                const filteredData = providersCompact.filter(provider => {  
+                    if(provider.Clasificacion === 'Clinicas y Sanatorios' &&  
+                        provider.practices.some(p=> p.tipo === 'DiagnosticoyTratamiento')){  
+                        return false;  
+                    }  
+                      
+                    if (seccional && provider.Seccional !== seccional) return false;  
+                    if (clasificacion && provider.Clasificacion !== clasificacion) return false;  
+                    if (plan && !provider.Plan.includes(plan)) return false;  
+                    return true;  
+                });  
 
-                tabla.clear().rows.add(filteredData).draw();
-            }
+                tabla.clear().rows.add(filteredData).draw();  
+            }  
 
-            // Función para filtrar por especialidad
-            function filterTableBySpecialty() {
-                const seccional = $('#filtro-seccional-esp').val();
-                const tipo = $('#filtro-tipo').val();
-                const especialidad = $('#filtro-especialidad').val();
+            // Función para filtrar por especialidad  
+            function filterTableBySpecialty() {  
+                const seccional = $('#filtro-seccional-esp').val();  
+                const tipo = $('#filtro-tipo').val();  
+                const especialidad = $('#filtro-especialidad').val();  
 
-                const filteredData = providersCompact.filter(provider => {
-                    if (provider.Clasificacion === 'Clinicas y Sanatorios' &&
-                       provider.practices.some(p=> p.tipo === 'DiagnosticoyTratamiento')) {
-                        return false;
-                    }
+                const filteredData = providersCompact.filter(provider => {  
+                    if (provider.Clasificacion === 'Clinicas y Sanatorios' &&  
+                       provider.practices.some(p=> p.tipo === 'DiagnosticoyTratamiento')) {  
+                        return false;  
+                    }  
 
-                    if (seccional && provider.Seccional !== seccional) return false;
-                    if (tipo) {
-                        const hasPracticeType = provider.practices.some(p => p.tipo === tipo);
-                        if (!hasPracticeType) return false;
-                    }
-                    if (especialidad) {
-                        const hasSpecialty = provider.practices.some(p => p.especialidad === especialidad);
-                        if (!hasSpecialty) return false;
-                    }
-                    return true;
-                });
+                    if (seccional && provider.Seccional !== seccional) return false;  
+                    if (tipo) {  
+                        const hasPracticeType = provider.practices.some(p => p.tipo === tipo);  
+                        if (!hasPracticeType) return false;  
+                    }  
+                    if (especialidad) {  
+                        const hasSpecialty = provider.practices.some(p => p.especialidad === especialidad);  
+                        if (!hasSpecialty) return false;  
+                    }  
+                    return true;  
+                });  
 
-                tabla.clear().rows.add(filteredData).draw();
-            }
+                tabla.clear().rows.add(filteredData).draw();  
+            }  
 
             // Mostrar/ocultar detalles  
             $('#tabla-prestadores tbody').on('click', 'button.details-control', async function () {  
@@ -466,14 +618,14 @@ $(function() {
                 } else {  
                     $(this).text('-');  
                     const practicesByType = {};  
-                    
-                    rowData.practices.forEach(practice => {
+                      
+                    rowData.practices.forEach(practice => {  
                         if(!(rowData.Clasificacion === 'Clinicas y Sanatorios' && practice.tipo === 'DiagnosticoyTratamiento')){  
                             if (!practicesByType[practice.tipo]) {  
                                 practicesByType[practice.tipo] = [];  
                             }  
-                            practicesByType[practice.tipo].push(practice.especialidad); 
-                        } 
+                            practicesByType[practice.tipo].push(practice.especialidad);   
+                        }   
                     });  
 
                     let practicesHtml = '<div class="practices-container">';  
@@ -491,42 +643,136 @@ $(function() {
                     });  
                     practicesHtml += '</div>';  
 
-                    const mapId = `mapa-${(rowData.CUIT).replace(/\W/g,'')}-${(rowData.Domicilio).replace(/\W/g,'')}`;
-                    let detalleHtml = `
-                    <div class="details-child">
-                        <table style="width:100%;">
-                            <tr><th>Provincia:</th><td>${rowData.Provincia||'N/A'}</td></tr>
-                            <tr><th>Partido:</th><td>${rowData.Partido||'N/A'}</td></tr>
-                            <tr><th>Localidad:</th><td>${rowData.Localidad||'N/A'}</td></tr>
-                            <tr><th>Domicilio:</th><td>${rowData.Domicilio||'N/A'}</td></tr>
-                            <tr><th>Telefono:</th><td>${rowData.Telefono||'N/A'}</td></tr>
-                            <tr><th>Clasificación:</th><td>${rowData.Clasificacion||'N/A'}</td></tr>
-                            <tr><th>Prácticas:</th><td>${practicesHtml}</td></tr>
-                            <tr><th>Ubicación:</th>
-                                <td>
-                                    <div id="${mapId}" class="map-container"></div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>`;
-                    row.child(detalleHtml).show();
-                    tr.addClass('shown');
-                    
-                    const address = [rowData.Domicilio, rowData.Localidad, rowData.Partido, rowData.Provincia].filter(Boolean).join(", ");
-                    const coords = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
-                        .then(r=>r.json()).then(d=>d[0] ? {lat:+d[0].lat, lon:+d[0].lon} : null).catch(()=>null);
-                    if (coords) {
-                        const map = L.map(mapId).setView([coords.lat, coords.lon], 16);
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'OpenStreetMap'}).addTo(map);
-                        L.marker([coords.lat, coords.lon]).addTo(map).bindPopup(address).openPopup();
-                    } else {
-                        document.getElementById(mapId).innerHTML = "<div style='color:#b71c1c;padding:30px;text-align:center;'>No se pudo localizar la dirección.</div>";
-                    }
-                }
-            });
-        }
-    });
-});
-</script>
-</body>
+                    const mapId = `mapa-${(rowData.CUIT).replace(/\W/g,'')}-${(rowData.Domicilio).replace(/\W/g,'')}`;  
+                    let detalleHtml = `  
+                    <div class="details-child">  
+                        <table style="width:100%;">  
+                            <tr><th>Provincia:</th><td>${rowData.Provincia||'N/A'}</td></tr>  
+                            <tr><th>Partido:</th><td>${rowData.Partido||'N/A'}</td></tr>  
+                            <tr><th>Localidad:</th><td>${rowData.Localidad||'N/A'}</td></tr>  
+                            <tr><th>Domicilio:</th><td>${rowData.Domicilio||'N/A'}</td></tr>  
+                            <tr><th>Telefono:</th><td>${rowData.Telefono||'N/A'}</td></tr>  
+                            <tr><th>Clasificación:</th><td>${rowData.Clasificacion||'N/A'}</td></tr>  
+                            <tr><th>Prácticas:</th><td>${practicesHtml}</td></tr>  
+                            <tr><th>Ubicación:</th>  
+                                <td>  
+                                    <div id="${mapId}" class="map-container"></div>  
+                                </td>  
+                            </tr>  
+                        </table>  
+                    </div>`;  
+                    row.child(detalleHtml).show();  
+                    tr.addClass('shown');  
+                      
+                    const address = [rowData.Domicilio, rowData.Localidad, rowData.Partido, rowData.Provincia].filter(Boolean).join(", ");  
+                    const coords = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)  
+                        .then(r=>r.json()).then(d=>d[0] ? {lat:+d[0].lat, lon:+d[0].lon} : null).catch(()=>null);  
+                    if (coords) {  
+                        const map = L.map(mapId).setView([coords.lat, coords.lon], 16);  
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'OpenStreetMap'}).addTo(map);  
+                        L.marker([coords.lat, coords.lon]).addTo(map).bindPopup(address).openPopup();  
+                    } else {  
+                        document.getElementById(mapId).innerHTML = "<div style='color:#b71c1c;padding:30px;text-align:center;'>No se pudo localizar la dirección.</div>";  
+                    }  
+                }  
+            });  
+
+            // ============================================================  
+            // MODAL PARA MAPA GLOBAL  
+            // ============================================================  
+            const mapModal = document.getElementById('map-modal');  
+            const mapBtn = document.getElementById('map-btn');  
+            const closeMap = document.getElementById('close-map');  
+            let globalMap;  
+
+            mapBtn.onclick = async function() {  
+                mapModal.style.display = 'block';  
+                document.getElementById('map-loader').style.display = 'block';  
+                if (!globalMap) {  
+                    globalMap = L.map('global-map').setView([-34.6037, -58.3816], 5); // Centro en Argentina  
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'OpenStreetMap'}).addTo(globalMap);  
+                }  
+                const markers = L.markerClusterGroup();  
+                const filteredData = tabla.rows({search: 'applied'}).data().toArray();  
+                for (let provider of filteredData) {  
+                    const address = [provider.Domicilio, provider.Localidad, provider.Partido, provider.Provincia].filter(Boolean).join(", ");  
+                    const coords = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)  
+                        .then(r=>r.json()).then(d=>d[0] ? {lat:+d[0].lat, lon:+d[0].lon} : null).catch(()=>null);  
+                    if (coords) {  
+                        markers.addLayer(L.marker([coords.lat, coords.lon]).bindPopup(`<b>${provider.Nombre}</b><br>${address}`));  
+                    }  
+                }  
+                globalMap.addLayer(markers);  
+                document.getElementById('map-loader').style.display = 'none';  
+            };  
+
+            closeMap.onclick = function() {  
+                mapModal.style.display = 'none';  
+                globalMap.eachLayer(layer => { if (layer instanceof L.MarkerClusterGroup) globalMap.removeLayer(layer); });  
+            };  
+            window.onclick = function(event) {  
+                if (event.target == mapModal) mapModal.style.display = 'none';  
+            };  
+
+            // ============================================================  
+            // MODAL PARA ESTADÍSTICAS  
+            // ============================================================  
+            const statsModal = document.getElementById('stats-modal');  
+            const statsBtn = document.getElementById('stats-btn');  
+            const closeStats = document.getElementById('close-stats');  
+            let seccionalChart, planChart;  
+
+            statsBtn.onclick = function() {  
+                statsModal.style.display = 'block';  
+                const filteredData = tabla.rows({search: 'applied'}).data().toArray();  
+
+                // Datos para gráfico de seccionales  
+                const seccionalCount = {};  
+                filteredData.forEach(provider => {  
+                    seccionalCount[provider.Seccional] = (seccionalCount[provider.Seccional] || 0) + 1;  
+                });  
+                const seccionalLabels = Object.keys(seccionalCount);  
+                const seccionalData = Object.values(seccionalCount);  
+
+                if (!seccionalChart) {  
+                    seccionalChart = new Chart(document.getElementById('seccional-chart'), {  
+                        type: 'bar',  
+                        data: { labels: seccionalLabels, datasets: [{ label: 'Prestadores por Seccional', data: seccionalData, backgroundColor: '#497e76' }] },  
+                        options: { scales: { y: { beginAtZero: true } } }  
+                    });  
+                } else {  
+                    seccionalChart.data.labels = seccionalLabels;  
+                    seccionalChart.data.datasets[0].data = seccionalData;  
+                    seccionalChart.update();  
+                }  
+
+                // Datos para gráfico de planes  
+                const planCount = { Universal: 0, Superador: 0 };  
+                filteredData.forEach(provider => {  
+                    if (provider.Plan.includes('Universal')) planCount.Universal++;  
+                    if (provider.Plan.includes('Superador')) planCount.Superador++;  
+                });  
+
+                if (!planChart) {  
+                    planChart = new Chart(document.getElementById('plan-chart'), {  
+                        type: 'pie',  
+                        data: { labels: ['Universal', 'Superador'], datasets: [{ data: [planCount.Universal, planCount.Superador], backgroundColor: ['#e6f7e6', '#f0e6ff'] }] }  
+                    });  
+                } else {  
+                    planChart.data.datasets[0].data = [planCount.Universal, planCount.Superador];  
+                    planChart.update();  
+                }  
+            };  
+
+            closeStats.onclick = function() {  
+                statsModal.style.display = 'none';  
+            };  
+            window.onclick = function(event) {  
+                if (event.target == statsModal) statsModal.style.display = 'none';  
+            };  
+        }  
+    });  
+});  
+</script>  
+</body>  
 </html>
