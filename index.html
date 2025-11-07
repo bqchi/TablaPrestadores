@@ -232,6 +232,7 @@
             cursor: pointer;  
             color: var(--text-color);  
         }  
+        #stats-summary { margin-bottom: 20px; text-align: center; font-size: 16px; }  
         #stats-container { display: flex; flex-direction: column; gap: 20px; align-items: center; }  
         #stats-container canvas { max-width: 400px; width: 100%; height: 250px; background: var(--chart-bg); }  
         /* Loader */  
@@ -343,9 +344,11 @@
         <div class="modal-content">
             <span class="close-btn" id="close-stats">&times;</span>
             <h2>Estadísticas de Prestadores</h2>
+            <div id="stats-summary"></div>
             <div id="stats-container">
                 <canvas id="seccional-chart"></canvas>
                 <canvas id="plan-chart"></canvas>
+                <canvas id="clasificacion-chart"></canvas>
             </div>
         </div>
     </div>
@@ -371,6 +374,7 @@ themeToggle.addEventListener('click', () => {
     // Re-dibujar gráficos si están abiertos
     if (seccionalChart) seccionalChart.update();
     if (planChart) planChart.update();
+    if (clasificacionChart) clasificacionChart.update();
     // Si hay detalles expandidos, cerrar y reabrir para refrescar
     tabla.rows().every(function() {
         if (this.child.isShown()) {
@@ -736,18 +740,26 @@ $(function() {
             const statsModal = document.getElementById('stats-modal');  
             const statsBtn = document.getElementById('stats-btn');  
             const closeStats = document.getElementById('close-stats');  
-            let seccionalChart, planChart;  
+            let seccionalChart, planChart, clasificacionChart;  
 
             statsBtn.onclick = function() {  
                 statsModal.style.display = 'block';  
                 const filteredData = tabla.rows({search: 'applied'}).data().toArray();  
                 const isDark = body.classList.contains('dark-mode');  
 
-                // Datos para gráfico de seccionales  
+                // Resumen textual  
+                const totalPrestadores = filteredData.length;  
+                const universalCount = filteredData.filter(p => p.Plan.includes('Universal')).length;  
+                const superadorCount = filteredData.filter(p => p.Plan.includes('Superador')).length;  
                 const seccionalCount = {};  
-                filteredData.forEach(provider => {  
-                    seccionalCount[provider.Seccional] = (seccionalCount[provider.Seccional] || 0) + 1;  
-                });  
+                filteredData.forEach(p => seccionalCount[p.Seccional] = (seccionalCount[p.Seccional] || 0) + 1);  
+                const topSeccional = Object.entries(seccionalCount).sort((a, b) => b[1] - a[1])[0] || ['N/A', 0];  
+                document.getElementById('stats-summary').innerHTML = `  
+                    Total Prestadores: ${totalPrestadores} | Universal: ${universalCount} | Superador: ${superadorCount} |  
+                    Top Seccional: ${topSeccional[0]} (${topSeccional[1]})  
+                `;  
+
+                // Datos para gráfico de seccionales  
                 const seccionalLabels = Object.keys(seccionalCount);  
                 const seccionalData = Object.values(seccionalCount);  
                 const chartTextColor = isDark ? '#fff' : '#000';  
@@ -770,11 +782,7 @@ $(function() {
                 }  
 
                 // Datos para gráfico de planes  
-                const planCount = { Universal: 0, Superador: 0 };  
-                filteredData.forEach(provider => {  
-                    if (provider.Plan.includes('Universal')) planCount.Universal++;  
-                    if (provider.Plan.includes('Superador')) planCount.Superador++;  
-                });  
+                const planCount = { Universal: universalCount, Superador: superadorCount };  
                 const planBgColors = isDark ? ['#3a6159', '#5e3a4d'] : ['#e6f7e6', '#f0e6ff'];  
 
                 if (!planChart) {  
@@ -789,6 +797,32 @@ $(function() {
                     planChart.options.plugins.legend.labels.color = chartTextColor;  
                     planChart.update();  
                 }  
+
+                // Nuevo gráfico: Top 5 Clasificaciones  
+                const clasificacionCount = {};  
+                filteredData.forEach(provider => {  
+                    clasificacionCount[provider.Clasificacion] = (clasificacionCount[provider.Clasificacion] || 0) + 1;  
+                });  
+                const sortedClasif = Object.entries(clasificacionCount).sort((a, b) => b[1] - a[1]).slice(0, 5);  
+                const clasifLabels = sortedClasif.map(([key]) => key);  
+                const clasifData = sortedClasif.map(([, value]) => value);  
+                const clasifBgColors = clasifLabels.map(() => isDark ? '#b85a5a' : '#8c4a4a');  
+
+                if (!clasificacionChart) {  
+                    clasificacionChart = new Chart(document.getElementById('clasificacion-chart'), {  
+                        type: 'bar',  
+                        data: { labels: clasifLabels, datasets: [{ label: 'Top 5 Clasificaciones', data: clasifData, backgroundColor: clasifBgColors }] },  
+                        options: { scales: { y: { beginAtZero: true, ticks: { color: chartTextColor } }, x: { ticks: { color: chartTextColor } } }, plugins: { legend: { labels: { color: chartTextColor } } } }  
+                    });  
+                } else {  
+                    clasificacionChart.data.labels = clasifLabels;  
+                    clasificacionChart.data.datasets[0].data = clasifData;  
+                    clasificacionChart.data.datasets[0].backgroundColor = clasifBgColors;  
+                    clasificacionChart.options.scales.y.ticks.color = chartTextColor;  
+                    clasificacionChart.options.scales.x.ticks.color = chartTextColor;  
+                    clasificacionChart.options.plugins.legend.labels.color = chartTextColor;  
+                    clasificacionChart.update();  
+                }  
             };  
 
             closeStats.onclick = function() {  
@@ -799,14 +833,20 @@ $(function() {
             };  
 
             // ============================================================  
-            // BOTÓN PARA REINICIAR CONTADOR  
+            // BOTÓN PARA REINICIAR CONTADOR (PERSISTENTE)  
             // ============================================================  
+            const counterImg = document.getElementById('counter-img');  
+            let pageId = localStorage.getItem('counterPageId') || 'prestadores-medicos.2024';  
+            counterImg.src = `https://visitor-badge.laobi.icu/badge?page_id=${pageId}&left_color=gray&right_color=green&left_text=Visitas`;  
+
             document.getElementById('reset-counter-btn').onclick = function() {  
                 const clave = prompt('Ingrese la clave para reiniciar el contador:');  
                 if (clave === 'qb50SAT') {  
-                    // Cambiar a un nuevo page_id para "reiniciar" (crea un nuevo contador)  
-                    document.getElementById('counter-img').src = 'https://visitor-badge.laobi.icu/badge?page_id=prestadores-medicos.reset&left_color=gray&right_color=green&left_text=Visitas';  
-                    alert('Contador reiniciado exitosamente.');  
+                    // Generar nuevo page_id único y persistirlo  
+                    pageId = `prestadores-medicos.reset-${Date.now()}`;  
+                    localStorage.setItem('counterPageId', pageId);  
+                    counterImg.src = `https://visitor-badge.laobi.icu/badge?page_id=${pageId}&left_color=gray&right_color=green&left_text=Visitas`;  
+                    alert('Contador reiniciado exitosamente. El cambio persiste al recargar.');  
                 } else {  
                     alert('Clave incorrecta.');  
                 }  
