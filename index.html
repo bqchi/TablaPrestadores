@@ -122,7 +122,7 @@
             background: #cccccc;  
             cursor: not-allowed;  
         }  
-        /* Contador de visitas GLOBAL */  
+        /* ---- NUEVO: Contador de visitas ---- */  
         .visitor-counter {  
             position: fixed;  
             bottom: 10px;  
@@ -134,7 +134,7 @@
             font-size: 12px;  
             z-index: 1000;  
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);  
-            min-width: 140px;  
+            min-width: 170px;  
             text-align: center;  
             border: 1px solid #3a6159;  
         }  
@@ -146,10 +146,6 @@
             font-size: 10px;  
             opacity: 0.9;  
             margin-top: 3px;  
-        }  
-        .visitor-counter .loading {  
-            font-style: italic;  
-            opacity: 0.8;  
         }  
     </style>  
 </head>  
@@ -211,51 +207,63 @@
         <tbody></tbody>  
     </table>
 
-    <!-- Contador de visitas GLOBAL -->
+    <!-- ---- NUEVO: Elemento HTML del contador ---- -->
     <div id="visitor-counter" class="visitor-counter">
         <div class="count">Cargando visitas...</div>
-        <div class="last-visit">Contador global</div>
+        <div class="last-visit">Penúltima visita</div>
     </div>
     
 <script>  
 // ================================================================
-// CONTADOR GLOBAL DE VISITAS - COUNTERAPI
+// NUEVO: SISTEMA DE CONTADOR DE VISITAS SIMPLE
 // ================================================================
 
-// Función para actualizar el contador global usando CounterAPI
+// Función para actualizar el contador global y mostrar la penúltima visita
 async function updateGlobalCounter() {
     const counterElement = $('#visitor-counter .count');
     const lastVisitElement = $('#visitor-counter .last-visit');
     
     try {
-        // ID único para tu contador (puedes cambiarlo si quieres)
-        const counterId = 'prestadores-medicos-directorio';
+        // ID único para tu contador (puedes cambiarlo si quieres empezar de cero)
+        const counterId = 'prestadores-medicos-directorio-v2';
         
-        // 1. Obtener el contador actual
+        // Obtenemos el historial de visitas guardado en el navegador del usuario
+        let visitHistory = JSON.parse(localStorage.getItem('visitHistory')) || [];
+        
+        // 1. Obtener el contador actual de la API (sin incrementarlo todavía)
         const response = await fetch(`https://api.counterapi.dev/v1/${counterId}/get`);
         const data = await response.json();
+        const currentCount = data.value || 0;
+
+        // 2. Incrementar el contador en la API (esto registra la visita actual)
+        const incrementResponse = await fetch(`https://api.counterapi.dev/v1/${counterId}/increment`, { method: 'POST' });
+        const incrementData = await incrementResponse.json();
         
-        if (data && data.value !== undefined) {
-            // 2. Incrementar el contador
-            const incrementResponse = await fetch(`https://api.counterapi.dev/v1/${counterId}/increment`, {
-                method: 'POST'
-            });
-            const incrementData = await incrementResponse.json();
-            
-            // 3. Actualizar la interfaz
-            counterElement.text(`Visitas: ${incrementData.value}`);
-            
-            // Mostrar última actualización
-            const now = new Date();
-            const lastUpdate = now.toLocaleString('es-ES', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            lastVisitElement.text(`Último: ${lastUpdate}`);
+        // 3. Guardar la fecha y hora de la visita *anterior* en el historial local
+        const penultimaVisita = {
+            count: currentCount, // El valor antes de nuestro incremento
+            date: new Date().toLocaleString('es-ES') // La fecha actual
+        };
+        
+        visitHistory.push(penultimaVisita);
+
+        // Mantenemos el historial con un máximo de 50 registros para no ocupar mucho espacio
+        if (visitHistory.length > 50) {
+            visitHistory = visitHistory.slice(-50);
         }
+        localStorage.setItem('visitHistory', JSON.stringify(visitHistory));
+
+        // 4. Mostrar la información de la penúltima visita
+        if (visitHistory.length >= 2) {
+            const penultimoRegistro = visitHistory[visitHistory.length - 2];
+            counterElement.text(`Visitas: ${penultimoRegistro.count}`);
+            lastVisitElement.text(`Penúltima: ${penultimoRegistro.date}`);
+        } else {
+             // Si no hay suficientes registros, mostramos el estado actual
+            counterElement.text(`Visitas: ${currentCount}`);
+            lastVisitElement.text(visitHistory.length === 1 ? "Primera visita registrada" : "Sin datos anteriores");
+        }
+
     } catch (error) {
         console.error('Error con el contador:', error);
         counterElement.text('Visitas: Error');
@@ -263,13 +271,8 @@ async function updateGlobalCounter() {
     }
 }
 
-// Inicializar contador global cuando la página cargue
-$(document).ready(function() {
-    updateGlobalCounter();
-});
-
 // ================================================================
-// CÓDIGO ORIGINAL DE LA TABLA
+// CÓDIGO ORIGINAL DE LA TABLA (SIN MODIFICACIONES)
 // ================================================================
 
 const tipoEspecialidad = {  
@@ -283,6 +286,9 @@ const tipoEspecialidad = {
 const seccionales = ["BAHIA BLANCA","BUENOS AIRES ZONA 1","BUENOS AIRES ZONA 2","BUENOS AIRES ZONA 3","CAPITAL","CATAMARCA","CHACO","CHUBUT","CORDOBA","CORRIENTES","ENTRE RIOS","FORMOSA","GBA NOROESTE","GBA NORTE","GBA OESTE","GBA SUR","JUJUY","LA PAMPA","LA PLATA","LA RIOJA","MAR DEL PLATA","MENDOZA","MISIONES","NEUQUEN","RIO NEGRO","ROSARIO","SALTA","SAN JUAN","SAN LUIS","SANTA CRUZ","SANTA FE","SANTIAGO DEL ESTERO","TIERRA DEL FUEGO","TRENQUE LAUQUEN","TUCUMAN"];  
 
 $(function() {  
+    // ---- NUEVO: Llamar a la función del contador cuando la página carga ----
+    updateGlobalCounter();
+
     // Llenar seccionales en ambos grupos
     seccionales.forEach(sec => {
         $('#filtro-seccional').append(`<option value="${sec}">${sec}</option>`);
@@ -526,7 +532,7 @@ $(function() {
 
                     
                     rowData.practices.forEach(practice => {
-                        if(!(rowData.Clasificacion === 'Clinicas y Sanatorios' ** practice.tipo === 'DiagnosticoyTratamiento')){  
+                        if(!(rowData.Clasificacion === 'Clinicas y Sanatorios' && practice.tipo === 'DiagnosticoyTratamiento')){  
                             if (!practicesByType[practice.tipo]) {  
                                 practicesByType[practice.tipo] = [];  
                             }  
