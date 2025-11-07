@@ -234,7 +234,7 @@
         }  
         #stats-summary { margin-bottom: 20px; text-align: center; font-size: 16px; }  
         #stats-container { display: flex; flex-direction: column; gap: 20px; align-items: center; }  
-        #stats-container canvas { max-width: 400px; width: 100%; height: 250px; background: var(--chart-bg); }  
+        #stats-container canvas { max-width: 300px; width: 100%; height: 200px; background: var(--chart-bg); }  
         /* Loader */  
         .loader { display: none; text-align: center; padding: 20px; color: var(--text-color); }  
         /* Botones de modos */  
@@ -252,19 +252,6 @@
             border-radius: 4px;  
             cursor: pointer;  
         }  
-        /* Botón de reset contador */  
-        .reset-counter-btn {  
-            position: fixed;  
-            bottom: 60px;  
-            right: 15px;  
-            background: var(--reset-bg);  
-            color: white;  
-            padding: 8px 12px;  
-            border-radius: 8px;  
-            font-size: 12px;  
-            z-index: 1000;  
-            cursor: pointer;  
-        }  
     </style>  
 </head>  
 <body>  
@@ -272,7 +259,7 @@
     <h1>Tabla de Prestadores Médicos</h1>  
     
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="Buscar prestador...">
+        <input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad...">
         <button id="clear-all-btn" disabled>Borrar todo</button>
     </div>
 
@@ -335,9 +322,6 @@
         <span>👥 Visitas:</span>
         <img id="counter-img" src="https://visitor-badge.laobi.icu/badge?page_id=prestadores-medicos.2024&left_color=gray&right_color=green&left_text=Visitas" alt="visitas"/>
     </div>
-
-    <!-- Botón para reiniciar contador -->
-    <button class="reset-counter-btn" id="reset-counter-btn">Reiniciar Contador</button>
 
     <!-- Modal para Estadísticas -->
     <div id="stats-modal" class="modal">
@@ -538,7 +522,7 @@ $(function() {
                 language: {url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'},  
                 pageLength: 25,  
                 ordering: false,  
-                searching: false,  
+                searching: true,  // Habilitar búsqueda interna para que funcione en columnas específicas  
                 dom: 'Bfrtip', // Agregar botones  
                 buttons: [  
                     {  
@@ -573,7 +557,7 @@ $(function() {
                 }  
             });  
 
-            // Evento para el buscador  
+            // Evento para el buscador dinámico  
             $('#search-input').on('keyup', function() {  
                 tabla.search(this.value).draw();  
                 updateClearAllButton();  
@@ -830,26 +814,6 @@ $(function() {
             };  
             window.onclick = function(event) {  
                 if (event.target == statsModal) statsModal.style.display = 'none';  
-            };  
-
-            // ============================================================  
-            // BOTÓN PARA REINICIAR CONTADOR (PERSISTENTE)  
-            // ============================================================  
-            const counterImg = document.getElementById('counter-img');  
-            let pageId = localStorage.getItem('counterPageId') || 'prestadores-medicos.2024';  
-            counterImg.src = `https://visitor-badge.laobi.icu/badge?page_id=${pageId}&left_color=gray&right_color=green&left_text=Visitas`;  
-
-            document.getElementById('reset-counter-btn').onclick = function() {  
-                const clave = prompt('Ingrese la clave para reiniciar el contador:');  
-                if (clave === 'qb50SAT') {  
-                    // Generar nuevo page_id único y persistirlo  
-                    pageId = `prestadores-medicos.reset-${Date.now()}`;  
-                    localStorage.setItem('counterPageId', pageId);  
-                    counterImg.src = `https://visitor-badge.laobi.icu/badge?page_id=${pageId}&left_color=gray&right_color=green&left_text=Visitas`;  
-                    alert('Contador reiniciado exitosamente. El cambio persiste al recargar.');  
-                } else {  
-                    alert('Clave incorrecta.');  
-                }  
             };  
         }  
     });  
