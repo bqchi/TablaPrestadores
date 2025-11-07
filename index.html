@@ -129,15 +129,21 @@
             right: 15px;
             background: rgba(73, 126, 118, 0.95);
             color: white;
-            padding: 12px 16px;
+            padding: 10px 14px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             z-index: 1000;
             box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-            min-width: 150px;
             text-align: center;
             border: 2px solid #3a6159;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .visitor-counter img {
+            vertical-align: middle;
+            height: 20px;
         }
         /* Ocultar el buscador predeterminado de DataTables */
         .dataTables_filter {
@@ -203,68 +209,13 @@
         <tbody></tbody>  
     </table>
 
-    <!-- CONTADOR DE VISITAS -->
-    <div id="visitor-counter" class="visitor-counter">
-        👥 Visitas: <strong>...</strong>
+    <!-- CONTADOR DE VISITAS CON BADGE EMBEBIDO -->
+    <div class="visitor-counter">
+        <span>👥 Visitas:</span>
+        <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fprestadores-medicos.com&count_bg=%23497E76&title_bg=%23497E76&icon=&icon_color=%23E7E7E7&title=&edge_flat=false" alt="visitas"/>
     </div>
 
 <script>  
-// ============================================================
-// CONTADOR CON API PÚBLICA SIMPLE (visits.bitty.site)
-// ============================================================
-async function initVisitorCounter() {
-    const counterElement = document.getElementById('visitor-counter');
-    
-    try {
-        // Usando la API pública de visits.bitty.site
-        // Esta API es más simple y confiable
-        const pageId = 'prestadores-medicos-2024';
-        const apiUrl = `https://visits.bitty.site/visit.svg?id=${pageId}`;
-        
-        // Hacemos la llamada que incrementa automáticamente
-        const response = await fetch(apiUrl);
-        
-        if (response.ok) {
-            const svgText = await response.text();
-            // Extraer el número del SVG (formato: <text...>NÚMERO</text>)
-            const match = svgText.match(/<text[^>]*>(\d+)<\/text>/);
-            
-            if (match && match[1]) {
-                const count = match[1];
-                counterElement.innerHTML = `👥 Visitas: <strong>${count}</strong>`;
-            } else {
-                throw new Error('No se pudo extraer el contador');
-            }
-        } else {
-            throw new Error('Error en la respuesta de la API');
-        }
-        
-    } catch (error) {
-        console.error('Error en el contador:', error);
-        
-        // Si falla, intentamos con una API alternativa: GoatCounter público
-        try {
-            // Alternativa 2: Usar visitor-badge.laobi.icu
-            const altUrl = 'https://visitor-badge.laobi.icu/badge?page_id=prestadores.medicos.2024';
-            const altResponse = await fetch(altUrl);
-            
-            if (altResponse.ok) {
-                const svgText = await altResponse.text();
-                const match = svgText.match(/visitors[:\s]*(\d+)/i);
-                
-                if (match && match[1]) {
-                    counterElement.innerHTML = `👥 Visitas: <strong>${match[1]}</strong>`;
-                } else {
-                    counterElement.innerHTML = `❌ Error al cargar contador`;
-                }
-            }
-        } catch (err2) {
-            console.error('Error en API alternativa:', err2);
-            counterElement.innerHTML = `❌ No disponible`;
-        }
-    }
-}
-
 // ============================================================
 // CÓDIGO ORIGINAL DE LA TABLA
 // ============================================================
@@ -279,9 +230,6 @@ const tipoEspecialidad = {
 const seccionales = ["BAHIA BLANCA","BUENOS AIRES ZONA 1","BUENOS AIRES ZONA 2","BUENOS AIRES ZONA 3","CAPITAL","CATAMARCA","CHACO","CHUBUT","CORDOBA","CORRIENTES","ENTRE RIOS","FORMOSA","GBA NOROESTE","GBA NORTE","GBA OESTE","GBA SUR","JUJUY","LA PAMPA","LA PLATA","LA RIOJA","MAR DEL PLATA","MENDOZA","MISIONES","NEUQUEN","RIO NEGRO","ROSARIO","SALTA","SAN JUAN","SAN LUIS","SANTA CRUZ","SANTA FE","SANTIAGO DEL ESTERO","TIERRA DEL FUEGO","TRENQUE LAUQUEN","TUCUMAN"];  
 
 $(function() {  
-    // INICIALIZAR EL CONTADOR DE VISITAS
-    initVisitorCounter();
-    
     // Llenar seccionales en ambos grupos
     seccionales.forEach(sec => {
         $('#filtro-seccional').append(`<option value="${sec}">${sec}</option>`);
