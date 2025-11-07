@@ -6,8 +6,6 @@
     <title>Directorio de Prestadores Médicos</title>  
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">  
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>  
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />  
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />  
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>  
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>  
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>  
@@ -17,7 +15,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>  
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>  
-    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
     <style>  
         :root {  
@@ -105,8 +102,8 @@
         .dataTable thead .sorting_desc {  
             background-image: none !important;  
         }  
-        .details-child { background: var(--details-bg); padding: 18px; color: var(--text-color); }  
-        .details-child table { width: 100%; }  
+        .details-child { background: var(--details-bg); padding: 18px; color: var(--text-color); border-top: 2px solid var(--border-color); }  
+        .details-child table { width: 100%; border-collapse: collapse; }  
         .details-child th, .details-child td { border: 1px solid var(--border-color); padding: 8px; color: var(--text-color); }  
         .details-child th { background: var(--filter-bg); }  
         .details-child td { background: var(--details-bg); }  
@@ -223,7 +220,7 @@
             padding: 20px;  
             border: 1px solid var(--border-color);  
             width: 90%;  
-            max-width: 1200px;  
+            max-width: 800px;  
             border-radius: 8px;  
             position: relative; color: var(--text-color);  
         }  
@@ -235,9 +232,8 @@
             cursor: pointer;  
             color: var(--text-color);  
         }  
-        #global-map { height: 600px; }  
-        #stats-container { display: flex; gap: 20px; }  
-        #stats-container canvas { max-width: 500px; background: var(--chart-bg); }  
+        #stats-container { display: flex; flex-direction: column; gap: 20px; align-items: center; }  
+        #stats-container canvas { max-width: 400px; width: 100%; height: 250px; background: var(--chart-bg); }  
         /* Loader */  
         .loader { display: none; text-align: center; padding: 20px; color: var(--text-color); }  
         /* Botones de modos */  
@@ -255,6 +251,19 @@
             border-radius: 4px;  
             cursor: pointer;  
         }  
+        /* Botón de reset contador */  
+        .reset-counter-btn {  
+            position: fixed;  
+            bottom: 60px;  
+            right: 15px;  
+            background: var(--reset-bg);  
+            color: white;  
+            padding: 8px 12px;  
+            border-radius: 8px;  
+            font-size: 12px;  
+            z-index: 1000;  
+            cursor: pointer;  
+        }  
     </style>  
 </head>  
 <body>  
@@ -267,7 +276,6 @@
     </div>
 
     <div class="mode-buttons">
-        <button id="map-btn">Ver Mapa Global</button>
         <button id="stats-btn">Ver Estadísticas</button>
     </div>
 
@@ -322,20 +330,13 @@
     </table>
 
     <!-- CONTADOR DE VISITAS CON BADGE EMBEBIDO -->
-    <div class="visitor-counter">
+    <div class="visitor-counter" id="visitor-counter">
         <span>👥 Visitas:</span>
-        <img src="https://visitor-badge.laobi.icu/badge?page_id=prestadores-medicos.2024&left_color=gray&right_color=green&left_text=Visitas" alt="visitas"/>
+        <img id="counter-img" src="https://visitor-badge.laobi.icu/badge?page_id=prestadores-medicos.2024&left_color=gray&right_color=green&left_text=Visitas" alt="visitas"/>
     </div>
 
-    <!-- Modal para Mapa Global -->
-    <div id="map-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" id="close-map">&times;</span>
-            <h2>Mapa Global de Prestadores</h2>
-            <div class="loader" id="map-loader">Cargando mapa y geolocalizaciones...</div>
-            <div id="global-map"></div>
-        </div>
-    </div>
+    <!-- Botón para reiniciar contador -->
+    <button class="reset-counter-btn" id="reset-counter-btn">Reiniciar Contador</button>
 
     <!-- Modal para Estadísticas -->
     <div id="stats-modal" class="modal">
@@ -367,8 +368,7 @@ themeToggle.addEventListener('click', () => {
     const isDark = body.classList.contains('dark-mode');
     themeToggle.innerHTML = isDark ? '🌙' : '☀️';
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    // Re-dibujar mapas y gráficos si están abiertos
-    if (globalMap) globalMap.invalidateSize();
+    // Re-dibujar gráficos si están abiertos
     if (seccionalChart) seccionalChart.update();
     if (planChart) planChart.update();
     // Si hay detalles expandidos, cerrar y reabrir para refrescar
@@ -497,6 +497,26 @@ $(function() {
             // Llenar opciones de planes  
             uniquePlans.forEach(plan => $('#filtro-plan').append(`<option value="${plan}">${plan}</option>`));  
 
+            // Función para obtener filtros actuales como string  
+            function getCurrentFilters() {  
+                let filters = [];  
+                const seccional = $('#filtro-seccional').val();  
+                if (seccional) filters.push(`Seccional: ${seccional}`);  
+                const clasificacion = $('#filtro-clasificacion').val();  
+                if (clasificacion) filters.push(`Clasificación: ${clasificacion}`);  
+                const plan = $('#filtro-plan').val();  
+                if (plan) filters.push(`Plan: ${plan}`);  
+                const seccionalEsp = $('#filtro-seccional-esp').val();  
+                if (seccionalEsp) filters.push(`Seccional Esp: ${seccionalEsp}`);  
+                const tipo = $('#filtro-tipo').val();  
+                if (tipo) filters.push(`Tipo: ${tipo}`);  
+                const especialidad = $('#filtro-especialidad').val();  
+                if (especialidad) filters.push(`Especialidad: ${especialidad}`);  
+                const search = $('#search-input').val();  
+                if (search) filters.push(`Búsqueda: ${search}`);  
+                return filters.length > 0 ? 'Filtros aplicados: ' + filters.join(', ') : 'Sin filtros aplicados';  
+            }  
+
             // Inicializar tabla con proveedores compactos y botones de exportación  
             tabla = $('#tabla-prestadores').DataTable({  
                 data: providersCompact.filter(provider => {
@@ -517,10 +537,23 @@ $(function() {
                 searching: false,  
                 dom: 'Bfrtip', // Agregar botones  
                 buttons: [  
-                    'copyHtml5',  
-                    'excelHtml5',  
-                    'csvHtml5',  
-                    'pdfHtml5'  
+                    {  
+                        extend: 'copyHtml5',  
+                        title: () => 'Prestadores Médicos - ' + getCurrentFilters()  
+                    },  
+                    {  
+                        extend: 'excelHtml5',  
+                        title: () => 'Prestadores Médicos - ' + getCurrentFilters()  
+                    },  
+                    {  
+                        extend: 'csvHtml5',  
+                        title: () => 'Prestadores Médicos - ' + getCurrentFilters()  
+                    },  
+                    {  
+                        extend: 'pdfHtml5',  
+                        title: () => 'Prestadores Médicos - ' + getCurrentFilters(),  
+                        messageTop: () => getCurrentFilters()  
+                    }  
                 ],  
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
@@ -688,54 +721,14 @@ $(function() {
                         .then(r=>r.json()).then(d=>d[0] ? {lat:+d[0].lat, lon:+d[0].lon} : null).catch(()=>null);  
                     if (coords) {  
                         const map = L.map(mapId).setView([coords.lat, coords.lon], 16);  
-                        const isDark = body.classList.contains('dark-mode');  
-                        const tileUrl = isDark ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png' : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';  
-                        L.tileLayer(tileUrl, {attribution: isDark ? 'CartoDB Dark' : 'OpenStreetMap'}).addTo(map);  
+                        // Siempre usar tiles normales (claros)  
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'OpenStreetMap'}).addTo(map);  
                         L.marker([coords.lat, coords.lon]).addTo(map).bindPopup(address).openPopup();  
                     } else {  
                         document.getElementById(mapId).innerHTML = "<div style='color:#b71c1c;padding:30px;text-align:center;'>No se pudo localizar la dirección.</div>";  
                     }  
                 }  
             });  
-
-            // ============================================================  
-            // MODAL PARA MAPA GLOBAL  
-            // ============================================================  
-            const mapModal = document.getElementById('map-modal');  
-            const mapBtn = document.getElementById('map-btn');  
-            const closeMap = document.getElementById('close-map');  
-            let globalMap;  
-
-            mapBtn.onclick = async function() {  
-                mapModal.style.display = 'block';  
-                document.getElementById('map-loader').style.display = 'block';  
-                const isDark = body.classList.contains('dark-mode');  
-                if (!globalMap) {  
-                    globalMap = L.map('global-map').setView([-34.6037, -58.3816], 5); // Centro en Argentina  
-                }  
-                const tileUrl = isDark ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png' : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';  
-                L.tileLayer(tileUrl, {attribution: isDark ? 'CartoDB Dark' : 'OpenStreetMap'}).addTo(globalMap);  
-                const markers = L.markerClusterGroup();  
-                const filteredData = tabla.rows({search: 'applied'}).data().toArray();  
-                for (let provider of filteredData) {  
-                    const address = [provider.Domicilio, provider.Localidad, provider.Partido, provider.Provincia].filter(Boolean).join(", ");  
-                    const coords = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)  
-                        .then(r=>r.json()).then(d=>d[0] ? {lat:+d[0].lat, lon:+d[0].lon} : null).catch(()=>null);  
-                    if (coords) {  
-                        markers.addLayer(L.marker([coords.lat, coords.lon]).bindPopup(`<b>${provider.Nombre}</b><br>${address}`));  
-                    }  
-                }  
-                globalMap.addLayer(markers);  
-                document.getElementById('map-loader').style.display = 'none';  
-            };  
-
-            closeMap.onclick = function() {  
-                mapModal.style.display = 'none';  
-                globalMap.eachLayer(layer => { if (layer instanceof L.MarkerClusterGroup) globalMap.removeLayer(layer); });  
-            };  
-            window.onclick = function(event) {  
-                if (event.target == mapModal) mapModal.style.display = 'none';  
-            };  
 
             // ============================================================  
             // MODAL PARA ESTADÍSTICAS  
@@ -803,6 +796,20 @@ $(function() {
             };  
             window.onclick = function(event) {  
                 if (event.target == statsModal) statsModal.style.display = 'none';  
+            };  
+
+            // ============================================================  
+            // BOTÓN PARA REINICIAR CONTADOR  
+            // ============================================================  
+            document.getElementById('reset-counter-btn').onclick = function() {  
+                const clave = prompt('Ingrese la clave para reiniciar el contador:');  
+                if (clave === 'qb50SAT') {  
+                    // Cambiar a un nuevo page_id para "reiniciar" (crea un nuevo contador)  
+                    document.getElementById('counter-img').src = 'https://visitor-badge.laobi.icu/badge?page_id=prestadores-medicos.reset&left_color=gray&right_color=green&left_text=Visitas';  
+                    alert('Contador reiniciado exitosamente.');  
+                } else {  
+                    alert('Clave incorrecta.');  
+                }  
             };  
         }  
     });  
