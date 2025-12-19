@@ -866,11 +866,16 @@ $(function() {
             function getColorByClasificacion(clasif) {
                 if (!clasif) return '#666666';
                 const c = clasif.toLowerCase();
-                if (c.includes('clinicas') || c.includes('sanatorio')) return '#d73027';
-                if (c.includes('diagnostico')) return '#1a9850';
-                if (c.includes('rehabil')) return '#a876ab';
-                if (c.includes('oftal')) return '#ffea00';
-                if (c.includes('especial')) return '#afb3b0';
+                if (c.includes('clinicas') || c.includes('sanatorio')) return '#E74C3C';
+                if (c.includes('diagnostico')) return '#B5E6A2';
+                if (c.includes('rehabil')) return '#27AE60';
+                if (c.includes('centr')) return '#F1C40F';
+                if (c.includes('pedia')) return '#3498DB';
+                if (c.includes('especial')) return '#E67E22';
+                if (c.includes('salud')) return '#9B59B6';
+                if (c.includes('vario')) return '#afb3b0';
+                
+
                 return '#666666';
             }
 
@@ -956,6 +961,7 @@ $(function() {
 </script>  
 </body>  
 </html>
+
 
 
 
