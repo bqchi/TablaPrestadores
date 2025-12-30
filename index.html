@@ -18,7 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>  
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   
     <style>  
         :root {  
@@ -448,8 +448,6 @@
             <button type="submit">Enviar</button>
         </form>
     </div>
-
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 <script>
 
 // ============================================================
@@ -1020,53 +1018,62 @@ $(function() {
 // ==================== Configuración de EmailJS ====================
 const serviceID = 'service_bpql0t2';          // <-- REEMPLAZAR
 const templateID = 'template_pvy0uye';
-const userKey    = 'gGaNST8Xed0QDePFj';        // <-- REEMPLAZAR
+const publicKey    = 'gGaNST8Xed0QDePFj';        // <-- REEMPLAZAR
 
-emailjs.init(userKey);
+emailjs.init(publicKey);
 
-// Función que envía el correo
-function sendEmail(data) {
-  const params = {
-    name: data.name,
-    contact_email: data.email,   // nombre de campo en tu template
-    message: data.message,
-    time: new Date().toLocaleString()
-  };
+/* --------------------------------
+       FUNCIÓN PARA ENVIAR EL CORREO
+       -------------------------------- */
+    function sendEmail(data) {
+      const params = {
+        name: data.name,
+        contact_email: data.email,   // nombre del campo en tu template
+        message: data.message,
+        time: new Date().toLocaleString()
+      };
 
-  emailjs.send(serviceID, templateID, params)
-    .then((response) => {
-      console.log('✅ Correo enviado:', response.status);
-      alert('¡Mensaje enviado! Gracias por contactarnos.');
-      closeModal();            // Cerrar modal después del envío
-    })
-    .catch((err) => {
-      console.error('❌ Error al enviar:', err);
-      alert('Hubo un problema. Inténtalo de nuevo.');
+      emailjs.send(serviceID, templateID, params)
+        .then((response) => {
+          console.log('✅ Correo enviado:', response.status);
+          alert('¡Mensaje enviado! Gracias por contactarnos.');
+          closeModal();
+        })
+        .catch((err) => {
+          console.error('❌ Error al enviar:', err);
+          alert('Hubo un problema. Inténtalo de nuevo.');
+        });
+    }
+
+    /* --------------------------------
+       MANEJO DEL MODAL
+       -------------------------------- */
+    const contactModal = document.getElementById('contact-modal');
+
+    function openModal()  { contactModal.style.display = 'flex'; }
+    function closeModal() { contactModal.style.display = 'none'; }
+
+    document.getElementById('openContactBtn').addEventListener('click', openModal);
+    document.querySelector('#contact-modal .close-btn')
+      .addEventListener('click', closeModal);
+
+    // Cerrar modal al hacer click fuera del contenido
+    window.addEventListener('click', (e) => {
+      if (e.target === contactModal) closeModal();
     });
-}
-// ------------------- Funciones de apertura/cierre -------------------
-const contactModal = document.getElementById('contact-modal');
-function openModal() { contactModal.style.display = 'block'; }
-function closeModal(){ contactModal.style.display = 'none'; }
 
-document.getElementById('openContactBtn').addEventListener('click', openModal);
-document.querySelector('#contact-modal .close-btn')
-        .addEventListener('click', closeModal);
+    /* --------------------------------
+       MANEJO DEL FORMULARIO
+       -------------------------------- */
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();                     // Evita recarga
 
-// Cerrar modal al hacer click fuera del contenido
-window.addEventListener('click', (e) => {
-  if (e.target === contactModal) closeModal();
-});
+      const formData = new FormData(this);     // Obtiene todos los campos
+      const dataObj  = Object.fromEntries(formData.entries()); // Convierte a objeto
 
-// ------------------- Manejo del formulario -------------------
-document.getElementById('contactForm').addEventListener('submit', function(e){
-  e.preventDefault();                     // Evita recarga
-
-  const formData = new FormData(this);     // Obtiene todos los campos
-  const dataObj  = Object.fromEntries(formData.entries()); // Convierte a objeto
-
-  sendEmail(dataObj);
-});
-</script>  
-</body>  
+      sendEmail(dataObj);
+    });
+  </script>
+</body>
 </html>
+
