@@ -1026,7 +1026,6 @@ emailjs.init(userKey);
 function sendEmail(data) {
   const params = {
     name: data.name,
-    contact_email: data.email,   // nombre de campo en tu template
     message: data.message,
     time: new Date().toLocaleString()
   };
@@ -1068,3 +1067,4 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
 </script>  
 </body>  
 </html>
+
