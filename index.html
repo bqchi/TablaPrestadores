@@ -17,8 +17,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>  
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>  
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  
     <style>  
         :root {  
             --bg-color: #f5f5f5;  
@@ -448,6 +449,7 @@
         </form>
     </div>
 
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 <script>
 
 // ============================================================
@@ -1020,29 +1022,27 @@ const serviceID = 'service_bpql0t2';          // <-- REEMPLAZAR
 const templateID = 'template_pvy0uye';
 const userKey    = 'gGaNST8Xed0QDePFj';        // <-- REEMPLAZAR
 
-emailjs.init({
-  publicKey: userKey, gGaNST8Xed0QDePFj  // tu Public Key (no la Private key!)
-});
+emailjs.init(userKey);
 
 // Función que envía el correo
 function sendEmail(data) {
   const params = {
     name: data.name,
-    contact_email: data.email,   // nombre de campo en tu template  
+    contact_email: data.email,   // nombre de campo en tu template
     message: data.message,
     time: new Date().toLocaleString()
   };
 
   emailjs.send(serviceID, templateID, params)
-  .then((response) => {
-    console.log('✅ Correo enviado:', response.status);
-    alert('¡Mensaje enviado! Gracias por contactarnos.');
-    closeModal();
-  })
-  .catch((err) => {
-    console.error('❌ Error al enviar:', err);
-    alert('Hubo un problema. Inténtalo de nuevo.');
-  });
+    .then((response) => {
+      console.log('✅ Correo enviado:', response.status);
+      alert('¡Mensaje enviado! Gracias por contactarnos.');
+      closeModal();            // Cerrar modal después del envío
+    })
+    .catch((err) => {
+      console.error('❌ Error al enviar:', err);
+      alert('Hubo un problema. Inténtalo de nuevo.');
+    });
 }
 // ------------------- Funciones de apertura/cierre -------------------
 const contactModal = document.getElementById('contact-modal');
@@ -1070,6 +1070,3 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
 </script>  
 </body>  
 </html>
-
-
-
