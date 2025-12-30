@@ -6,6 +6,8 @@
     <title>Directorio de Prestadores Médicos</title>  
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">  
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>  
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>  
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>  
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>  
@@ -271,7 +273,26 @@
             height: 14px;  
             border-radius: 3px;  
             border: 1px solid #555;  
-        }  
+        }
+        /* --- Formulario de contacto --- */
+        #contactForm { max-width:500px; margin:auto; padding:1rem; background-color: #333; border: 1px solid var(--border-color); }
+        #contactForm label{ display:block; margin-top:.75rem; font-weight:bold; }
+        #contactForm input, #contactForm textarea{
+            width:100%; padding:.5rem; border:1px solid #cccccc93; background-color: #cccccc93 ;
+            border-radius:4px; box-sizing:border-box;
+        }
+        #contactForm button{ margin-top:1rem; padding:.75rem 1.5rem; background:#007bff; color:#fff; border:none; cursor:pointer; }
+        #contactForm button:hover{ background:#0056b3; }
+
+        /* --- Estilos de los modales (si no los tenías) --- */
+        .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; overflow:auto;
+                background-color:rgba(0,0,0,.4); z-index:1000;}
+        .modal-content{ background:#1e1e1e; margin:10% auto; padding:1rem; border: 1px solid var(--border-color); border-radius:.5rem; max-width:90%;
+                        box-shadow:0 2px 8px rgba(0,0,0,.3);}
+        .modal-header { display:flex; justify-content:space-between; align-items:center; }
+        .modal-title{ font-size:1.25rem; margin:0;}
+        .close-btn{ background:none; border:none; font-size:1.5rem; cursor:pointer; color:#aaa;}
+        
     </style>  
 </head>  
 <body>  
@@ -393,7 +414,42 @@
         </div>
     </div>
 
-<script>  
+
+    <!-- ==================== BOTÓN QUE ABRE EL MODAL ==================== -->
+    <div style="text-align:center; margin-top:2rem;">
+        <button id="openContactBtn"
+                style="padding:.75rem 1.5rem;background:#497e76;color:white;border: 2px solid #3a6159;
+                    border-radius:.25rem;font-size:1rem;cursor:pointer;">
+            Ingresar Reclamo
+        </button>
+    </div>
+
+    <!-- ==================== MODAL CON EL FORMULARIO ==================== -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h2 class="modal-title">Contáctanos</h2>
+            <button type="button" class="close-btn" aria-label="Cerrar">&times;</button>
+        </div>
+
+            <!-- Formulario -->
+        <form id="contactForm">
+            <label>Nombre:
+                <input type="text" name="name" required />
+            </label>
+            <label>Email:
+                <input type="email" name="email" required />
+            </label>
+            <label>Mensaje:
+                <textarea name="message" rows="4" required></textarea>
+            </label>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script>
+
 // ============================================================
 // MODO OSCURO
 // ============================================================
@@ -957,13 +1013,58 @@ $(function() {
             };  
         }  
     });  
-});  
+});
+
+// ==================== Configuración de EmailJS ====================
+const serviceID = 'service_bpql0t2';          // <-- REEMPLAZAR
+const templateID = 'template_pvy0uye';
+const userKey    = 'gGaNST8Xed0QDePFj';        // <-- REEMPLAZAR
+
+emailjs.init(userKey);
+
+// Función que envía el correo
+function sendEmail(data) {
+  const params = {
+    name: data.name,
+    contact_email: data.email,   // nombre de campo en tu template
+    message: data.message,
+    time: new Date().toLocaleString()
+  };
+
+  emailjs.send(serviceID, templateID, params)
+    .then((response) => {
+      console.log('✅ Correo enviado:', response.status);
+      alert('¡Mensaje enviado! Gracias por contactarnos.');
+      closeModal();            // Cerrar modal después del envío
+    })
+    .catch((err) => {
+      console.error('❌ Error al enviar:', err);
+      alert('Hubo un problema. Inténtalo de nuevo.');
+    });
+}
+// ------------------- Funciones de apertura/cierre -------------------
+const contactModal = document.getElementById('contact-modal');
+function openModal() { contactModal.style.display = 'block'; }
+function closeModal(){ contactModal.style.display = 'none'; }
+
+document.getElementById('openContactBtn').addEventListener('click', openModal);
+document.querySelector('#contact-modal .close-btn')
+        .addEventListener('click', closeModal);
+
+// Cerrar modal al hacer click fuera del contenido
+window.addEventListener('click', (e) => {
+  if (e.target === contactModal) closeModal();
+});
+
+// ------------------- Manejo del formulario -------------------
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();                     // Evita recarga
+
+  const formData = new FormData(this);     // Obtiene todos los campos
+  const dataObj  = Object.fromEntries(formData.entries()); // Convierte a objeto
+
+  sendEmail(dataObj);
+});
 </script>  
 </body>  
 </html>
-
-
-
-
-
-
