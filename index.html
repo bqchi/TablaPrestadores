@@ -447,7 +447,8 @@
         </form>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.6.1/dist/email.min.js"></script>
+
 <script>
 
 // ============================================================
@@ -1020,26 +1021,29 @@ const serviceID = 'service_bpql0t2';          // <-- REEMPLAZAR
 const templateID = 'template_pvy0uye';
 const userKey    = 'gGaNST8Xed0QDePFj';        // <-- REEMPLAZAR
 
-emailjs.init(userKey);
+emailjs.init({
+  publicKey: userKey, gGaNST8Xed0QDePFj  // tu Public Key (no la Private key!)
+});
 
 // Función que envía el correo
 function sendEmail(data) {
   const params = {
     name: data.name,
+    contact_email: data.email,   // nombre de campo en tu template  
     message: data.message,
     time: new Date().toLocaleString()
   };
 
   emailjs.send(serviceID, templateID, params)
-    .then((response) => {
-      console.log('✅ Correo enviado:', response.status);
-      alert('¡Mensaje enviado! Gracias por contactarnos.');
-      closeModal();            // Cerrar modal después del envío
-    })
-    .catch((err) => {
-      console.error('❌ Error al enviar:', err);
-      alert('Hubo un problema. Inténtalo de nuevo.');
-    });
+  .then((response) => {
+    console.log('✅ Correo enviado:', response.status);
+    alert('¡Mensaje enviado! Gracias por contactarnos.');
+    closeModal();
+  })
+  .catch((err) => {
+    console.error('❌ Error al enviar:', err);
+    alert('Hubo un problema. Inténtalo de nuevo.');
+  });
 }
 // ------------------- Funciones de apertura/cierre -------------------
 const contactModal = document.getElementById('contact-modal');
@@ -1067,4 +1071,5 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
 </script>  
 </body>  
 </html>
+
 
