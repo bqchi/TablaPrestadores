@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>  
 <html lang="es">  
 <head>  
@@ -203,23 +204,25 @@
         .modal {  
             display: none;  
             position: fixed;  
-            z-index: 1000;  
+            z-index: 2000;  
             left: 0;  
             top: 0;  
             width: 100%;  
             height: 100%;  
             overflow: auto;  
-            background-color: rgba(0,0,0,0.4);  
+            background-color: rgba(0,0,0,0.6);  
         }  
         .modal-content {  
             background: var(--bg-color);  
-            margin: 5% auto;  
-            padding: 20px;  
+            margin: 2% auto;  
+            padding: 25px;  
             border: 1px solid var(--border-color);  
-            width: 90%;  
-            max-width: 800px;  
+            width: 95%;  
+            max-width: 1100px;  
             border-radius: 8px;  
-            position: relative; color: var(--text-color);  
+            position: relative; 
+            color: var(--text-color);  
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }  
         .close-btn {  
             position: absolute;  
@@ -228,10 +231,27 @@
             font-size: 28px;  
             cursor: pointer;  
             color: var(--text-color);  
+            z-index: 10;
         }  
-        #stats-summary { margin-bottom: 20px; text-align: center; font-size: 16px; }  
-        #stats-container { display: flex; flex-direction: column; gap: 20px; align-items: center; }  
-        #stats-container canvas { max-width: 300px; width: 100%; height: 200px; background: var(--chart-bg); }  
+        #stats-summary { margin-bottom: 20px; text-align: center; font-size: 16px; font-weight: bold; }  
+        
+        /* CORRECCIÓN: Contenedor de estadísticas escalado */
+        #stats-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
+            gap: 30px; 
+            justify-items: center; 
+            padding: 10px;
+        }  
+        #stats-container canvas { 
+            max-width: 100%; 
+            height: 350px !important; /* Aumentado el tamaño */
+            background: var(--chart-bg); 
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }  
+
         .loader { display: none; text-align: center; padding: 20px; color: var(--text-color); }  
         .mode-buttons {  
             display: flex;  
@@ -248,22 +268,22 @@
             cursor: pointer;  
         }  
 
-        /* === NUEVO: estilos para el modal de mapa general === */  
         #map-modal-content {  
             max-width: 1000px;  
         }  
         #general-map {  
             width: 100%;  
-            height: 500px;  
+            height: 550px; /* Un poco más alto */
             border-radius: 8px;  
             border: 1px solid var(--border-color);  
         }  
         .map-legend {  
-            margin-top: 10px;  
+            margin-top: 15px;  
             font-size: 13px;  
             display: flex;  
             flex-wrap: wrap;  
             gap: 10px;  
+            justify-content: center;
         }  
         .map-legend-item {  
             display: flex;  
@@ -276,24 +296,18 @@
             border-radius: 3px;  
             border: 1px solid #555;  
         }
+
         /* --- Formulario de contacto --- */
-        #contactForm { max-width:500px; margin:auto; padding:1rem; background-color: var(--bg-color); border: 1px solid var(--border-color); }
+        #contactForm { max-width:500px; margin:auto; padding:1rem; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; }
         #contactForm label{ display:block; margin-top:.75rem; font-weight:bold; }
         #contactForm input, #contactForm textarea{
-            width:100%; padding:.5rem; border:1px solid #cccccc93; background-color: #cccccc93 ;
-            border-radius:4px; box-sizing:border-box;
+            width:100%; padding:.5rem; border:1px solid #ccc; background-color: #fff;
+            border-radius:4px; box-sizing:border-box; color: #000;
         }
-        #contactForm button{ margin-top:1rem; padding:.75rem 1.5rem; background:#007bff; color:#fff; border:none; cursor:pointer; }
-        #contactForm button:hover{ background:#0056b3; }
-
-        /* --- Estilos de los modales (si no los tenías) --- */
-        .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; overflow:auto;
-                background-color:rgba(0,0,0,.4); z-index:1000;}
-        .modal-content{ background:var(--bg-color); margin:10% auto; padding:1rem; border: 1px solid var(--border-color); border-radius:.5rem; max-width:90%;
-                        box-shadow:0 2px 8px rgba(0,0,0,.3);}
-        .modal-header { display:flex; justify-content:space-between; align-items:center; }
-        .modal-title{ font-size:1.25rem; margin:0;}
-        .close-btn{ background:none; border:none; font-size:1.5rem; cursor:pointer; color:#aaa;}
+        #contactForm button{ margin-top:1rem; padding:.75rem 1.5rem; background:#497e76; color:#fff; border:none; cursor:pointer; border-radius: 4px; }
+        
+        .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px; }
+        .modal-title{ font-size:1.5rem; margin:0; color: var(--header-color); }
         
     </style>  
 </head>  
@@ -364,10 +378,11 @@
         <img id="counter-img" src="https://visitor-badge.laobi.icu/badge?page_id=prestadores-medicos.2024&left_color=gray&right_color=green&left_text=Visitas" alt="visitas"/>
     </div>
 
+    <!-- MODAL ESTADÍSTICAS -->
     <div id="stats-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" id="close-stats">&times;</span>
-            <h2>Estadísticas de Prestadores</h2>
+            <h2 class="modal-title">Estadísticas de Prestadores</h2>
             <div id="stats-summary"></div>
             <div id="stats-container">
                 <canvas id="seccional-chart"></canvas>
@@ -377,85 +392,58 @@
         </div>
     </div>
 
+    <!-- MODAL MAPA -->
     <div id="map-modal" class="modal">
         <div class="modal-content" id="map-modal-content">
             <span class="close-btn" id="close-map">&times;</span>
-            <h2>Mapa de Prestadores (según filtros actuales)</h2>
+            <h2 class="modal-title">Mapa de Prestadores (según filtros actuales)</h2>
             <div id="general-map"></div>
             <div class="map-legend">
-                <div class="map-legend-item">
-                    <div class="legend-color-box" style="background:#E74C3C;"></div> Clinicas y Sanatorios
-                </div>
-                <div class="map-legend-item">
-                    <div class="legend-color-box" style="background:#B5E6A2;"></div> Diagnostico y Tratamiento
-                </div>
-                <div class="map-legend-item">
-                    <div class="legend-color-box" style="background:#27AE60;"></div> Rehabilitacion
-                </div>
-                <div class="map-legend-item">
-                    <div class="legend-color-box" style="background:#F1C40F;"></div> Centros Medicos
-                </div>
-                <div class="map-legend-item">
-                    <div class="legend-color-box" style="background:#E67E22;"></div> Especialistas
-                </div>
-                <div class="map-legend-item">
-                    <div class="legend-color-box" style="background:#3498DB;"></div> Pediatria
-                </div>
-                <div class="map-legend-item">
-                    <div class="legend-color-box" style="background:#9B59B6;"></div> Salud Mental
-                </div>
-                <div class="map-legend-item">
-                    <div class="legend-color-box" style="background:#afb3b0;"></div> Varios
-                </div>
-
-                
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#E74C3C;"></div> Clinicas y Sanatorios</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#B5E6A2;"></div> Diagnostico y Tratamiento</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#27AE60;"></div> Rehabilitacion</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#F1C40F;"></div> Centros Medicos</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#E67E22;"></div> Especialistas</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#3498DB;"></div> Pediatria</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#9B59B6;"></div> Salud Mental</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#afb3b0;"></div> Varios</div>
             </div>
-            <div style="margin-top:10px;font-size:12px;opacity:.9;">
-                Nota: Este mapa esta en version Beta y algunas ubicaciones no aparecen. Se iran agregando las faltantes.
+            <div style="margin-top:10px;font-size:12px;opacity:.9;text-align:center;">
+                Nota: Este mapa esta en version Beta y algunas ubicaciones no aparecen.
             </div>
         </div>
     </div>
 
-
-    <!-- ==================== BOTÓN QUE ABRE EL MODAL ==================== -->
     <div style="text-align:center; margin-top:2rem;">
-        <button id="openContactBtn"
-                style="padding:.75rem 1.5rem;background:#497e76;color:white;border: 2px solid #3a6159;
-                    border-radius:.25rem;font-size:1rem;cursor:pointer;">
+        <button id="openContactBtn" style="padding:.75rem 1.5rem;background:#497e76;color:white;border: 2px solid #3a6159; border-radius:.25rem;font-size:1rem;cursor:pointer;">
             Ingresar Reclamo
         </button>
     </div>
 
-    <!-- ==================== MODAL CON EL FORMULARIO ==================== -->
+    <!-- MODAL CONTACTO -->
     <div id="contact-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-            <h2 class="modal-title">Contáctanos</h2>
-            <button type="button" class="close-btn" aria-label="Cerrar">&times;</button>
+                <h2 class="modal-title">Contáctanos</h2>
+                <span class="close-btn" id="close-contact">&times;</span>
+            </div>
+            <form id="contactForm">
+                <label>Nombre: <input type="text" name="name" required /></label>
+                <label>Email: <input type="email" name="email" required /></label>
+                <label>Mensaje: <textarea name="message" rows="4" required></textarea></label>
+                <button type="submit">Enviar</button>
+            </form>
         </div>
-
-            <!-- Formulario -->
-        <form id="contactForm">
-            <label>Nombre:
-                <input type="text" name="name" required />
-            </label>
-            <label>Email:
-                <input type="email" name="email" required />
-            </label>
-            <label>Mensaje:
-                <textarea name="message" rows="4" required></textarea>
-            </label>
-            <button type="submit">Enviar</button>
-        </form>
     </div>
-<script>
 
+<script>
 // ============================================================
 // MODO OSCURO
 // ============================================================
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
 const currentTheme = localStorage.getItem('theme') || 'light';
+
 if (currentTheme === 'dark') {
     body.classList.add('dark-mode');
     themeToggle.innerHTML = '🌙';
@@ -463,7 +451,7 @@ if (currentTheme === 'dark') {
     themeToggle.innerHTML = '☀️';
 }
 
-let tabla; // (antes estaba dentro del closure; lo dejamos accesible)
+let tabla;
 let seccionalChart, planChart, clasificacionChart;
 
 themeToggle.addEventListener('click', () => {
@@ -485,7 +473,7 @@ themeToggle.addEventListener('click', () => {
         });
     }
 });
-
+    
 // ============================================================
 // CÓDIGO ORIGINAL + MAPA GENERAL SIN GEOCODING
 // ============================================================
@@ -1076,5 +1064,6 @@ emailjs.init(publicKey);
   </script>
 </body>
 </html>
+
 
 
