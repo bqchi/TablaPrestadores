@@ -8534,14 +8534,14 @@ HOSPITAL CARRILLO;30718615700;71718;1;Mendoza;MENDOZA;Las Heras;Las Heras;Martin
 HOSPITAL CARRILLO;30718615700;71718;1;Mendoza;MENDOZA;Las Heras;Las Heras;Martin Fierro 17824;0261 4133800;Clinicas y Sanatorios;Cirugias;General;Universal;;-32.8519502;-68.8272186
 HOSPITAL CARRILLO;30718615700;71718;1;Mendoza;MENDOZA;Las Heras;Las Heras;Martin Fierro 17824;0261 4133800;Clinicas y Sanatorios;DiagnosticoyTratamiento;Ecografia;Universal;;-32.8519502;-68.8272186
 HOSPITAL SALUD MENTAL PEREYRA;30718615700;73539;1;Mendoza;MENDOZA;Mendoza Capital;4a Seccion;Ituzaingo 2835;0261 3859100;Clinicas y Sanatorios;GuardiaActiva;Psiquiatrica;Universal;;-32.8705045;-68.8287482
-HOSPITAL SALUD MENTAL EL SAUCE;30718615700;72541;1;Mendoza;MENDOZA;Guaymallen;Bermejo;Alfonso X S/N;0261 4138703;Clinicas y Sanatorios;GuardiaActiva;Psiquiatrica;Universal;;;
-HOSPITAL PERRUPATO;30718615700;71944;1;Mendoza;MENDOZA;San Martin;Ciudad de San Martin;Costa Canal Montecaseros Y Ruta Nac F50 ;0263 4259350;Clinicas y Sanatorios;GuardiaActiva;Clinica;Universal;;;
-HOSPITAL SAPORITI;30718615700;73186;1;Mendoza;MENDOZA;Rivadavia;Rivadavia;Lamadrid E Independencia ;"0263 4442150; WS 2634407044";Clinicas y Sanatorios;GuardiaActiva;Clinica;Universal;;;
+HOSPITAL SALUD MENTAL EL SAUCE;30718615700;72541;1;Mendoza;MENDOZA;Guaymallen;Bermejo;Alfonso X S/N;0261 4138703;Clinicas y Sanatorios;GuardiaActiva;Psiquiatrica;Universal;;-32.862601;-68.744856
+HOSPITAL PERRUPATO;30718615700;71944;1;Mendoza;MENDOZA;San Martin;Ciudad de San Martin;Costa Canal Montecaseros Y Ruta Nac F50 ;0263 4259350;Clinicas y Sanatorios;GuardiaActiva;Clinica;Universal;;-33.080179;-68.488271
+HOSPITAL SAPORITI;30718615700;73186;1;Mendoza;MENDOZA;Rivadavia;Rivadavia;Lamadrid E Independencia ;"0263 4442150; WS 2634407044";Clinicas y Sanatorios;GuardiaActiva;Clinica;Universal;;-33.197361;-68.460443
 HOSPITAL SCARAVELLI;30718615700;71707;1;Mendoza;MENDOZA;Tunuyan;Tunuyan;Güemes 1441 ;02622 422324;Clinicas y Sanatorios;GuardiaActiva;Clinica;Universal;;-33.5754227;-69.0098509
 HOSPITAL SCHESTAKOW;30718615700;71916;1;Mendoza;MENDOZA;San Rafael;San Rafael;Comandante Torres 150 ;0260 4240300;Clinicas y Sanatorios;GuardiaActiva;Clinica;Universal;;-34.6200676;-68.3253801
 HOSPITAL ENFERMEROS ARGENTINOS;30718615700;72265;1;Mendoza;MENDOZA;General Alvear;General Alvear;Emilio Civit 400;02625 422165;Clinicas y Sanatorios;GuardiaActiva;Clinica;Universal;;-34.9710713;-67.6980130
 HOSPITAL ENFERMEROS ARGENTINOS;30718615700;72265;1;Mendoza;MENDOZA;General Alvear;General Alvear;Emilio Civit 400;02625 422165;Clinicas y Sanatorios;GuardiaActiva;Pediatrica;Universal;;-34.9710713;-67.6980130
-HOSPITAL MALARGÜE;30718615700;73895;1;Mendoza;MENDOZA;Malargüe;Malargüe;Av Gral Roca Y Aldao ;4471048;Clinicas y Sanatorios;GuardiaActiva;Clinica;Universal;;;
+HOSPITAL MALARGÜE;30718615700;73895;1;Mendoza;MENDOZA;Malargüe;Malargüe;Av Gral Roca Y Aldao ;4471048;Clinicas y Sanatorios;GuardiaActiva;Clinica;Universal;;-35.475461;-69.589497
 ATENEO;30694945410;56098;1;Mendoza;MENDOZA;San Martin;Ciudad de San Martin;Bailen 80 ;0263 4420176;Clinicas y Sanatorios;GuardiaActiva;Clinica;Universal;;-33.0853617;-68.4753763
 ATENEO;30694945410;56098;1;Mendoza;MENDOZA;San Martin;Ciudad de San Martin;Bailen 80 ;0263 4420176;Clinicas y Sanatorios;GuardiaActiva;Pediatrica;Universal;;-33.0853617;-68.4753763
 ATENEO;30694945410;56098;1;Mendoza;MENDOZA;San Martin;Ciudad de San Martin;Bailen 80 ;0263 4420176;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Cardiologia;Universal;;-33.0853617;-68.4753763
