@@ -9095,13 +9095,13 @@ CLINICA DELTA S.A.;30707681582;6838;1;Buenos Aires;BUENOS AIRES ZONA 1;Campana;C
 CLINICA DELTA S.A.;30707681582;6838;1;Buenos Aires;BUENOS AIRES ZONA 1;Campana;Campana;Sarmiento 154;03489-434600 int. 155/156/131;Clinicas y Sanatorios;DiagnosticoyTratamiento;Quimioterapia;Universal;;-34.1593350;-58.9629450
 CLINICA DELTA S.A.;30707681582;6838;1;Buenos Aires;BUENOS AIRES ZONA 1;Campana;Campana;Sarmiento 154;03489-434600 int. 155/156/131;Clinicas y Sanatorios;DiagnosticoyTratamiento;Radiologia;Universal;;-34.1593350;-58.9629450
 CLINICA DELTA S.A.;30707681582;6838;1;Buenos Aires;BUENOS AIRES ZONA 1;Campana;Campana;Sarmiento 154;03489-434600 int. 155/156/131;Clinicas y Sanatorios;DiagnosticoyTratamiento;Radiologia Infantil;Universal;;-34.1593350;-58.9629450
-SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;;GuardiaActiva;Clinica;;;-36.3136170;-57.6752320
-SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;;GuardiaPasiva;Quirurgica;;;-36.3136170;-57.6752320
-SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;;GuardiaPasiva;Traumatologica;;;-36.3136170;-57.6752320
-SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;;EspecialidadesAmbulatorio;Dermatologia;;;-36.3136170;-57.6752320
-SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;;EspecialidadesAmbulatorio;Otorrinolaringologia;;;-36.3136170;-57.6752320
-SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;;Internacion;Piso;;;-36.3136170;-57.6752320
-SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;;Internacion;UTI;;;-36.3136170;-57.6752320
+SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;Clinicas y Sanatorios;GuardiaActiva;Clinica;;;-36.3136170;-57.6752320
+SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;Clinicas y Sanatorios;GuardiaPasiva;Quirurgica;;;-36.3136170;-57.6752320
+SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;Clinicas y Sanatorios;GuardiaPasiva;Traumatologica;;;-36.3136170;-57.6752320
+SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Dermatologia;;;-36.3136170;-57.6752320
+SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;Clinicas y Sanatorios;EspecialidadesAmbulatorio;Otorrinolaringologia;;;-36.3136170;-57.6752320
+SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;Clinicas y Sanatorios;Internacion;Piso;;;-36.3136170;-57.6752320
+SANATORIO DOLORES;30562095744;90042;1;Buenos Aires;BUENOS AIRES ZONA 2;Dolores;Dolores;Vucetich 450;2245 529173;Clinicas y Sanatorios;Internacion;UTI;;;-36.3136170;-57.6752320
 CLINICA I.M.S.A.;30672527615;73842-01;1;Misiones;MISIONES;Libertador General San Martin;Puerto Rico;Av San Martin 1697;03743 55-0444;Clinicas y Sanatorios;GuardiaActiva;Clinica;Universal;;-26.8080776;-55.0256238
 CLINICA I.M.S.A.;30672527615;73842-01;1;Misiones;MISIONES;Libertador General San Martin;Puerto Rico;Av San Martin 1697;03743 55-0444;Clinicas y Sanatorios;DiagnosticoyTratamiento;Radiologia;Universal;;-26.8080776;-55.0256238
 CLINICA MEDICA 9 DE JULIO;30672531396;73842-02;1;Misiones;MISIONES;Libertador General San Martin;Puerto Rico;Av 9 de Julio 1669;03743 42-0934;Clinicas y Sanatorios;DiagnosticoyTratamiento;Radiologia;Universal;;-26.8079512;-55.0204888
