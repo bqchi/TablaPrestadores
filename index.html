@@ -700,32 +700,39 @@ $(function() {
 
                 tabla.clear().rows.add(filteredData).draw();  
             }  
-
+            
             function filterTableBySpecialty() {  
                 const seccional = $('#filtro-seccional-esp').val();  
                 const tipo = $('#filtro-tipo').val();  
                 const especialidad = $('#filtro-especialidad').val();  
-
+            
                 const filteredData = providersCompact.filter(provider => {  
+                    // 1. Filtro de seguridad preexistente
                     if (provider.Clasificacion === 'Clinicas y Sanatorios' &&  
-                       provider.practices.some(p=> p.tipo === 'DiagnosticoyTratamiento')) {  
+                       provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento')) {  
                         return false;  
                     }  
-
+            
+                    // 2. Filtro por Seccional
                     if (seccional && provider.Seccional !== seccional) return false;  
-                    if (tipo) {  
-                        const hasPracticeType = provider.practices.some(p => p.tipo === tipo);  
-                        if (!hasPracticeType) return false;  
-                    }  
-                    if (especialidad) {  
-                        const hasSpecialty = provider.practices.some(p => p.especialidad === especialidad);  
-                        if (!hasSpecialty) return false;  
-                    }  
+            
+                    // 3. Filtro combinado de Tipo y Especialidad (CORRECCIÓN AQUÍ)
+                    if (tipo || especialidad) {
+                        const hasMatchingPractice = provider.practices.some(p => {
+                            const matchTipo = tipo ? p.tipo === tipo : true;
+                            const matchEspecialidad = especialidad ? p.especialidad === especialidad : true;
+                            return matchTipo && matchEspecialidad;
+                        });
+                        
+                        if (!hasMatchingPractice) return false;
+                    }
+            
                     return true;  
                 });  
-
+            
                 tabla.clear().rows.add(filteredData).draw();  
-            }  
+            }
+  
 
             // ============================================================
             // DETALLE: MAPA INDIVIDUAL SIN GEOCODING
