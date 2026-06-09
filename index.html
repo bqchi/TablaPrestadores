@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>  
 <html lang="es">  
 <head>  
@@ -20,7 +19,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  
+
     <style>  
         :root {  
             --bg-color: #f5f5f5;  
@@ -234,7 +233,7 @@
             z-index: 10;
         }  
         #stats-summary { margin-bottom: 20px; text-align: center; font-size: 16px; font-weight: bold; }  
-        
+
         /* CORRECCIÓN: Contenedor de estadísticas escalado */
         #stats-container { 
             display: grid; 
@@ -305,16 +304,16 @@
             border-radius:4px; box-sizing:border-box; color: #000;
         }
         #contactForm button{ margin-top:1rem; padding:.75rem 1.5rem; background:#497e76; color:#fff; border:none; cursor:pointer; border-radius: 4px; }
-        
+
         .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px; }
         .modal-title{ font-size:1.5rem; margin:0; color: var(--header-color); }
-        
+
     </style>  
 </head>  
 <body>  
     <button class="theme-toggle" id="theme-toggle">☀️</button>  
     <h1>Tabla de Prestadores Médicos</h1>  
-    
+
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad...">
         <button id="clear-all-btn" disabled>Borrar todo</button>
@@ -358,8 +357,8 @@
             </div>
         </div>
     </div>
-    
-   <table id="tabla-prestadores" class="display" style="width:100%; text-align:center;">  
+
+    <table id="tabla-prestadores" class="display" style="width:100%;">  
         <thead>  
             <tr>  
                 <th></th>  
@@ -470,7 +469,7 @@ themeToggle.addEventListener('click', () => {
         });
     }
 });
-    
+
 // ============================================================
 // CÓDIGO ORIGINAL + MAPA GENERAL SIN GEOCODING
 // ============================================================
@@ -489,7 +488,7 @@ $(function() {
         $('#filtro-seccional').append(`<option value="${sec}">${sec}</option>`);
         $('#filtro-seccional-esp').append(`<option value="${sec}">${sec}</option>`);
     });
-    
+
     Object.keys(tipoEspecialidad).forEach(tipo => $('#filtro-tipo').append(`<option value="${tipo}">${tipo}</option>`));  
 
     let providersCompact = [], datosFiltrados = [];  
@@ -525,7 +524,7 @@ $(function() {
                     !(row['Clasificacion prestador'] === 'Clinicas y Sanatorios' &&
                         row['Tipo de prestador'] === 'DiagnosticoyTratamiento');
             });
-                       
+
             const providersMap = {};  
             const uniquePlans = new Set();  
 
@@ -663,7 +662,7 @@ $(function() {
                 filterTableByPlan();  
                 updateClearAllButton();  
             });  
-            
+
             $('#apply-btn-esp').click(function() {  
                 filterTableBySpecialty();  
                 updateClearAllButton();  
@@ -691,7 +690,7 @@ $(function() {
                         provider.practices.some(p=> p.tipo === 'DiagnosticoyTratamiento')){  
                         return false;  
                     }  
-                      
+
                     if (seccional && provider.Seccional !== seccional) return false;  
                     if (clasificacion && provider.Clasificacion !== clasificacion) return false;  
                     if (plan && !provider.Plan.includes(plan)) return false;  
@@ -700,22 +699,22 @@ $(function() {
 
                 tabla.clear().rows.add(filteredData).draw();  
             }  
-            
+
             function filterTableBySpecialty() {  
                 const seccional = $('#filtro-seccional-esp').val();  
                 const tipo = $('#filtro-tipo').val();  
                 const especialidad = $('#filtro-especialidad').val();  
-            
+
                 const filteredData = providersCompact.filter(provider => {  
                     // 1. Filtro de seguridad preexistente
                     if (provider.Clasificacion === 'Clinicas y Sanatorios' &&  
                        provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento')) {  
                         return false;  
                     }  
-            
+
                     // 2. Filtro por Seccional
                     if (seccional && provider.Seccional !== seccional) return false;  
-            
+
                     // 3. Filtro combinado de Tipo y Especialidad (CORRECCIÓN AQUÍ)
                     if (tipo || especialidad) {
                         const hasMatchingPractice = provider.practices.some(p => {
@@ -723,16 +722,16 @@ $(function() {
                             const matchEspecialidad = especialidad ? p.especialidad === especialidad : true;
                             return matchTipo && matchEspecialidad;
                         });
-                        
+
                         if (!hasMatchingPractice) return false;
                     }
-            
+
                     return true;  
                 });  
-            
+
                 tabla.clear().rows.add(filteredData).draw();  
             }
-  
+
 
             // ============================================================
             // DETALLE: MAPA INDIVIDUAL SIN GEOCODING
@@ -750,7 +749,7 @@ $(function() {
                 } else {  
                     $(this).text('-');  
                     const practicesByType = {};  
-                      
+
                     rowData.practices.forEach(practice => {  
                         if(!(rowData.Clasificacion === 'Clinicas y Sanatorios' && practice.tipo === 'DiagnosticoyTratamiento')){  
                             if (!practicesByType[practice.tipo]) {  
@@ -922,7 +921,7 @@ $(function() {
                 if (c.includes('especial')) return '#E67E22';
                 if (c.includes('salud')) return '#9B59B6';
                 if (c.includes('vario')) return '#afb3b0';
-                
+
 
                 return '#666666';
             }
@@ -1069,6 +1068,3 @@ emailjs.init(publicKey);
   </script>
 </body>
 </html>
-
-
-
