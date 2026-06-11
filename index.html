@@ -328,6 +328,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
+            width: 100%;
         }
 
         .filter-column {
@@ -424,36 +425,49 @@
     <div class="filtros-container">
         <div class="filtros-group" style="flex: 1 1 100%;">
             <h3>Filtros Combinatorios</h3>
-            <div class="filter-columns">
-                <!-- Seccional -->
-                <div class="filter-column">
-                    <div class="filter-column-title">Seccional</div>
-                    <div class="filter-list" id="filtro-seccional-list"></div>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <!-- Grupo 1: Ubicación y Plan -->
+                <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px;">
+                    <div style="font-weight: bold; color: var(--header-color); margin-bottom: 10px; font-size: 12px;">UBICACIÓN Y PLAN</div>
+                    <div class="filter-columns" style="grid-template-columns: repeat(2, 1fr);">
+                        <div class="filter-column">
+                            <div class="filter-column-title">Seccional</div>
+                            <div class="filter-list" id="filtro-seccional-list"></div>
+                        </div>
+                        <div class="filter-column">
+                            <div class="filter-column-title">Plan</div>
+                            <div class="filter-list" id="filtro-plan-list"></div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Plan -->
-                <div class="filter-column">
-                    <div class="filter-column-title">Plan</div>
-                    <div class="filter-list" id="filtro-plan-list"></div>
+                
+                <!-- Grupo 2: Clasificación -->
+                <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px;">
+                    <div style="font-weight: bold; color: var(--header-color); margin-bottom: 10px; font-size: 12px;">CLASIFICACIÓN</div>
+                    <div class="filter-columns" style="grid-template-columns: 1fr;">
+                        <div class="filter-column">
+                            <div class="filter-list" id="filtro-clasificacion-list"></div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Clasificación -->
-                <div class="filter-column">
-                    <div class="filter-column-title">Clasificación</div>
-                    <div class="filter-list" id="filtro-clasificacion-list"></div>
-                </div>
-                <!-- Guardia -->
-                <div class="filter-column">
-                    <div class="filter-column-title">Guardia</div>
-                    <div class="filter-list" id="filtro-guardia-list"></div>
-                </div>
-                <!-- Tipo de Prestador -->
-                <div class="filter-column">
-                    <div class="filter-column-title">Tipo de Prestador</div>
-                    <div class="filter-list" id="filtro-tipo-list"></div>
-                </div>
-                <!-- Especialidad -->
-                <div class="filter-column">
-                    <div class="filter-column-title">Especialidad</div>
-                    <div class="filter-list" id="filtro-especialidad-list"></div>
+                
+                <!-- Grupo 3: Prestación -->
+                <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px;">
+                    <div style="font-weight: bold; color: var(--header-color); margin-bottom: 10px; font-size: 12px;">PRESTACIONES</div>
+                    <div class="filter-columns" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="filter-column">
+                            <div class="filter-column-title">Guardia</div>
+                            <div class="filter-list" id="filtro-guardia-list"></div>
+                        </div>
+                        <div class="filter-column">
+                            <div class="filter-column-title">Tipo de Prestador</div>
+                            <div class="filter-list" id="filtro-tipo-list"></div>
+                        </div>
+                        <div class="filter-column">
+                            <div class="filter-column-title">Especialidad</div>
+                            <div class="filter-list" id="filtro-especialidad-list"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -710,23 +724,29 @@ $(function() {
                 const selectedTipos = Array.from(document.querySelectorAll('input[data-filter="tipo"]:checked')).map(cb => cb.value);
                 const especialidadContainer = document.getElementById('filtro-especialidad-list');
                 
-                const allEspecialidades = new Set();
+                // Si se selecciona más de un tipo, NO mostrar especialidades (evitar mezcla)
+                if (selectedTipos.length > 1) {
+                    especialidadContainer.innerHTML = '<div style="color:#999;padding:8px;font-size:12px;">Selecciona un solo Tipo</div>';
+                    return;
+                }
                 
-                selectedTipos.forEach(tipo => {
+                let allEspecialidades = [];
+                
+                if (selectedTipos.length === 1) {
+                    const tipo = selectedTipos[0];
                     if (tipoEspecialidad[tipo]) {
-                        tipoEspecialidad[tipo].forEach(esp => allEspecialidades.add(esp));
+                        allEspecialidades = Array.from(tipoEspecialidad[tipo]).sort();
                     }
-                });
+                }
                 
-                const sortedEspecialidades = Array.from(allEspecialidades).sort();
                 especialidadContainer.innerHTML = '';
                 
-                if (sortedEspecialidades.length === 0) {
+                if (allEspecialidades.length === 0) {
                     especialidadContainer.innerHTML = '<div style="color:#999;padding:8px;font-size:12px;">Selecciona un Tipo</div>';
                     return;
                 }
                 
-                sortedEspecialidades.forEach(esp => {
+                allEspecialidades.forEach(esp => {
                     const checkbox = document.createElement('div');
                     checkbox.className = 'checkbox-item';
                     checkbox.innerHTML = `
@@ -872,6 +892,7 @@ $(function() {
                 });
                 document.getElementById('mostrar-asociados').checked = true;
                 $('#search-input').val('');
+                updateEspecialidadOptions();
                 tabla.clear().rows.add(providersCompact).draw();
                 updateClearAllButton();
             });
