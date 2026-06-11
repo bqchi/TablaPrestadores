@@ -355,13 +355,54 @@
         .button-row {
             display: flex;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 15px;
             flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .button-row label {
+            flex: 0 1 auto;
         }
 
         .button-row button {
-            flex: 1;
-            min-width: 120px;
+            padding: 8px 16px;
+            font-size: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-width: 100px;
+        }
+
+        #apply-btn-esp {
+            background: #27AE60;
+            color: white;
+        }
+
+        #apply-btn-esp:hover {
+            background: #229954;
+            transform: scale(1.08);
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.4);
+        }
+
+        #apply-btn-esp:active {
+            transform: scale(0.96);
+        }
+
+        #clear-filters-btn {
+            background: #E74C3C;
+            color: white;
+        }
+
+        #clear-filters-btn:hover {
+            background: #C0392B;
+            transform: scale(1.08);
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+        }
+
+        #clear-filters-btn:active {
+            transform: scale(0.96);
         }
 
     </style>  
@@ -399,13 +440,18 @@
                     <div class="filter-column-title">Clasificación</div>
                     <div class="filter-list" id="filtro-clasificacion-list"></div>
                 </div>
-                <!-- Tipo de Prestador -->
+                <!-- Guardia -->
                 <div class="filter-column">
+                    <div class="filter-column-title">Guardia</div>
+                    <div class="filter-list" id="filtro-guardia-list"></div>
+                </div>
+                <!-- Tipo de Prestador -->
+                <div class="filter-column" id="tipo-column">
                     <div class="filter-column-title">Tipo de Prestador</div>
                     <div class="filter-list" id="filtro-tipo-list"></div>
                 </div>
                 <!-- Especialidad -->
-                <div class="filter-column">
+                <div class="filter-column" id="especialidad-column" style="display:none;">
                     <div class="filter-column-title">Especialidad</div>
                     <div class="filter-list" id="filtro-especialidad-list"></div>
                 </div>
@@ -639,10 +685,15 @@ $(function() {
                 });
             }
 
+            // Separar Guardías de otros tipos
+            const tiposNoGuardia = Object.keys(tipoEspecialidad).filter(t => !t.includes('Guardia'));
+            const tiposGuardia = Object.keys(tipoEspecialidad).filter(t => t.includes('Guardia'));
+
             renderCheckboxes(seccionales, 'filtro-seccional-list', 'seccional');
             renderCheckboxes(Array.from(uniquePlans), 'filtro-plan-list', 'plan');
             renderCheckboxes(Array.from(uniqueClasificaciones), 'filtro-clasificacion-list', 'clasificacion');
-            renderCheckboxes(Object.keys(tipoEspecialidad), 'filtro-tipo-list', 'tipo');
+            renderCheckboxes(tiposGuardia, 'filtro-guardia-list', 'tipo');
+            renderCheckboxes(tiposNoGuardia, 'filtro-tipo-list', 'tipo');
 
             // ============================================================
             // FUNCIÓN PARA APLICAR FILTROS COMBINATORIOS
