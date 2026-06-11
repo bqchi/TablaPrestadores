@@ -1,86 +1,85 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Directorio de Prestadores Médicos</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!DOCTYPE html>  
+<html lang="es">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Directorio de Prestadores Médicos</title>  
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">  
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>  
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>  
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>  
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>  
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>  
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-    <style>
-        :root {
-            --bg-color: #f5f5f5;
-            --text-color: #000;
-            --header-color: #497e76;
-            --border-color: #497e76;
-            --filter-bg: #f9f9f9;
-            --practice-bg: #e8f4f8;
-            --universal-bg: #e6f7e6;
-            --superador-bg: #f0e6ff;
-            --details-bg: #f9f9f9;
-            --button-bg: #497e76;
-            --reset-bg: #8c4a4a;
-            --chart-bg: #fff;
-            --chart-text: #000;
-        }
-        body.dark-mode {
-            --bg-color: #1e1e1e;
-            --text-color: #fff;
-            --header-color: #76b8a8;
-            --border-color: #76b8a8;
-            --filter-bg: #2c2c2c;
-            --practice-bg: #3a4f5a;
-            --universal-bg: #2a4d2a;
-            --superador-bg: #4d3a5e;
-            --details-bg: #2c2c2c;
-            --button-bg: #76b8a8;
-            --reset-bg: #b85a5a;
-            --chart-bg: #333;
-            --chart-text: #fff;
-        }
-        body {
-            font-family: Arial, sans-serif; margin: 20px; background: var(--bg-color); color: var(--text-color); position: relative; min-height: 100vh; transition: background 0.3s;
-        }
-        h1 { color: var(--header-color); }
-        .filtros-container {
-            margin-bottom: 12px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        .filtros-group {
-            flex: 1;
-            min-width: auto;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            background: var(--filter-bg);
-        }
-        .filtros-group h3 {
-            margin: 0 0 10px 0;
-            font-size: 14px;
-            color: var(--header-color);
-        }
-        .filtros {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
+    <style>  
+        :root {  
+            --bg-color: #f5f5f5;  
+            --text-color: #000;  
+            --header-color: #497e76;  
+            --border-color: #497e76;  
+            --filter-bg: #f9f9f9;  
+            --practice-bg: #e8f4f8;  
+            --universal-bg: #e6f7e6;  
+            --superador-bg: #f0e6ff;  
+            --details-bg: #f9f9f9;  
+            --button-bg: #497e76;  
+            --reset-bg: #8c4a4a;  
+            --chart-bg: #fff;  
+            --chart-text: #000;  
+        }  
+        body.dark-mode {  
+            --bg-color: #1e1e1e;  
+            --text-color: #fff;  
+            --header-color: #76b8a8;  
+            --border-color: #76b8a8;  
+            --filter-bg: #2c2c2c;  
+            --practice-bg: #3a4f5a;  
+            --universal-bg: #2a4d2a;  
+            --superador-bg: #4d3a5e;  
+            --details-bg: #2c2c2c;  
+            --button-bg: #76b8a8;  
+            --reset-bg: #b85a5a;  
+            --chart-bg: #333;  
+            --chart-text: #fff;  
+        }  
+        body {  
+            font-family: Arial, sans-serif; margin:20px; background:var(--bg-color); color:var(--text-color); position: relative; min-height: 100vh; transition: background 0.3s;  
+        }  
+        h1 { color: var(--header-color); }  
+        .filtros-container {   
+            margin-bottom: 12px;   
+            display: flex;   
+            gap: 15px;  
+            flex-wrap: wrap;  
+        }  
+        .filtros-group {  
+            flex: 1;  
+            min-width: auto;  
+            padding: 12px;  
+            border: 1px solid var(--border-color);  
+            border-radius: 6px;  
+            background: var(--filter-bg);  
+        }  
+        .filtros-group h3 {  
+            margin: 0 0 10px 0;  
+            font-size: 14px;  
+            color: var(--header-color);  
+        }  
+        .filtros {   
+            display: flex;   
+            gap: 10px;   
+            flex-wrap: wrap;  
+            align-items: center;  
+        }  
         .checkbox-group {
             display: flex;
             flex-direction: column;
@@ -102,89 +101,89 @@
             cursor: pointer;
             margin: 0;
         }
-        select, button {
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #bbb;
-            background: var(--filter-bg); color: var(--text-color);
-        }
-        .filtros button {
-            background: var(--button-bg);
-            color: white;
-            border: none;
-            min-width: 120px;
-        }
-        .filtros .reset-btn {
-            background: var(--reset-bg);
-        }
-        table { font-size: 14px; }
-        th, td {
-            text-align: center;
-            padding: 4px 8px !important;
-            height: 28px !important; color: var(--text-color);
-        }
-        .dataTable thead .sorting,
-        .dataTable thead .sorting_asc,
-        .dataTable thead .sorting_desc {
-            background-image: none !important;
-        }
-        .details-child { background: var(--details-bg); padding: 18px; color: var(--text-color); border-top: 2px solid var(--border-color); }
-        .details-child table { width: 100%; border-collapse: collapse; }
-        .details-child th, .details-child td { border: 1px solid var(--border-color); padding: 8px; color: var(--text-color); }
-        .details-child th { background: var(--filter-bg); }
-        .details-child td { background: var(--details-bg); }
-        .practices-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .practice-type-container {
-            flex: 1 0 300px;
-            background: var(--practice-bg);
-            padding: 10px;
-            border-radius: 6px; color: var(--text-color);
-        }
-        .practice-type-title {
-            font-weight: bold;
-            margin-bottom: 8px;
-            text-align: center;
-            color: var(--header-color);
-        }
-        .practice-list {
-            padding-left: 20px;
-            text-align: left; color: var(--text-color);
-        }
-        .map-container {
-            height: 220px;
-            width: 99%;
-            margin-top: 10px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-        }
-        tr.universal { background-color: var(--universal-bg) !important; }
-        tr.superador { background-color: var(--superador-bg) !important; }
-        tr.universal td:first-child { background-color: var(--universal-bg) !important; }
-        tr.superador td:first-child { background-color: var(--superador-bg) !important; }
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 12px;
-            gap: 8px;
-        }
-        .search-container input {
-            padding: 6px;
-            border-radius: 4px;
-            border: 1px solid #bbb;
-            width: 280px; background: var(--filter-bg); color: var(--text-color);
+        select, button {   
+            padding: 8px;   
+            border-radius:4px;   
+            border:1px solid #bbb;  
+            background: var(--filter-bg); color: var(--text-color);  
+        }  
+        .filtros button {   
+            background:var(--button-bg);   
+            color:white;   
+            border:none;   
+            min-width:120px;  
+        }  
+        .filtros .reset-btn {   
+            background: var(--reset-bg);   
+        }  
+        table { font-size: 14px; }  
+        th, td {   
+            text-align: center;   
+            padding: 4px 8px !important;   
+            height: 28px !important; color: var(--text-color);  
+        }  
+        .dataTable thead .sorting,   
+        .dataTable thead .sorting_asc,   
+        .dataTable thead .sorting_desc {  
+            background-image: none !important;  
+        }  
+        .details-child { background: var(--details-bg); padding: 18px; color: var(--text-color); border-top: 2px solid var(--border-color); }  
+        .details-child table { width: 100%; border-collapse: collapse; }  
+        .details-child th, .details-child td { border: 1px solid var(--border-color); padding: 8px; color: var(--text-color); }  
+        .details-child th { background: var(--filter-bg); }  
+        .details-child td { background: var(--details-bg); }  
+        .practices-container {   
+            display: flex;   
+            flex-wrap: wrap;   
+            gap: 15px;   
+        }  
+        .practice-type-container {   
+            flex: 1 0 300px;   
+            background: var(--practice-bg);  
+            padding: 10px;   
+            border-radius: 6px; color: var(--text-color);  
+        }  
+        .practice-type-title {   
+            font-weight: bold;   
+            margin-bottom: 8px;   
+            text-align: center;  
+            color: var(--header-color);  
+        }  
+        .practice-list {   
+            padding-left: 20px;   
+            text-align: left; color: var(--text-color);  
+        }  
+        .map-container {   
+            height: 220px;   
+            width: 99%;   
+            margin-top:10px;   
+            border-radius:6px;   
+            border:1px solid var(--border-color);  
+        }  
+        tr.universal { background-color: var(--universal-bg) !important; }  
+        tr.superador { background-color: var(--superador-bg) !important; }  
+        tr.universal td:first-child { background-color: var(--universal-bg) !important; }  
+        tr.superador td:first-child { background-color: var(--superador-bg) !important; }  
+        .search-container {  
+            display: flex;  
+            justify-content: center;  
+            margin-bottom: 12px;  
+            gap: 8px;  
+        }  
+        .search-container input {  
+            padding: 6px;  
+            border-radius: 4px;  
+            border: 1px solid #bbb;  
+            width: 280px; background: var(--filter-bg); color: var(--text-color);  
             font-size: 12px;
-        }
-        .search-container button {
-            background: #E74C3C;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
+        }  
+        .search-container button {  
+            background: #E74C3C;  
+            color: white;  
+            border: none;  
+            padding: 6px 12px;  
+            border-radius: 4px;  
+            cursor: pointer;  
             font-size: 11px;
             font-weight: bold;
             transition: all 0.2s ease;
@@ -192,144 +191,144 @@
         .search-container button:hover {
             background: #C0392B;
             transform: scale(1.05);
-        }
-        .search-container button:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-        }
-        .visitor-counter {
-            position: fixed;
-            bottom: 15px;
-            left: 15px;
-            background: rgba(73, 126, 118, 0.95);
-            color: white;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            z-index: 1000;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-            text-align: center;
-            border: 2px solid #3a6159;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .visitor-counter img {
-            vertical-align: middle;
-            height: 20px;
-        }
-        .dataTables_filter {
-            display: none !important;
-        }
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 24px;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
-        }
-        .modal-content {
-            background: var(--bg-color);
-            margin: 2% auto;
-            padding: 25px;
-            border: 1px solid var(--border-color);
-            width: 95%;
-            max-width: 1100px;
-            border-radius: 8px;
-            position: relative;
-            color: var(--text-color);
+        }  
+        .search-container button:disabled {  
+            background: #cccccc;  
+            cursor: not-allowed;  
+        }  
+        .visitor-counter {  
+            position: fixed;  
+            bottom: 15px;  
+            left: 15px;  
+            background: rgba(73, 126, 118, 0.95);  
+            color: white;  
+            padding: 10px 14px;  
+            border-radius: 8px;  
+            font-size: 13px;  
+            z-index: 1000;  
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);  
+            text-align: center;  
+            border: 2px solid #3a6159;  
+            font-weight: bold;  
+            display: flex;  
+            align-items: center;  
+            gap: 8px;  
+        }  
+        .visitor-counter img {  
+            vertical-align: middle;  
+            height: 20px;  
+        }  
+        .dataTables_filter {  
+            display: none !important;  
+        }  
+        .theme-toggle {  
+            position: absolute;  
+            top: 20px;  
+            right: 20px;  
+            background: none;  
+            border: none;  
+            cursor: pointer;  
+            font-size: 24px;  
+        }  
+        .modal {  
+            display: none;  
+            position: fixed;  
+            z-index: 2000;  
+            left: 0;  
+            top: 0;  
+            width: 100%;  
+            height: 100%;  
+            overflow: auto;  
+            background-color: rgba(0,0,0,0.6);  
+        }  
+        .modal-content {  
+            background: var(--bg-color);  
+            margin: 2% auto;  
+            padding: 25px;  
+            border: 1px solid var(--border-color);  
+            width: 95%;  
+            max-width: 1100px;  
+            border-radius: 8px;  
+            position: relative; 
+            color: var(--text-color);  
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 28px;
-            cursor: pointer;
-            color: var(--text-color);
+        }  
+        .close-btn {  
+            position: absolute;  
+            top: 10px;  
+            right: 20px;  
+            font-size: 28px;  
+            cursor: pointer;  
+            color: var(--text-color);  
             z-index: 10;
-        }
-        #stats-summary { margin-bottom: 20px; text-align: center; font-size: 16px; font-weight: bold; }
+        }  
+        #stats-summary { margin-bottom: 20px; text-align: center; font-size: 16px; font-weight: bold; }  
 
-        #stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 30px;
-            justify-items: center;
+        #stats-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
+            gap: 30px; 
+            justify-items: center; 
             padding: 10px;
-        }
-        #stats-container canvas {
-            max-width: 100%;
+        }  
+        #stats-container canvas { 
+            max-width: 100%; 
             height: 350px !important;
-            background: var(--chart-bg);
+            background: var(--chart-bg); 
             border-radius: 8px;
             padding: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+        }  
 
-        .loader { display: none; text-align: center; padding: 20px; color: var(--text-color); }
-        .mode-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .mode-buttons button {
-            background: var(--button-bg);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
+        .loader { display: none; text-align: center; padding: 20px; color: var(--text-color); }  
+        .mode-buttons {  
+            display: flex;  
+            justify-content: center;  
+            gap: 10px;  
+            margin-bottom: 12px;  
+        }  
+        .mode-buttons button {  
+            background: var(--button-bg);  
+            color: white;  
+            border: none;  
+            padding: 6px 12px;  
+            border-radius: 4px;  
+            cursor: pointer;  
             font-size: 12px;
             transition: all 0.2s ease;
         }
         .mode-buttons button:hover {
             transform: scale(1.05);
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }
+        }  
 
-        #map-modal-content {
-            max-width: 1000px;
-        }
-        #general-map {
-            width: 100%;
+        #map-modal-content {  
+            max-width: 1000px;  
+        }  
+        #general-map {  
+            width: 100%;  
             height: 550px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-        .map-legend {
-            margin-top: 15px;
-            font-size: 13px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            border-radius: 8px;  
+            border: 1px solid var(--border-color);  
+        }  
+        .map-legend {  
+            margin-top: 15px;  
+            font-size: 13px;  
+            display: flex;  
+            flex-wrap: wrap;  
+            gap: 10px;  
             justify-content: center;
-        }
-        .map-legend-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .legend-color-box {
-            width: 14px;
-            height: 14px;
-            border-radius: 3px;
-            border: 1px solid #555;
+        }  
+        .map-legend-item {  
+            display: flex;  
+            align-items: center;  
+            gap: 5px;  
+        }  
+        .legend-color-box {  
+            width: 14px;  
+            height: 14px;  
+            border-radius: 3px;  
+            border: 1px solid #555;  
         }
 
         #contactForm { max-width:500px; margin:auto; padding:1rem; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; }
@@ -427,12 +426,12 @@
         #clear-filters-btn:active {
             transform: scale(0.96);
         }
-    </style>
-</head>
 
-<body>
-    <button class="theme-toggle" id="theme-toggle">☀️</button>
-    <h1>Tabla de Prestadores Médicos</h1>
+    </style>  
+</head>  
+<body>  
+    <button class="theme-toggle" id="theme-toggle">☀️</button>  
+    <h1>Tabla de Prestadores Médicos</h1>  
 
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad...">
@@ -462,7 +461,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Grupo 2: Clasificación -->
                 <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px;">
                     <div style="font-weight: bold; color: var(--header-color); margin-bottom: 10px; font-size: 12px;">CLASIFICACIÓN</div>
@@ -472,7 +471,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Grupo 3: Prestación -->
                 <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px;">
                     <div style="font-weight: bold; color: var(--header-color); margin-bottom: 10px; font-size: 12px;">PRESTACIONES</div>
@@ -504,18 +503,18 @@
         </div>
     </div>
 
-    <table id="tabla-prestadores" class="display" columns-center style="width:100%;">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Nombre</th>
-                <th>Nro Prestador</th>
-                <th>Seccional</th>
-                <th>Localidad</th>
-                <th>Plan</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
+    <table id="tabla-prestadores" class="display" columns-center style="width:100%;">  
+        <thead>  
+            <tr>  
+                <th></th>  
+                <th>Nombre</th>  
+                <th>Nro Prestador</th>  
+                <th>Seccional</th>  
+                <th>Localidad</th>  
+                <th>Plan</th>  
+            </tr>  
+        </thead>  
+        <tbody></tbody>  
     </table>
 
     <div class="visitor-counter" id="visitor-counter">
@@ -625,28 +624,28 @@ themeToggle.addEventListener('click', () => {
 // ============================================================
 // CÓDIGO PRINCIPAL
 // ============================================================
-const tipoEspecialidad = {
-    "GuardiaActiva": ["Cardiologica","Clinica","Gastroenterologia","Ginecologica","Obstetrica","Odontologica","Oftalmologica","Otorrinolaringologia","Pediatrica","Por Electrocucion","Por envenenamiento","Por intoxicacion","Por mordedura de animales","Psiquiatrica","Quemados","Quirurgica","Traumatologica"],
-    "GuardiaPasiva": ["Cardiologica","Clinica","Gastroenterologia","Ginecologica","Obstetrica","Odontologica","Oftalmologica","Otorrinolaringologia","Pediatrica","Psiquiatrica","Quemados","Quirurgica","Traumatologica"],
-    "EspecialidadesAmbulatorio": ["Adolescencia","Alergia e Inmunologia","Alergia e Inmunologia Infantil","Andrologia","Cardiologia","Cardiologia Infantil","Clinica Medica","Dermatologia","Dermatologia Infantil","Diabetologia","Diabetologia Infantil","Endocrinologia","Endocrinologia Infantil","Estomatologia","Fertilidad","Flebologia y Linfologia","Fonoaudiologia","Gastroenterologia","Gastroenterologia Infantil","Genetica","Geriatria","Ginecologia","Ginecologia Infanto Juvenil","Hematologia e Inmunologia","Hematologia e Inmunologia Infantil","Hemodinamia","Hemoterapia","Hemoterapia Infantil","Hepatologia","Infectologia","Infectologia Infantil","Kinesiologia","Medicina Familiar","Micologia","Nefrologia","Nefrologia Infantil","Neonatologia","Neumonologia","Neumonologia Infantil","Neurocirugia","Neurologia","Neurologia Infantil","Nutricion","Nutricion Infantil","Obstetricia","Odontologia","Oftalmologia","Oftalmologia Infantil","Oncologia","Oncologia Infantil","Osteoporosis y Litiasis renal","Otorrinolaringologia","Otorrinolaringologia Infantil","Patologia Mamaria","Pediatria","Proctologia","Psicologia","Psicopedagogia","Psiquiatria","Psiquiatria Infantil","Quemados","Reumatologia","Traumatologia y Ortopedia","Traumatologia y Ortopedia Infantil","Urologia","Urologia Infantil"],
-    "Internacion": ["Internacion Cardiologica","Internacion Neurologia","Internacion Oftalmologica","Internacion Otorrinolaringologica","Internacion por Rehabilitacion","Internacion Psiquiatrica","Internacion Traumatologica","Maternidad","Pediatrica","Piso","Resonador","Respirador","Telemetria","Terapia Intermedia","Tomografo","UCO","UTI","UTINeo","UTIP"],
-    "Cirugias": ["Artroscopica","Cabeza y Cuello","Cardiaca","Cardiaca Infantil","Endoscopica","General","Ginecologia","Infantil","Laparoscopica","Miembro Superior y Mano","Nariz y oido","Neurocirugia","Oftalmologica","Pierna y Pie","Plastica Reparadora","Toracica","Traumatologica","Urologia","Vascular Periferica"],
-    "DiagnosticoyTratamiento": ["Anatomia Patologia","Audiometria","Camara Gamma - Medicina Nuclear - Radioisotopos","Campo visual computarizado","Colposcopia","Densitometria Osea","Drenaje Linfatico","Eco Estres","Eco-Doppler","Ecografia","Ecografia 4D/5D","Ecografia Infantil","Ecografia TN","Electrocardiograma","Electroencefalograma","Electromiograma","Endoscopia Digestiva","Endoscopia Ginecologica","Endoscopia Respiratoria","Endoscopia Urologica","Ergometria","Espinograma","Espirometria","Espirometria Infantil","Estudios Cardiologicos","Estudios Gastroenterologicos","Estudios Ginecologicos","Estudios Mamarios","Estudios Oftalmologicos","Holter","Infiltraciones","Laboratorio","Mapeo Cerebral","Monitoreo Fetal","PET","Polisomnografia","Potenciales Evocados","Presurometria","Psicoprofilaxis del parto","Puncion Mamaria","Puncion Tiroide","Quimioterapia","Radiologia","Radiologia Infantil","Radioterapia","Rehabilitacion Neurologica","Rehabilitacion Vestibular","Resonador abierto","Resonancia Magnetica Nuclear","RPG","Tomografia Computada","Tomografo abierto","Urodinamia","Urodinamia Infantil"]
-};
-const seccionales = ["BAHIA BLANCA","BUENOS AIRES ZONA 1","BUENOS AIRES ZONA 2","BUENOS AIRES ZONA 3","CAPITAL","CATAMARCA","CHACO","CHUBUT","CORDOBA","CORRIENTES","ENTRE RIOS","FORMOSA","GBA NOROESTE","GBA NORTE","GBA OESTE","GBA SUR","JUJUY","LA PAMPA","LA PLATA","LA RIOJA","MAR DEL PLATA","MENDOZA","MISIONES","NEUQUEN","RIO NEGRO","ROSARIO","SALTA","SAN JUAN","SAN LUIS","SANTA CRUZ","SANTA FE","SANTIAGO DEL ESTERO","TIERRA DEL FUEGO","TRENQUE LAUQUEN","TUCUMAN"];
+const tipoEspecialidad = {  
+    "GuardiaActiva": ["Cardiologica","Clinica","Gastroenterologia","Ginecologica","Obstetrica","Odontologica","Oftalmologica","Otorrinolaringologia","Pediatrica","Por Electrocucion","Por envenenamiento","Por intoxicacion","Por mordedura de animales","Psiquiatrica","Quemados","Quirurgica","Traumatologica"],  
+    "GuardiaPasiva": ["Cardiologica","Clinica","Gastroenterologia","Ginecologica","Obstetrica","Odontologica","Oftalmologica","Otorrinolaringologia","Pediatrica","Psiquiatrica","Quemados","Quirurgica","Traumatologica"],  
+    "EspecialidadesAmbulatorio": ["Adolescencia","Alergia e Inmunologia","Alergia e Inmunologia Infantil","Andrologia","Cardiologia","Cardiologia Infantil","Clinica Medica","Dermatologia","Dermatologia Infantil","Diabetologia","Diabetologia Infantil","Endocrinologia","Endocrinologia Infantil","Estomatologia","Fertilidad","Flebologia y Linfologia","Fonoaudiologia","Gastroenterologia","Gastroenterologia Infantil","Genetica","Geriatria","Ginecologia","Ginecologia Infanto Juvenil","Hematologia e Inmunologia","Hematologia e Inmunologia Infantil","Hemodinamia","Hemoterapia","Hemoterapia Infantil","Hepatologia","Infectologia","Infectologia Infantil","Kinesiologia","Medicina Familiar","Micologia","Nefrologia","Nefrologia Infantil","Neonatologia","Neumonologia","Neumonologia Infantil","Neurocirugia","Neurologia","Neurologia Infantil","Nutricion","Nutricion Infantil","Obstetricia","Odontologia","Oftalmologia","Oftalmologia Infantil","Oncologia","Oncologia Infantil","Osteoporosis y Litiasis renal","Otorrinolaringologia","Otorrinolaringologia Infantil","Patologia Mamaria","Pediatria","Proctologia","Psicologia","Psicopedagogia","Psiquiatria","Psiquiatria Infantil","Quemados","Reumatologia","Traumatologia y Ortopedia","Traumatologia y Ortopedia Infantil","Urologia","Urologia Infantil"],  
+    "Internacion": ["Internacion Cardiologica","Internacion Neurologia","Internacion Oftalmologica","Internacion Otorrinolaringologica","Internacion por Rehabilitacion","Internacion Psiquiatrica","Internacion Traumatologica","Maternidad","Pediatrica","Piso","Resonador","Respirador","Telemetria","Terapia Intermedia","Tomografo","UCO","UTI","UTINeo","UTIP"],  
+    "Cirugias": ["Artroscopica","Cabeza y Cuello","Cardiaca","Cardiaca Infantil","Endoscopica","General","Ginecologia","Infantil","Laparoscopica","Miembro Superior y Mano","Nariz y oido","Neurocirugia","Oftalmologica","Pierna y Pie","Plastica Reparadora","Toracica","Traumatologica","Urologia","Vascular Periferica"],  
+    "DiagnosticoyTratamiento": ["Anatomia Patologia","Audiometria","Camara Gamma - Medicina Nuclear - Radioisotopos","Campo visual computarizado","Colposcopia","Densitometria Osea","Drenaje Linfatico","Eco Estres","Eco-Doppler","Ecografia","Ecografia 4D/5D","Ecografia Infantil","Ecografia TN","Electrocardiograma","Electroencefalograma","Electromiograma","Endoscopia Digestiva","Endoscopia Ginecologica","Endoscopia Respiratoria","Endoscopia Urologica","Ergometria","Espinograma","Espirometria","Espirometria Infantil","Estudios Cardiologicos","Estudios Gastroenterologicos","Estudios Ginecologicos","Estudios Mamarios","Estudios Oftalmologicos","Holter","Infiltraciones","Laboratorio","Mapeo Cerebral","Monitoreo Fetal","PET","Polisomnografia","Potenciales Evocados","Presurometria","Psicoprofilaxis del parto","Puncion Mamaria","Puncion Tiroide","Quimioterapia","Radiologia","Radiologia Infantil","Radioterapia","Rehabilitacion Neurologica","Rehabilitacion Vestibular","Resonador abierto","Resonancia Magnetica Nuclear","RPG","Tomografia Computada","Tomografo abierto","Urodinamia","Urodinamia Infantil"]  
+};  
+const seccionales = ["BAHIA BLANCA","BUENOS AIRES ZONA 1","BUENOS AIRES ZONA 2","BUENOS AIRES ZONA 3","CAPITAL","CATAMARCA","CHACO","CHUBUT","CORDOBA","CORRIENTES","ENTRE RIOS","FORMOSA","GBA NOROESTE","GBA NORTE","GBA OESTE","GBA SUR","JUJUY","LA PAMPA","LA PLATA","LA RIOJA","MAR DEL PLATA","MENDOZA","MISIONES","NEUQUEN","RIO NEGRO","ROSARIO","SALTA","SAN JUAN","SAN LUIS","SANTA CRUZ","SANTA FE","SANTIAGO DEL ESTERO","TIERRA DEL FUEGO","TRENQUE LAUQUEN","TUCUMAN"];  
 
-$(function() {
-    let providersCompact = [], datosFiltrados = [];
-    let uniqueClasificaciones = new Set();
+$(function() {  
+    let providersCompact = [], datosFiltrados = [];  
+    let uniqueClasificaciones = new Set();  
 
     // ============================================================
     // CARGAR CSV Y PROCESAR DATOS
     // ============================================================
-    Papa.parse("Data_geocoded.csv", {
-        download: true,
-        header: true,
-        delimiter: ";",
-        complete: function(results) {
+    Papa.parse("Data_geocoded.csv", {  
+        download: true,  
+        header: true,  
+        delimiter: ";",  
+        complete: function(results) {  
 
             datosFiltrados = results.data.filter(row => {
                 return row.CUIT && row.CUIT.trim() !== "" &&
@@ -654,60 +653,60 @@ $(function() {
                         row['Tipo de prestador'] === 'DiagnosticoyTratamiento');
             });
 
-            const providersMap = {};
-            const uniquePlans = new Set();
+            const providersMap = {};  
+            const uniquePlans = new Set();  
 
-            datosFiltrados.forEach(row => {
-                const key = `${row.CUIT}-${row.Domicilio}`;
-                if (!providersMap[key]) {
-                    providersMap[key] = {
-                        CUIT: row.CUIT,
-                        Nombre: row.Nombre,
-                        NroPrestador: row.NroPrestador,
-                        Seccional: row.Seccional,
-                        Provincia: row.Provincia,
-                        Partido: row.Partido,
-                        Localidad: row.Localidad,
-                        Domicilio: row.Domicilio,
-                        Telefono: row.Telefono,
-                        Clasificacion: row['Clasificacion prestador'],
-                        Plan: new Set(),
+            datosFiltrados.forEach(row => {  
+                const key = `${row.CUIT}-${row.Domicilio}`;  
+                if (!providersMap[key]) {  
+                    providersMap[key] = {  
+                        CUIT: row.CUIT,  
+                        Nombre: row.Nombre,  
+                        NroPrestador: row.NroPrestador,  
+                        Seccional: row.Seccional,  
+                        Provincia: row.Provincia,  
+                        Partido: row.Partido,  
+                        Localidad: row.Localidad,  
+                        Domicilio: row.Domicilio,  
+                        Telefono: row.Telefono,  
+                        Clasificacion: row['Clasificacion prestador'],  
+                        Plan: new Set(),  
                         practices: [],
                         lat: row.lat ? parseFloat(String(row.lat).replace(",", ".")) : null,
                         lon: row.lon ? parseFloat(String(row.lon).replace(",", ".")) : null
-                    };
-                    if (row['Clasificacion prestador']) {
-                        uniqueClasificaciones.add(row['Clasificacion prestador']);
-                    }
-                }
-                if (row.Plan) {
-                    providersMap[key].Plan.add(row.Plan);
-                    uniquePlans.add(row.Plan);
-                }
-                providersMap[key].practices.push({
-                    tipo: row['Tipo de prestador'],
-                    especialidad: row['Especialidad']
-                });
-            });
+                    };  
+                    if (row['Clasificacion prestador']) {  
+                        uniqueClasificaciones.add(row['Clasificacion prestador']);  
+                    }  
+                }  
+                if (row.Plan) {  
+                    providersMap[key].Plan.add(row.Plan);  
+                    uniquePlans.add(row.Plan);  
+                }  
+                providersMap[key].practices.push({  
+                    tipo: row['Tipo de prestador'],  
+                    especialidad: row['Especialidad']  
+                });  
+            });  
 
-            Object.keys(providersMap).forEach(key => {
-                const planStr = Array.from(providersMap[key].Plan).join(', ');
-                providersMap[key].Plan = planStr;
-            });
-            providersCompact = Object.values(providersMap);
+            Object.keys(providersMap).forEach(key => {  
+                const planStr = Array.from(providersMap[key].Plan).join(', ');  
+                providersMap[key].Plan = planStr;  
+            });  
+            providersCompact = Object.values(providersMap);  
 
-            providersCompact.sort((a, b) => {
-                const aIsUniversal = a.Plan.includes('Universal');
-                const bIsUniversal = b.Plan.includes('Universal');
-                const aIsSuperador = a.Plan.includes('Superador');
-                const bIsSuperador = b.Plan.includes('Superador');
+            providersCompact.sort((a, b) => {  
+                const aIsUniversal = a.Plan.includes('Universal');  
+                const bIsUniversal = b.Plan.includes('Universal');  
+                const aIsSuperador = a.Plan.includes('Superador');  
+                const bIsSuperador = b.Plan.includes('Superador');  
 
-                if (aIsUniversal && !bIsUniversal) return -1;
-                if (!aIsUniversal && bIsUniversal) return 1;
-                if (aIsSuperador && !bIsSuperador) return 1;
-                if (!aIsSuperador && bIsSuperador) return -1;
-                return a.Nombre.localeCompare(b.Nombre);
-            });
+                if (aIsUniversal && !bIsUniversal) return -1;  
+                if (!aIsUniversal && bIsUniversal) return 1;  
+                if (aIsSuperador && !bIsSuperador) return 1;  
+                if (!aIsSuperador && bIsSuperador) return -1;  
+                return a.Nombre.localeCompare(b.Nombre);  
+            });  
 
             // ============================================================
             // RENDERIZAR CHECKBOXES DINÁMICAMENTE
@@ -728,46 +727,46 @@ $(function() {
                         // Actualizar especialidades cuando cambia tipo
                         if (filterKey === 'tipo') {
                             // Inicializar Especialidad
-                            updateEspecialidadOptions();
-
-                            // Event listener para cambios en Tipo
-                            document.addEventListener('change', function(e) {
-                                if (e.target.dataset.filter === 'tipo') {
-                                    updateEspecialidadOptions();
-                                }
-                            });
+            updateEspecialidadOptions();
+            
+            // Event listener para cambios en Tipo
+            document.addEventListener('change', function(e) {
+                if (e.target.dataset.filter === 'tipo') {
+                    updateEspecialidadOptions();
+                }
+            });
                         }
                     });
                     container.appendChild(checkbox);
                 });
             }
-
+            
             function updateEspecialidadOptions() {
                 const selectedTipos = Array.from(document.querySelectorAll('input[data-filter="tipo"]:checked')).map(cb => cb.value);
                 const especialidadContainer = document.getElementById('filtro-especialidad-list');
-
+                
                 // Si se selecciona más de un tipo, NO mostrar especialidades (evitar mezcla)
                 if (selectedTipos.length > 1) {
                     especialidadContainer.innerHTML = '<div style="color:#999;padding:8px;font-size:12px;">Selecciona un solo Tipo</div>';
                     return;
                 }
-
+                
                 let allEspecialidades = [];
-
+                
                 if (selectedTipos.length === 1) {
                     const tipo = selectedTipos[0];
                     if (tipoEspecialidad[tipo]) {
                         allEspecialidades = Array.from(tipoEspecialidad[tipo]).sort();
                     }
                 }
-
+                
                 especialidadContainer.innerHTML = '';
-
+                
                 if (allEspecialidades.length === 0) {
                     especialidadContainer.innerHTML = '<div style="color:#999;padding:8px;font-size:12px;">Selecciona un Tipo</div>';
                     return;
                 }
-
+                
                 allEspecialidades.forEach(esp => {
                     const checkbox = document.createElement('div');
                     checkbox.className = 'checkbox-item';
@@ -819,9 +818,9 @@ $(function() {
 
                 const filteredData = providersCompact.filter(provider => {
                     // Filtro de seguridad preexistente
-                    if (provider.Clasificacion === 'Clinicas y Sanatorios' &&
-                       provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento')) {
-                        return false;
+                    if (provider.Clasificacion === 'Clinicas y Sanatorios' &&  
+                       provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento')) {  
+                        return false;  
                     }
 
                     // Filtro de Prestadores Asociados
@@ -865,49 +864,49 @@ $(function() {
             // ============================================================
             // DATATABLE
             // ============================================================
-            tabla = $('#tabla-prestadores').DataTable({
+            tabla = $('#tabla-prestadores').DataTable({  
                 data: providersCompact.filter(provider => {
                     return !(provider.Clasificacion === 'Clinicas y Sanatorios' &&
                             provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento'));
-                }),
-                columns: [
-                    { data: null, defaultContent: '<button class="details-control">+</button>', orderable: false },
-                    { data: 'Nombre', defaultContent: '' },
-                    { data: 'NroPrestador', defaultContent: '' },
-                    { data: 'Seccional', defaultContent: '' },
-                    { data: 'Localidad', defaultContent: '' },
-                    { data: 'Plan', defaultContent: '' }
-                ],
-                language: { url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json' },
-                pageLength: 25,
-                ordering: false,
-                searching: true,
-                dom: 'Bfrtip',
-                buttons: [
-                    { extend: 'copyHtml5', title: () => 'Prestadores Médicos' },
-                    { extend: 'excelHtml5', title: () => 'Prestadores Médicos' },
-                    { extend: 'csvHtml5', title: () => 'Prestadores Médicos' },
-                    { extend: 'pdfHtml5', title: () => 'Prestadores Médicos' }
-                ],
-                createdRow: function(row, data) {
-                    if (data.Plan.includes('Universal')) {
-                        $(row).addClass('universal');
-                    } else if (data.Plan.includes('Superador')) {
-                        $(row).addClass('superador');
-                    }
-                },
-                drawCallback: function() {
-                    $('tr.universal td:first-child').css('background-color', 'var(--universal-bg)');
-                    $('tr.superador td:first-child').css('background-color', 'var(--superador-bg)');
-                    updateClearAllButton();
-                }
-            });
+                }),  
+                columns: [  
+                    {data: null, defaultContent: '<button class="details-control">+</button>', orderable: false },  
+                    {data: 'Nombre', defaultContent: '' },  
+                    {data: 'NroPrestador', defaultContent: '' },  
+                    {data: 'Seccional', defaultContent: '' },  
+                    {data: 'Localidad', defaultContent: '' },  
+                    {data: 'Plan', defaultContent: '' }  
+                ],  
+                language: {url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'},  
+                pageLength: 25,  
+                ordering: false,  
+                searching: true,  
+                dom: 'Bfrtip',  
+                buttons: [  
+                    { extend: 'copyHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'excelHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'csvHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'pdfHtml5', title: () => 'Prestadores Médicos' }  
+                ],  
+                createdRow: function(row, data) {  
+                    if (data.Plan.includes('Universal')) {  
+                        $(row).addClass('universal');  
+                    } else if (data.Plan.includes('Superador')) {  
+                        $(row).addClass('superador');  
+                    }  
+                },  
+                drawCallback: function() {  
+                    $('tr.universal td:first-child').css('background-color', 'var(--universal-bg)');  
+                    $('tr.superador td:first-child').css('background-color', 'var(--superador-bg)');  
+                    updateClearAllButton();  
+                }  
+            });  
 
             // ============================================================
             // EVENTOS DE FILTROS
             // ============================================================
             document.getElementById('apply-btn-esp').addEventListener('click', applyFilters);
-
+            
             document.getElementById('clear-filters-btn').addEventListener('click', function() {
                 document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
                     checkbox.checked = false;
@@ -927,58 +926,58 @@ $(function() {
                 }
             });
 
-            $('#search-input').on('keyup', function() {
-                tabla.search(this.value).draw();
-                updateClearAllButton();
-            });
+            $('#search-input').on('keyup', function() {  
+                tabla.search(this.value).draw();  
+                updateClearAllButton();  
+            });  
 
-            $('#clear-all-btn').click(function() {
-                $('#search-input').val('');
-                tabla.search('').draw();
-                updateClearAllButton();
-            });
+            $('#clear-all-btn').click(function() {  
+                $('#search-input').val('');  
+                tabla.search('').draw();  
+                updateClearAllButton();  
+            });  
 
             // ============================================================
             // DETALLES Y MAPA INDIVIDUAL
             // ============================================================
-            $('#tabla-prestadores tbody').on('click', 'button.details-control', function() {
-                const tr = $(this).closest('tr');
-                const row = tabla.row(tr);
-                const rowData = row.data();
+            $('#tabla-prestadores tbody').on('click', 'button.details-control', function () {  
+                const tr = $(this).closest('tr');  
+                const row = tabla.row(tr);  
+                const rowData = row.data();  
 
-                if (row.child.isShown()) {
-                    row.child.hide();
-                    tr.removeClass('shown');
-                    $(this).text('+');
-                } else {
-                    $(this).text('-');
-                    const practicesByType = {};
+                if (row.child.isShown()) {  
+                    row.child.hide();  
+                    tr.removeClass('shown');  
+                    $(this).text('+');  
+                } else {  
+                    $(this).text('-');  
+                    const practicesByType = {};  
 
-                    rowData.practices.forEach(practice => {
-                        if(!(rowData.Clasificacion === 'Clinicas y Sanatorios' && practice.tipo === 'DiagnosticoyTratamiento')){
-                            if (!practicesByType[practice.tipo]) {
-                                practicesByType[practice.tipo] = [];
-                            }
-                            practicesByType[practice.tipo].push(practice.especialidad);
-                        }
-                    });
+                    rowData.practices.forEach(practice => {  
+                        if(!(rowData.Clasificacion === 'Clinicas y Sanatorios' && practice.tipo === 'DiagnosticoyTratamiento')){  
+                            if (!practicesByType[practice.tipo]) {  
+                                practicesByType[practice.tipo] = [];  
+                            }  
+                            practicesByType[practice.tipo].push(practice.especialidad);   
+                        }   
+                    });  
 
-                    let practicesHtml = '<div class="practices-container">';
-                    Object.keys(practicesByType).forEach(tipo => {
+                    let practicesHtml = '<div class="practices-container">';  
+                    Object.keys(practicesByType).forEach(tipo => {  
                         practicesHtml += `  
                         <div class="practice-type-container">  
                             <div class="practice-type-title">${tipo}</div>  
-                            <ul class="practice-list">`;
-                        practicesByType[tipo].forEach(especialidad => {
-                            practicesHtml += `<li>${especialidad}</li>`;
-                        });
+                            <ul class="practice-list">`;  
+                        practicesByType[tipo].forEach(especialidad => {  
+                            practicesHtml += `<li>${especialidad}</li>`;  
+                        });  
                         practicesHtml += `  
                             </ul>  
-                        </div>`;
-                    });
-                    practicesHtml += '</div>';
+                        </div>`;  
+                    });  
+                    practicesHtml += '</div>';  
 
-                    const mapId = `mapa-${(rowData.CUIT).replace(/\W/g,'')}-${(rowData.Domicilio).replace(/\W/g,'')}`;
+                    const mapId = `mapa-${(rowData.CUIT).replace(/\W/g,'')}-${(rowData.Domicilio).replace(/\W/g,'')}`;  
                     let detalleHtml = `  
                     <div class="details-child">  
                         <table class="details-table">  
@@ -995,9 +994,9 @@ $(function() {
                                 </td>  
                             </tr>  
                         </table>  
-                    </div>`;
-                    row.child(detalleHtml).show();
-                    tr.addClass('shown');
+                    </div>`;  
+                    row.child(detalleHtml).show();  
+                    tr.addClass('shown');  
 
                     const hasCoords =
                         rowData.lat != null && rowData.lon != null &&
@@ -1012,98 +1011,98 @@ $(function() {
                         document.getElementById(mapId).innerHTML =
                             "<div style='color:#b71c1c;padding:30px;text-align:center;'>Sin coordenadas (lat/lon) en Data_geocoded.csv.</div>";
                     }
-                }
-            });
+                }  
+            });  
 
             // ============================================================
             // ESTADÍSTICAS
             // ============================================================
-            const statsModal = document.getElementById('stats-modal');
-            const statsBtn = document.getElementById('stats-btn');
-            const closeStats = document.getElementById('close-stats');
+            const statsModal = document.getElementById('stats-modal');  
+            const statsBtn = document.getElementById('stats-btn');  
+            const closeStats = document.getElementById('close-stats');  
 
-            statsBtn.onclick = function() {
-                statsModal.style.display = 'block';
-                const filteredData = tabla.rows({search: 'applied'}).data().toArray();
-                const isDark = body.classList.contains('dark-mode');
+            statsBtn.onclick = function() {  
+                statsModal.style.display = 'block';  
+                const filteredData = tabla.rows({search: 'applied'}).data().toArray();  
+                const isDark = body.classList.contains('dark-mode');  
 
-                const totalPrestadores = filteredData.length;
-                const universalCount = filteredData.filter(p => p.Plan.includes('Universal')).length;
-                const superadorCount = filteredData.filter(p => p.Plan.includes('Superador')).length;
-                const seccionalCount = {};
-                filteredData.forEach(p => seccionalCount[p.Seccional] = (seccionalCount[p.Seccional] || 0) + 1);
-                const topSeccional = Object.entries(seccionalCount).sort((a, b) => b[1] - a[1])[0] || ['N/A', 0];
-                document.getElementById('stats-summary').innerHTML = `
-                    Total Prestadores: ${totalPrestadores} | Universal: ${universalCount} | Superador: ${superadorCount} |
-                    Top Seccional: ${topSeccional[0]} (${topSeccional[1]})
-                `;
+                const totalPrestadores = filteredData.length;  
+                const universalCount = filteredData.filter(p => p.Plan.includes('Universal')).length;  
+                const superadorCount = filteredData.filter(p => p.Plan.includes('Superador')).length;  
+                const seccionalCount = {};  
+                filteredData.forEach(p => seccionalCount[p.Seccional] = (seccionalCount[p.Seccional] || 0) + 1);  
+                const topSeccional = Object.entries(seccionalCount).sort((a, b) => b[1] - a[1])[0] || ['N/A', 0];  
+                document.getElementById('stats-summary').innerHTML = `  
+                    Total Prestadores: ${totalPrestadores} | Universal: ${universalCount} | Superador: ${superadorCount} |  
+                    Top Seccional: ${topSeccional[0]} (${topSeccional[1]})  
+                `;  
 
-                const seccionalLabels = Object.keys(seccionalCount);
-                const seccionalData = Object.values(seccionalCount);
-                const chartTextColor = isDark ? '#fff' : '#000';
-                const chartBgColors = seccionalLabels.map(() => isDark ? '#76b8a8' : '#497e76');
+                const seccionalLabels = Object.keys(seccionalCount);  
+                const seccionalData = Object.values(seccionalCount);  
+                const chartTextColor = isDark ? '#fff' : '#000';  
+                const chartBgColors = seccionalLabels.map(() => isDark ? '#76b8a8' : '#497e76');  
 
-                if (!seccionalChart) {
-                    seccionalChart = new Chart(document.getElementById('seccional-chart'), {
-                        type: 'bar',
-                        data: { labels: seccionalLabels, datasets: [{ label: 'Prestadores por Seccional', data: seccionalData, backgroundColor: chartBgColors }] },
-                        options: { scales: { y: { beginAtZero: true, ticks: { color: chartTextColor } }, x: { ticks: { color: chartTextColor } } }, plugins: { legend: { labels: { color: chartTextColor } } } }
-                    });
-                } else {
-                    seccionalChart.data.labels = seccionalLabels;
-                    seccionalChart.data.datasets[0].data = seccionalData;
-                    seccionalChart.data.datasets[0].backgroundColor = chartBgColors;
-                    seccionalChart.options.scales.y.ticks.color = chartTextColor;
-                    seccionalChart.options.scales.x.ticks.color = chartTextColor;
-                    seccionalChart.options.plugins.legend.labels.color = chartTextColor;
-                    seccionalChart.update();
-                }
+                if (!seccionalChart) {  
+                    seccionalChart = new Chart(document.getElementById('seccional-chart'), {  
+                        type: 'bar',  
+                        data: { labels: seccionalLabels, datasets: [{ label: 'Prestadores por Seccional', data: seccionalData, backgroundColor: chartBgColors }] },  
+                        options: { scales: { y: { beginAtZero: true, ticks: { color: chartTextColor } }, x: { ticks: { color: chartTextColor } } }, plugins: { legend: { labels: { color: chartTextColor } } } }  
+                    });  
+                } else {  
+                    seccionalChart.data.labels = seccionalLabels;  
+                    seccionalChart.data.datasets[0].data = seccionalData;  
+                    seccionalChart.data.datasets[0].backgroundColor = chartBgColors;  
+                    seccionalChart.options.scales.y.ticks.color = chartTextColor;  
+                    seccionalChart.options.scales.x.ticks.color = chartTextColor;  
+                    seccionalChart.options.plugins.legend.labels.color = chartTextColor;  
+                    seccionalChart.update();  
+                }  
 
-                const planCount = { Universal: universalCount, Superador: superadorCount };
-                const planBgColors = isDark ? ['#3a6159', '#5e3a4d'] : ['#e6f7e6', '#f0e6ff'];
+                const planCount = { Universal: universalCount, Superador: superadorCount };  
+                const planBgColors = isDark ? ['#3a6159', '#5e3a4d'] : ['#e6f7e6', '#f0e6ff'];  
 
-                if (!planChart) {
-                    planChart = new Chart(document.getElementById('plan-chart'), {
-                        type: 'pie',
-                        data: { labels: ['Universal', 'Superador'], datasets: [{ data: [planCount.Universal, planCount.Superador], backgroundColor: planBgColors }] },
-                        options: { plugins: { legend: { labels: { color: chartTextColor } } } }
-                    });
-                } else {
-                    planChart.data.datasets[0].data = [planCount.Universal, planCount.Superador];
-                    planChart.data.datasets[0].backgroundColor = planBgColors;
-                    planChart.options.plugins.legend.labels.color = chartTextColor;
-                    planChart.update();
-                }
+                if (!planChart) {  
+                    planChart = new Chart(document.getElementById('plan-chart'), {  
+                        type: 'pie',  
+                        data: { labels: ['Universal', 'Superador'], datasets: [{ data: [planCount.Universal, planCount.Superador], backgroundColor: planBgColors }] },  
+                        options: { plugins: { legend: { labels: { color: chartTextColor } } } }  
+                    });  
+                } else {  
+                    planChart.data.datasets[0].data = [planCount.Universal, planCount.Superador];  
+                    planChart.data.datasets[0].backgroundColor = planBgColors;  
+                    planChart.options.plugins.legend.labels.color = chartTextColor;  
+                    planChart.update();  
+                }  
 
-                const clasificacionCount = {};
-                filteredData.forEach(provider => {
-                    clasificacionCount[provider.Clasificacion] = (clasificacionCount[provider.Clasificacion] || 0) + 1;
-                });
-                const sortedClasif = Object.entries(clasificacionCount).sort((a, b) => b[1] - a[1]).slice(0, 5);
-                const clasifLabels = sortedClasif.map(([key]) => key);
-                const clasifData = sortedClasif.map(([, value]) => value);
-                const clasifBgColors = clasifLabels.map(() => isDark ? '#b85a5a' : '#8c4a4a');
+                const clasificacionCount = {};  
+                filteredData.forEach(provider => {  
+                    clasificacionCount[provider.Clasificacion] = (clasificacionCount[provider.Clasificacion] || 0) + 1;  
+                });  
+                const sortedClasif = Object.entries(clasificacionCount).sort((a, b) => b[1] - a[1]).slice(0, 5);  
+                const clasifLabels = sortedClasif.map(([key]) => key);  
+                const clasifData = sortedClasif.map(([, value]) => value);  
+                const clasifBgColors = clasifLabels.map(() => isDark ? '#b85a5a' : '#8c4a4a');  
 
-                if (!clasificacionChart) {
-                    clasificacionChart = new Chart(document.getElementById('clasificacion-chart'), {
-                        type: 'bar',
-                        data: { labels: clasifLabels, datasets: [{ label: 'Top 5 Clasificaciones', data: clasifData, backgroundColor: clasifBgColors }] },
-                        options: { scales: { y: { beginAtZero: true, ticks: { color: chartTextColor } }, x: { ticks: { color: chartTextColor } } }, plugins: { legend: { labels: { color: chartTextColor } } } }
-                    });
-                } else {
-                    clasificacionChart.data.labels = clasifLabels;
-                    clasificacionChart.data.datasets[0].data = clasifData;
-                    clasificacionChart.data.datasets[0].backgroundColor = clasifBgColors;
-                    clasificacionChart.options.scales.y.ticks.color = chartTextColor;
-                    clasificacionChart.options.scales.x.ticks.color = chartTextColor;
-                    clasificacionChart.options.plugins.legend.labels.color = chartTextColor;
-                    clasificacionChart.update();
-                }
-            };
+                if (!clasificacionChart) {  
+                    clasificacionChart = new Chart(document.getElementById('clasificacion-chart'), {  
+                        type: 'bar',  
+                        data: { labels: clasifLabels, datasets: [{ label: 'Top 5 Clasificaciones', data: clasifData, backgroundColor: clasifBgColors }] },  
+                        options: { scales: { y: { beginAtZero: true, ticks: { color: chartTextColor } }, x: { ticks: { color: chartTextColor } } }, plugins: { legend: { labels: { color: chartTextColor } } } }  
+                    });  
+                } else {  
+                    clasificacionChart.data.labels = clasifLabels;  
+                    clasificacionChart.data.datasets[0].data = clasifData;  
+                    clasificacionChart.data.datasets[0].backgroundColor = clasifBgColors;  
+                    clasificacionChart.options.scales.y.ticks.color = chartTextColor;  
+                    clasificacionChart.options.scales.x.ticks.color = chartTextColor;  
+                    clasificacionChart.options.plugins.legend.labels.color = chartTextColor;  
+                    clasificacionChart.update();  
+                }  
+            };  
 
-            closeStats.onclick = function() {
-                statsModal.style.display = 'none';
-            };
+            closeStats.onclick = function() {  
+                statsModal.style.display = 'none';  
+            };  
 
             // ============================================================
             // MAPA GENERAL
@@ -1143,7 +1142,7 @@ $(function() {
             function buildGeneralMap() {
                 const mostrarAsociados = document.getElementById('map-mostrar-asociados').checked;
                 let rows = tabla.rows({search:'applied'}).data().toArray();
-
+                
                 if (!mostrarAsociados) {
                     rows = rows.filter(provider => !provider.NroPrestador.includes('-'));
                 }
@@ -1200,7 +1199,7 @@ $(function() {
                     if (generalMap) generalMap.invalidateSize();
                 }, 150);
             };
-
+            
             document.addEventListener('change', function(e) {
                 if (e.target.id === 'map-mostrar-asociados' && generalMap) {
                     buildGeneralMap();
@@ -1211,20 +1210,67 @@ $(function() {
                 mapModal.style.display = 'none';
             };
 
-            window.onclick = function(event) {
-                if (event.target == statsModal) statsModal.style.display = 'none';
-                if (event.target == mapModal) mapModal.style.display = 'none';
-            };
+            window.onclick = function(event) {  
+                if (event.target == statsModal) statsModal.style.display = 'none';  
+                if (event.target == mapModal) mapModal.style.display = 'none';  
+            };  
 
-            function updateClearAllButton() {
-                const hasFilters = $('#search-input').val() !== '';
-                $('#clear-all-btn').prop('disabled', !hasFilters);
+            function updateClearAllButton() {  
+                const hasFilters = $('#search-input').val() !== '';  
+                $('#clear-all-btn').prop('disabled', !hasFilters);  
             }
-
+            
             updateEspecialidadOptions();
-        }
-    });
+        }  
+    });  
+});
+
+// ==================== EmailJS ====================
+const serviceID = 'service_bpql0t2';
+const templateID = 'template_pvy0uye';
+const publicKey = 'gGaNST8Xed0QDePFj';
+
+emailjs.init(publicKey);
+
+function sendEmail(data) {
+    const params = {
+        name: data.name,
+        contact_email: data.email,
+        message: data.message,
+        time: new Date().toLocaleString()
+    };
+
+    emailjs.send(serviceID, templateID, params)
+        .then((response) => {
+            console.log('✅ Correo enviado:', response.status);
+            alert('¡Mensaje enviado! Gracias por contactarnos.');
+            closeModal();
+        })
+        .catch((err) => {
+            console.error('❌ Error al enviar:', err);
+            alert('Hubo un problema. Inténtalo de nuevo.');
+        });
+}
+
+const contactModal = document.getElementById('contact-modal');
+
+function openModal()  { contactModal.style.display = 'flex'; }
+function closeModal() { contactModal.style.display = 'none'; }
+
+document.getElementById('openContactBtn').addEventListener('click', openModal);
+document.querySelector('#contact-modal .close-btn')
+    .addEventListener('click', closeModal);
+
+window.addEventListener('click', (e) => {
+    if (e.target === contactModal) closeModal();
+});
+
+document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    const dataObj = Object.fromEntries(formData.entries());
+    sendEmail(dataObj);
+});
 </script>
 </body>
 </html>
-
