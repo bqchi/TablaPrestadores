@@ -281,26 +281,11 @@
         }  
 
         .loader { display: none; text-align: center; padding: 20px; color: var(--text-color); }  
-        .mode-buttons {  
-            display: flex;  
-            justify-content: center;  
-            gap: 10px;  
-            margin-bottom: 12px;  
-        }  
-        .mode-buttons button {  
-            background: var(--button-bg);  
-            color: white;  
-            border: none;  
-            padding: 6px 12px;  
-            border-radius: 4px;  
-            cursor: pointer;  
-            font-size: 12px;
-            transition: all 0.2s ease;
-        }
-        .mode-buttons button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }  
+        .control-bar { display: flex; gap: 8px; margin-bottom: 12px; align-items: center; flex-wrap: wrap; padding: 8px 12px; background: var(--filter-bg); border: 1px solid var(--border-color); border-radius: 6px; }
+        .control-bar input[type="text"] { padding: 6px 8px; border-radius: 4px; border: 1px solid #bbb; background: var(--filter-bg); color: var(--text-color); font-size: 12px; }
+        .control-bar button { padding: 5px 10px; font-size: 11px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; white-space: nowrap; transition: all 0.3s ease; }
+        #clear-all-btn { background: var(--reset-bg); color: white; } #clear-all-btn:hover:not(:disabled) { background: #c0392b; transform: scale(1.05); } #clear-all-btn:disabled { background: #cccccc; cursor: not-allowed; }
+        #stats-btn, #map-btn { background: var(--button-bg); color: white; } #stats-btn:hover, #map-btn:hover { background: #3a6159; transform: scale(1.05); }  
 
         #map-modal-content {  
             max-width: 1000px;  
@@ -433,14 +418,15 @@
     <button class="theme-toggle" id="theme-toggle">☀️</button>  
     <h1>Tabla de Prestadores Médicos</h1>  
 
-    <div class="search-container">
-        <input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad...">
-        <button id="clear-all-btn" disabled>Borrar todo</button>
-    </div>
-
-    <div class="mode-buttons">
-        <button id="stats-btn">Ver Estadísticas</button>
-        <button id="map-btn">Ver Mapa de Prestadores</button>
+    <div class="control-bar">
+        <label style="display: flex; align-items: center; gap: 5px; margin: 0;">
+            <input type="checkbox" id="mostrar-asociados" checked style="cursor: pointer;">
+            <span style="font-size: 12px; white-space: nowrap;">Mostrar Prest Asociados</span>
+        </label>
+        <input type="text" id="search-input" placeholder="Buscar..." style="flex: 1; min-width: 150px;">
+        <button id="clear-all-btn" disabled>Borrar</button>
+        <button id="stats-btn">Ver Estad</button>
+        <button id="map-btn">Ver Mapa</button>
     </div>
 
     <div class="filtros-container">
