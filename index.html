@@ -79,6 +79,24 @@
             flex-wrap: wrap;  
             align-items: center;  
         }  
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-color);
+        }
+        .checkbox-item input[type="checkbox"] {
+            cursor: pointer;
+        }
+        .checkbox-item label {
+            cursor: pointer;
+            margin: 0;
+        }
         select, button {   
             padding: 8px;   
             border-radius:4px;   
@@ -234,7 +252,6 @@
         }  
         #stats-summary { margin-bottom: 20px; text-align: center; font-size: 16px; font-weight: bold; }  
 
-        /* CORRECCIÓN: Contenedor de estadísticas escalado */
         #stats-container { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
@@ -244,7 +261,7 @@
         }  
         #stats-container canvas { 
             max-width: 100%; 
-            height: 350px !important; /* Aumentado el tamaño */
+            height: 350px !important;
             background: var(--chart-bg); 
             border-radius: 8px;
             padding: 10px;
@@ -272,7 +289,7 @@
         }  
         #general-map {  
             width: 100%;  
-            height: 550px; /* Un poco más alto */
+            height: 550px;
             border-radius: 8px;  
             border: 1px solid var(--border-color);  
         }  
@@ -296,7 +313,6 @@
             border: 1px solid #555;  
         }
 
-        /* --- Formulario de contacto --- */
         #contactForm { max-width:500px; margin:auto; padding:1rem; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; }
         #contactForm label{ display:block; margin-top:.75rem; font-weight:bold; }
         #contactForm input, #contactForm textarea{
@@ -307,6 +323,46 @@
 
         .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px; }
         .modal-title{ font-size:1.5rem; margin:0; color: var(--header-color); }
+
+        .filter-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .filter-column {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-column-title {
+            font-weight: bold;
+            color: var(--header-color);
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        .filter-list {
+            max-height: 180px;
+            overflow-y: auto;
+            border: 1px solid #bbb;
+            padding: 8px;
+            border-radius: 4px;
+            background: var(--details-bg);
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .button-row button {
+            flex: 1;
+            min-width: 120px;
+        }
 
     </style>  
 </head>  
@@ -325,35 +381,43 @@
     </div>
 
     <div class="filtros-container">
-        <div class="filtros-group">
-            <h3>Filtros por Clasificación</h3>
-            <div class="filtros">
-                <label>Seccional:
-                    <select id="filtro-seccional"><option value="">Todas</option></select>
-                </label>
-                <label>Clasificación:
-                    <select id="filtro-clasificacion"><option value="">Todas</option></select>
-                </label>
-                <label>Plan:
-                    <select id="filtro-plan"><option value="">Todos</option></select>
-                </label>
-                <button id="apply-btn-plan" type="button">Aplicar</button>
+        <div class="filtros-group" style="flex: 1 1 100%;">
+            <h3>Filtros Combinatorios</h3>
+            <div class="filter-columns">
+                <!-- Seccional -->
+                <div class="filter-column">
+                    <div class="filter-column-title">Seccional</div>
+                    <div class="filter-list" id="filtro-seccional-list"></div>
+                </div>
+                <!-- Plan -->
+                <div class="filter-column">
+                    <div class="filter-column-title">Plan</div>
+                    <div class="filter-list" id="filtro-plan-list"></div>
+                </div>
+                <!-- Clasificación -->
+                <div class="filter-column">
+                    <div class="filter-column-title">Clasificación</div>
+                    <div class="filter-list" id="filtro-clasificacion-list"></div>
+                </div>
+                <!-- Tipo de Prestador -->
+                <div class="filter-column">
+                    <div class="filter-column-title">Tipo de Prestador</div>
+                    <div class="filter-list" id="filtro-tipo-list"></div>
+                </div>
+                <!-- Especialidad -->
+                <div class="filter-column">
+                    <div class="filter-column-title">Especialidad</div>
+                    <div class="filter-list" id="filtro-especialidad-list"></div>
+                </div>
             </div>
-        </div>
 
-        <div class="filtros-group">
-            <h3>Filtros por Especialidad</h3>
-            <div class="filtros">
-                <label>Seccional:
-                    <select id="filtro-seccional-esp"><option value="">Todas</option></select>
-                </label>
-                <label>Tipo de Prestador:
-                    <select id="filtro-tipo"><option value="">Todos</option></select>
-                </label>
-                <label>Especialidad:
-                    <select id="filtro-especialidad"><option value="">Todas</option></select>
+            <div class="button-row">
+                <label style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                    <input type="checkbox" id="mostrar-asociados" checked>
+                    <span>Mostrar Prestadores Asociados</span>
                 </label>
                 <button id="apply-btn-esp" type="button">Aplicar</button>
+                <button id="clear-filters-btn" type="button" class="reset-btn">Limpiar Filtros</button>
             </div>
         </div>
     </div>
@@ -471,7 +535,7 @@ themeToggle.addEventListener('click', () => {
 });
 
 // ============================================================
-// CÓDIGO ORIGINAL + MAPA GENERAL SIN GEOCODING
+// CÓDIGO PRINCIPAL
 // ============================================================
 const tipoEspecialidad = {  
     "GuardiaActiva": ["Cardiologica","Clinica","Gastroenterologia","Ginecologica","Obstetrica","Odontologica","Oftalmologica","Otorrinolaringologia","Pediatrica","Por Electrocucion","Por envenenamiento","Por intoxicacion","Por mordedura de animales","Psiquiatrica","Quemados","Quirurgica","Traumatologica"],  
@@ -484,34 +548,11 @@ const tipoEspecialidad = {
 const seccionales = ["BAHIA BLANCA","BUENOS AIRES ZONA 1","BUENOS AIRES ZONA 2","BUENOS AIRES ZONA 3","CAPITAL","CATAMARCA","CHACO","CHUBUT","CORDOBA","CORRIENTES","ENTRE RIOS","FORMOSA","GBA NOROESTE","GBA NORTE","GBA OESTE","GBA SUR","JUJUY","LA PAMPA","LA PLATA","LA RIOJA","MAR DEL PLATA","MENDOZA","MISIONES","NEUQUEN","RIO NEGRO","ROSARIO","SALTA","SAN JUAN","SAN LUIS","SANTA CRUZ","SANTA FE","SANTIAGO DEL ESTERO","TIERRA DEL FUEGO","TRENQUE LAUQUEN","TUCUMAN"];  
 
 $(function() {  
-    seccionales.forEach(sec => {
-        $('#filtro-seccional').append(`<option value="${sec}">${sec}</option>`);
-        $('#filtro-seccional-esp').append(`<option value="${sec}">${sec}</option>`);
-    });
-
-    Object.keys(tipoEspecialidad).forEach(tipo => $('#filtro-tipo').append(`<option value="${tipo}">${tipo}</option>`));  
-
     let providersCompact = [], datosFiltrados = [];  
     let uniqueClasificaciones = new Set();  
 
-    function updateEspecialidades() {  
-        const tipoSeleccionado = $('#filtro-tipo').val();  
-        const $filtroEspecialidad = $('#filtro-especialidad');  
-        $filtroEspecialidad.empty().append('<option value="">Todas</option>');  
-
-        if (tipoSeleccionado) {  
-            tipoEspecialidad[tipoSeleccionado].forEach(especialidad => {  
-                $filtroEspecialidad.append(`<option value="${especialidad}">${especialidad}</option>`);  
-            });  
-        }  
-    }  
-
-    $('#filtro-tipo').on('change', function() {  
-        updateEspecialidades();  
-    });  
-
     // ============================================================
-    // CAMBIO PRINCIPAL: cargar el CSV ya geocodificado
+    // CARGAR CSV Y PROCESAR DATOS
     // ============================================================
     Papa.parse("Data_geocoded.csv", {  
         download: true,  
@@ -544,10 +585,6 @@ $(function() {
                         Clasificacion: row['Clasificacion prestador'],  
                         Plan: new Set(),  
                         practices: [],
-
-                        // ============================================================
-                        // NUEVO: lat/lon vienen del CSV geocodificado (sin fetch a Nominatim)
-                        // ============================================================
                         lat: row.lat ? parseFloat(String(row.lat).replace(",", ".")) : null,
                         lon: row.lon ? parseFloat(String(row.lon).replace(",", ".")) : null
                     };  
@@ -584,28 +621,103 @@ $(function() {
                 return a.Nombre.localeCompare(b.Nombre);  
             });  
 
-            uniqueClasificaciones.forEach(clasif => $('#filtro-clasificacion').append(`<option value="${clasif}">${clasif}</option>`));  
-            uniquePlans.forEach(plan => $('#filtro-plan').append(`<option value="${plan}">${plan}</option>`));  
+            // ============================================================
+            // RENDERIZAR CHECKBOXES DINÁMICAMENTE
+            // ============================================================
+            function renderCheckboxes(items, containerId, filterKey) {
+                const container = document.getElementById(containerId);
+                container.innerHTML = '';
+                const sortedItems = Array.from(items).sort();
+                sortedItems.forEach(item => {
+                    const checkbox = document.createElement('div');
+                    checkbox.className = 'checkbox-item';
+                    checkbox.innerHTML = `
+                        <input type="checkbox" value="${item}" data-filter="${filterKey}">
+                        <label>${item}</label>
+                    `;
+                    container.appendChild(checkbox);
+                });
+            }
 
-            function getCurrentFilters() {  
-                let filters = [];  
-                const seccional = $('#filtro-seccional').val();  
-                if (seccional) filters.push(`Seccional: ${seccional}`);  
-                const clasificacion = $('#filtro-clasificacion').val();  
-                if (clasificacion) filters.push(`Clasificación: ${clasificacion}`);  
-                const plan = $('#filtro-plan').val();  
-                if (plan) filters.push(`Plan: ${plan}`);  
-                const seccionalEsp = $('#filtro-seccional-esp').val();  
-                if (seccionalEsp) filters.push(`Seccional Esp: ${seccionalEsp}`);  
-                const tipo = $('#filtro-tipo').val();  
-                if (tipo) filters.push(`Tipo: ${tipo}`);  
-                const especialidad = $('#filtro-especialidad').val();  
-                if (especialidad) filters.push(`Especialidad: ${especialidad}`);  
-                const search = $('#search-input').val();  
-                if (search) filters.push(`Búsqueda: ${search}`);  
-                return filters.length > 0 ? 'Filtros aplicados: ' + filters.join(', ') : 'Sin filtros aplicados';  
-            }  
+            renderCheckboxes(seccionales, 'filtro-seccional-list', 'seccional');
+            renderCheckboxes(Array.from(uniquePlans), 'filtro-plan-list', 'plan');
+            renderCheckboxes(Array.from(uniqueClasificaciones), 'filtro-clasificacion-list', 'clasificacion');
+            renderCheckboxes(Object.keys(tipoEspecialidad), 'filtro-tipo-list', 'tipo');
 
+            // ============================================================
+            // FUNCIÓN PARA APLICAR FILTROS COMBINATORIOS
+            // ============================================================
+            function getSelectedFilters() {
+                const filters = {
+                    seccional: [],
+                    plan: [],
+                    clasificacion: [],
+                    tipo: [],
+                    especialidad: []
+                };
+
+                document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
+                    if (checkbox.checked && checkbox.value) {
+                        filters[checkbox.dataset.filter].push(checkbox.value);
+                    }
+                });
+
+                return filters;
+            }
+
+            function applyFilters() {
+                const filters = getSelectedFilters();
+                const mostrarAsociados = document.getElementById('mostrar-asociados').checked;
+                const searchTerm = $('#search-input').val().toLowerCase();
+
+                const filteredData = providersCompact.filter(provider => {
+                    // Filtro de seguridad preexistente
+                    if (provider.Clasificacion === 'Clinicas y Sanatorios' &&  
+                       provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento')) {  
+                        return false;  
+                    }
+
+                    // Filtro de Prestadores Asociados
+                    if (!mostrarAsociados && provider.NroPrestador.includes('-')) {
+                        return false;
+                    }
+
+                    // Filtro por Seccional (OR - cualquiera que coincida)
+                    if (filters.seccional.length > 0 && !filters.seccional.includes(provider.Seccional)) {
+                        return false;
+                    }
+
+                    // Filtro por Plan (OR - cualquiera que coincida)
+                    if (filters.plan.length > 0) {
+                        const hasMatchingPlan = filters.plan.some(plan => provider.Plan.includes(plan));
+                        if (!hasMatchingPlan) return false;
+                    }
+
+                    // Filtro por Clasificación (OR)
+                    if (filters.clasificacion.length > 0 && !filters.clasificacion.includes(provider.Clasificacion)) {
+                        return false;
+                    }
+
+                    // Filtro por Tipo y Especialidad (combinados)
+                    if (filters.tipo.length > 0 || filters.especialidad.length > 0) {
+                        const hasMatchingPractice = provider.practices.some(p => {
+                            const matchTipo = filters.tipo.length === 0 || filters.tipo.includes(p.tipo);
+                            const matchEspecialidad = filters.especialidad.length === 0 || filters.especialidad.includes(p.especialidad);
+                            return matchTipo && matchEspecialidad;
+                        });
+                        if (!hasMatchingPractice) return false;
+                    }
+
+                    return true;
+                });
+
+                tabla.clear().rows.add(filteredData).draw();
+                updateClearAllButton();
+            }
+
+            // ============================================================
+            // DATATABLE
+            // ============================================================
             tabla = $('#tabla-prestadores').DataTable({  
                 data: providersCompact.filter(provider => {
                     return !(provider.Clasificacion === 'Clinicas y Sanatorios' &&
@@ -625,10 +737,10 @@ $(function() {
                 searching: true,  
                 dom: 'Bfrtip',  
                 buttons: [  
-                    { extend: 'copyHtml5', title: () => 'Prestadores Médicos - ' + getCurrentFilters() },  
-                    { extend: 'excelHtml5', title: () => 'Prestadores Médicos - ' + getCurrentFilters() },  
-                    { extend: 'csvHtml5', title: () => 'Prestadores Médicos - ' + getCurrentFilters() },  
-                    { extend: 'pdfHtml5', title: () => 'Prestadores Médicos - ' + getCurrentFilters(), messageTop: () => getCurrentFilters() }  
+                    { extend: 'copyHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'excelHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'csvHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'pdfHtml5', title: () => 'Prestadores Médicos' }  
                 ],  
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
@@ -644,98 +756,59 @@ $(function() {
                 }  
             });  
 
+            // ============================================================
+            // EVENTOS DE FILTROS
+            // ============================================================
+            document.getElementById('apply-btn-esp').addEventListener('click', applyFilters);
+            
+            document.getElementById('clear-filters-btn').addEventListener('click', function() {
+                document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                document.getElementById('mostrar-asociados').checked = true;
+                $('#search-input').val('');
+                tabla.clear().rows.add(providersCompact).draw();
+                updateClearAllButton();
+            });
+
+            document.getElementById('mostrar-asociados').addEventListener('change', applyFilters);
+
+            document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    // Actualizar especialidades cuando cambia tipo
+                    if (checkbox.dataset.filter === 'tipo' && checkbox.checked) {
+                        const tipoSeleccionado = checkbox.value;
+                        const especialidadContainer = document.getElementById('filtro-especialidad-list');
+                        especialidadContainer.innerHTML = '';
+                        if (tipoEspecialidad[tipoSeleccionado]) {
+                            tipoEspecialidad[tipoSeleccionado].forEach(esp => {
+                                const checkbox2 = document.createElement('div');
+                                checkbox2.className = 'checkbox-item';
+                                checkbox2.innerHTML = `
+                                    <input type="checkbox" value="${esp}" data-filter="especialidad">
+                                    <label>${esp}</label>
+                                `;
+                                especialidadContainer.appendChild(checkbox2);
+                                checkbox2.querySelector('input').addEventListener('change', applyFilters);
+                            });
+                        }
+                    }
+                });
+            });
+
             $('#search-input').on('keyup', function() {  
                 tabla.search(this.value).draw();  
                 updateClearAllButton();  
             });  
 
             $('#clear-all-btn').click(function() {  
-                $('#filtro-seccional, #filtro-clasificacion, #filtro-plan, #filtro-seccional-esp, #filtro-tipo, #filtro-especialidad').val('');  
                 $('#search-input').val('');  
-                updateEspecialidades();  
                 tabla.search('').draw();  
-                tabla.clear().rows.add(providersCompact).draw();  
                 updateClearAllButton();  
             });  
-
-            $('#apply-btn-plan').click(function() {  
-                filterTableByPlan();  
-                updateClearAllButton();  
-            });  
-
-            $('#apply-btn-esp').click(function() {  
-                filterTableBySpecialty();  
-                updateClearAllButton();  
-            });  
-
-            function updateClearAllButton() {  
-                const hasFilters =  
-                    $('#filtro-seccional').val() ||  
-                    $('#filtro-clasificacion').val() ||  
-                    $('#filtro-plan').val() ||  
-                    $('#filtro-seccional-esp').val() ||  
-                    $('#filtro-tipo').val() ||  
-                    $('#filtro-especialidad').val() ||  
-                    $('#search-input').val();  
-                $('#clear-all-btn').prop('disabled', !hasFilters);  
-            }  
-
-            function filterTableByPlan() {  
-                const seccional = $('#filtro-seccional').val();  
-                const clasificacion = $('#filtro-clasificacion').val();  
-                const plan = $('#filtro-plan').val();  
-
-                const filteredData = providersCompact.filter(provider => {  
-                    if(provider.Clasificacion === 'Clinicas y Sanatorios' &&  
-                        provider.practices.some(p=> p.tipo === 'DiagnosticoyTratamiento')){  
-                        return false;  
-                    }  
-
-                    if (seccional && provider.Seccional !== seccional) return false;  
-                    if (clasificacion && provider.Clasificacion !== clasificacion) return false;  
-                    if (plan && !provider.Plan.includes(plan)) return false;  
-                    return true;  
-                });  
-
-                tabla.clear().rows.add(filteredData).draw();  
-            }  
-
-            function filterTableBySpecialty() {  
-                const seccional = $('#filtro-seccional-esp').val();  
-                const tipo = $('#filtro-tipo').val();  
-                const especialidad = $('#filtro-especialidad').val();  
-
-                const filteredData = providersCompact.filter(provider => {  
-                    // 1. Filtro de seguridad preexistente
-                    if (provider.Clasificacion === 'Clinicas y Sanatorios' &&  
-                       provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento')) {  
-                        return false;  
-                    }  
-
-                    // 2. Filtro por Seccional
-                    if (seccional && provider.Seccional !== seccional) return false;  
-
-                    // 3. Filtro combinado de Tipo y Especialidad (CORRECCIÓN AQUÍ)
-                    if (tipo || especialidad) {
-                        const hasMatchingPractice = provider.practices.some(p => {
-                            const matchTipo = tipo ? p.tipo === tipo : true;
-                            const matchEspecialidad = especialidad ? p.especialidad === especialidad : true;
-                            return matchTipo && matchEspecialidad;
-                        });
-
-                        if (!hasMatchingPractice) return false;
-                    }
-
-                    return true;  
-                });  
-
-                tabla.clear().rows.add(filteredData).draw();  
-            }
-
 
             // ============================================================
-            // DETALLE: MAPA INDIVIDUAL SIN GEOCODING
-            // (usa rowData.lat / rowData.lon del CSV)
+            // DETALLES Y MAPA INDIVIDUAL
             // ============================================================
             $('#tabla-prestadores tbody').on('click', 'button.details-control', function () {  
                 const tr = $(this).closest('tr');  
@@ -774,7 +847,7 @@ $(function() {
                     });  
                     practicesHtml += '</div>';  
 
-                    const mapId = `mapa-${(rowData.CUIT).replace(/\\W/g,'')}-${(rowData.Domicilio).replace(/\\W/g,'')}`;  
+                    const mapId = `mapa-${(rowData.CUIT).replace(/\W/g,'')}-${(rowData.Domicilio).replace(/\W/g,'')}`;  
                     let detalleHtml = `  
                     <div class="details-child">  
                         <table class="details-table">  
@@ -811,9 +884,9 @@ $(function() {
                 }  
             });  
 
-            // ============================================================  
-            // MODAL PARA ESTADÍSTICAS (igual)
-            // ============================================================  
+            // ============================================================
+            // ESTADÍSTICAS
+            // ============================================================
             const statsModal = document.getElementById('stats-modal');  
             const statsBtn = document.getElementById('stats-btn');  
             const closeStats = document.getElementById('close-stats');  
@@ -902,7 +975,7 @@ $(function() {
             };  
 
             // ============================================================
-            // MAPA GENERAL: SOLO USA lat/lon DEL CSV (sin geocodificar)
+            // MAPA GENERAL
             // ============================================================
             const mapModal = document.getElementById('map-modal');
             const mapBtn = document.getElementById('map-btn');
@@ -921,8 +994,6 @@ $(function() {
                 if (c.includes('especial')) return '#E67E22';
                 if (c.includes('salud')) return '#9B59B6';
                 if (c.includes('vario')) return '#afb3b0';
-
-
                 return '#666666';
             }
 
@@ -960,7 +1031,7 @@ $(function() {
                     const lon = provider.lon;
 
                     if (lat == null || lon == null || isNaN(lat) || isNaN(lon)) {
-                        continue; // sin coordenadas, no se muestra
+                        continue;
                     }
 
                     const color = getColorByClasificacion(provider.Clasificacion);
@@ -988,7 +1059,6 @@ $(function() {
 
             mapBtn.onclick = function() {
                 mapModal.style.display = 'block';
-                // Espera breve para que el div del mapa ya esté visible (Leaflet lo necesita)
                 setTimeout(() => {
                     buildGeneralMap();
                     if (generalMap) generalMap.invalidateSize();
@@ -1003,68 +1073,61 @@ $(function() {
                 if (event.target == statsModal) statsModal.style.display = 'none';  
                 if (event.target == mapModal) mapModal.style.display = 'none';  
             };  
+
+            function updateClearAllButton() {  
+                const hasFilters = $('#search-input').val() !== '';  
+                $('#clear-all-btn').prop('disabled', !hasFilters);  
+            }
         }  
     });  
 });
 
-// ==================== Configuración de EmailJS ====================
-const serviceID = 'service_bpql0t2';          // <-- REEMPLAZAR
+// ==================== EmailJS ====================
+const serviceID = 'service_bpql0t2';
 const templateID = 'template_pvy0uye';
-const publicKey    = 'gGaNST8Xed0QDePFj';        // <-- REEMPLAZAR
+const publicKey = 'gGaNST8Xed0QDePFj';
 
 emailjs.init(publicKey);
 
-/* --------------------------------
-       FUNCIÓN PARA ENVIAR EL CORREO
-       -------------------------------- */
-    function sendEmail(data) {
-      const params = {
+function sendEmail(data) {
+    const params = {
         name: data.name,
-        contact_email: data.email,   // nombre del campo en tu template
+        contact_email: data.email,
         message: data.message,
         time: new Date().toLocaleString()
-      };
+    };
 
-      emailjs.send(serviceID, templateID, params)
+    emailjs.send(serviceID, templateID, params)
         .then((response) => {
-          console.log('✅ Correo enviado:', response.status);
-          alert('¡Mensaje enviado! Gracias por contactarnos.');
-          closeModal();
+            console.log('✅ Correo enviado:', response.status);
+            alert('¡Mensaje enviado! Gracias por contactarnos.');
+            closeModal();
         })
         .catch((err) => {
-          console.error('❌ Error al enviar:', err);
-          alert('Hubo un problema. Inténtalo de nuevo.');
+            console.error('❌ Error al enviar:', err);
+            alert('Hubo un problema. Inténtalo de nuevo.');
         });
-    }
+}
 
-    /* --------------------------------
-       MANEJO DEL MODAL
-       -------------------------------- */
-    const contactModal = document.getElementById('contact-modal');
+const contactModal = document.getElementById('contact-modal');
 
-    function openModal()  { contactModal.style.display = 'flex'; }
-    function closeModal() { contactModal.style.display = 'none'; }
+function openModal()  { contactModal.style.display = 'flex'; }
+function closeModal() { contactModal.style.display = 'none'; }
 
-    document.getElementById('openContactBtn').addEventListener('click', openModal);
-    document.querySelector('#contact-modal .close-btn')
-      .addEventListener('click', closeModal);
+document.getElementById('openContactBtn').addEventListener('click', openModal);
+document.querySelector('#contact-modal .close-btn')
+    .addEventListener('click', closeModal);
 
-    // Cerrar modal al hacer click fuera del contenido
-    window.addEventListener('click', (e) => {
-      if (e.target === contactModal) closeModal();
-    });
+window.addEventListener('click', (e) => {
+    if (e.target === contactModal) closeModal();
+});
 
-    /* --------------------------------
-       MANEJO DEL FORMULARIO
-       -------------------------------- */
-    document.getElementById('contactForm').addEventListener('submit', function(e){
-      e.preventDefault();                     // Evita recarga
-
-      const formData = new FormData(this);     // Obtiene todos los campos
-      const dataObj  = Object.fromEntries(formData.entries()); // Convierte a objeto
-
-      sendEmail(dataObj);
-    });
-  </script>
+document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    const dataObj = Object.fromEntries(formData.entries());
+    sendEmail(dataObj);
+});
+</script>
 </body>
 </html>
