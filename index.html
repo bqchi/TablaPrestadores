@@ -506,6 +506,12 @@
         <div class="modal-content" id="map-modal-content">
             <span class="close-btn" id="close-map">&times;</span>
             <h2 class="modal-title">Mapa de Prestadores (según filtros actuales)</h2>
+            <div style="margin-bottom: 12px;">
+                <label style="display: inline-flex; align-items: center; gap: 8px; background: var(--filter-bg); padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 13px;">
+                    <input type="checkbox" id="map-mostrar-asociados" checked style="cursor: pointer;">
+                    <span style="color: var(--text-color);">Mostrar Prestadores Asociados</span>
+                </label>
+            </div>
             <div id="general-map"></div>
             <div class="map-legend">
                 <div class="map-legend-item"><div class="legend-color-box" style="background:#E74C3C;"></div> Clinicas y Sanatorios</div>
@@ -681,7 +687,50 @@ $(function() {
                         <input type="checkbox" value="${item}" data-filter="${filterKey}">
                         <label>${item}</label>
                     `;
+                    const input = checkbox.querySelector('input');
+                    input.addEventListener('change', () => {
+                        // Actualizar especialidades cuando cambia tipo
+                        if (filterKey === 'tipo') {
+                            updateEspecialidadOptions();
+                        }
+                    });
                     container.appendChild(checkbox);
+                });
+            }
+            
+            function updateEspecialidadOptions() {
+                const selectedTipos = Array.from(document.querySelectorAll('input[data-filter="tipo"]:checked')).map(cb => cb.value);
+                const especialidadContainer = document.getElementById('filtro-especialidad-list');
+                const especialidadColumn = document.getElementById('especialidad-column');
+                
+                if (selectedTipos.length === 0) {
+                    especialidadColumn.style.display = 'none';
+                    especialidadContainer.innerHTML = '';
+                    return;
+                }
+                
+                especialidadColumn.style.display = 'flex';
+                const allEspecialidades = new Set();
+                
+                selectedTipos.forEach(tipo => {
+                    if (tipoEspecialidad[tipo]) {
+                        tipoEspecialidad[tipo].forEach(esp => allEspecialidades.add(esp));
+                    }
+                });
+                
+                const sortedEspecialidades = Array.from(allEspecialidades).sort();
+                especialidadContainer.innerHTML = '';
+                
+                sortedEspecialidades.forEach(esp => {
+                    const checkbox = document.createElement('div');
+                    checkbox.className = 'checkbox-item';
+                    checkbox.innerHTML = `
+                        <input type="checkbox" value="${esp}" data-filter="especialidad">
+                        <label>${esp}</label>
+                    `;
+                    const input = checkbox.querySelector('input');
+                    input.addEventListener('change', applyFilters);
+                    especialidadContainer.appendChild(checkbox);
                 });
             }
 
@@ -825,26 +874,9 @@ $(function() {
             document.getElementById('mostrar-asociados').addEventListener('change', applyFilters);
 
             document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
-                checkbox.addEventListener('change', () => {
-                    // Actualizar especialidades cuando cambia tipo
-                    if (checkbox.dataset.filter === 'tipo' && checkbox.checked) {
-                        const tipoSeleccionado = checkbox.value;
-                        const especialidadContainer = document.getElementById('filtro-especialidad-list');
-                        especialidadContainer.innerHTML = '';
-                        if (tipoEspecialidad[tipoSeleccionado]) {
-                            tipoEspecialidad[tipoSeleccionado].forEach(esp => {
-                                const checkbox2 = document.createElement('div');
-                                checkbox2.className = 'checkbox-item';
-                                checkbox2.innerHTML = `
-                                    <input type="checkbox" value="${esp}" data-filter="especialidad">
-                                    <label>${esp}</label>
-                                `;
-                                especialidadContainer.appendChild(checkbox2);
-                                checkbox2.querySelector('input').addEventListener('change', applyFilters);
-                            });
-                        }
-                    }
-                });
+                if (checkbox.dataset.filter !== 'tipo') {
+                    checkbox.addEventListener('change', applyFilters);
+                }
             });
 
             $('#search-input').on('keyup', function() {  
@@ -1061,7 +1093,12 @@ $(function() {
             }
 
             function buildGeneralMap() {
-                const rows = tabla.rows({search:'applied'}).data().toArray();
+                const mostrarAsociados = document.getElementById('map-mostrar-asociados').checked;
+                let rows = tabla.rows({search:'applied'}).data().toArray();
+                
+                if (!mostrarAsociados) {
+                    rows = rows.filter(provider => !provider.NroPrestador.includes('-'));
+                }
 
                 if (!generalMap) {
                     generalMap = L.map('general-map').setView([-34.6, -58.4], 4);
@@ -1115,6 +1152,12 @@ $(function() {
                     if (generalMap) generalMap.invalidateSize();
                 }, 150);
             };
+            
+            document.addEventListener('change', function(e) {
+                if (e.target.id === 'map-mostrar-asociados' && generalMap) {
+                    buildGeneralMap();
+                }
+            });
 
             closeMap.onclick = function() {
                 mapModal.style.display = 'none';
@@ -1129,6 +1172,8 @@ $(function() {
                 const hasFilters = $('#search-input').val() !== '';  
                 $('#clear-all-btn').prop('disabled', !hasFilters);  
             }
+            
+            updateEspecialidadOptions();
         }  
     });  
 });
