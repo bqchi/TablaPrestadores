@@ -56,129 +56,113 @@
         }  
         h1 { color: var(--header-color); }  
         .filtros-container {   
-            margin-bottom: 20px;   
-            display: flex;   
-            gap: 30px;  
-            flex-wrap: wrap;  
-        }  
-        .filtros-group {  
-            flex: 1;  
-            min-width: 300px;  
-            padding: 15px;  
+            margin-bottom: 15px;   
+            padding: 12px;   
             border: 1px solid var(--border-color);  
             border-radius: 6px;  
             background: var(--filter-bg);  
         }  
+        .filtros-group {  
+            flex: 1;  
+        }  
         .filtros-group h3 {  
-            margin-top: 0;  
+            margin: 0 0 10px 0;  
             color: var(--header-color);  
+            font-size: 13px;
         }  
-        .filtros {   
-            display: flex;   
-            gap: 10px;   
-            flex-wrap: wrap;  
-            align-items: center;  
+        .filter-columns {   
+            display: grid;   
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));   
+            gap: 8px;   
+            margin-bottom: 10px;
         }  
-        .checkbox-group {
+        .filter-column {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 2px;
         }
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-color);
-        }
-        .checkbox-item input[type="checkbox"] {
-            cursor: pointer;
-        }
-        .checkbox-item label {
-            cursor: pointer;
+        .filter-column label {
+            font-size: 10px;
+            font-weight: bold;
+            color: var(--header-color);
             margin: 0;
         }
-        select, button {   
-            padding: 8px;   
-            border-radius:4px;   
-            border:1px solid #bbb;  
-            background: var(--filter-bg); color: var(--text-color);  
-        }  
-        .filtros button {   
-            background:var(--button-bg);   
-            color:white;   
-            border:none;   
-            min-width:120px;  
-        }  
-        .filtros .reset-btn {   
-            background: var(--reset-bg);   
-        }  
-        table { font-size: 14px; }  
-        th, td {   
-            text-align: center;   
-            padding: 4px 8px !important;   
-            height: 28px !important; color: var(--text-color);  
-        }  
-        .dataTable thead .sorting,   
-        .dataTable thead .sorting_asc,   
-        .dataTable thead .sorting_desc {  
-            background-image: none !important;  
-        }  
-        .details-child { background: var(--details-bg); padding: 18px; color: var(--text-color); border-top: 2px solid var(--border-color); }  
-        .details-child table { width: 100%; border-collapse: collapse; }  
-        .details-child th, .details-child td { border: 1px solid var(--border-color); padding: 8px; color: var(--text-color); }  
-        .details-child th { background: var(--filter-bg); }  
-        .details-child td { background: var(--details-bg); }  
-        .practices-container {   
-            display: flex;   
-            flex-wrap: wrap;   
-            gap: 15px;   
-        }  
-        .practice-type-container {   
-            flex: 1 0 300px;   
-            background: var(--practice-bg);  
-            padding: 10px;   
-            border-radius: 6px; color: var(--text-color);  
-        }  
-        .practice-type-title {   
-            font-weight: bold;   
-            margin-bottom: 8px;   
-            text-align: center;  
-            color: var(--header-color);  
-        }  
-        .practice-list {   
-            padding-left: 20px;   
-            text-align: left; color: var(--text-color);  
-        }  
-        .map-container {   
-            height: 220px;   
-            width: 99%;   
-            margin-top:10px;   
-            border-radius:6px;   
-            border:1px solid var(--border-color);  
-        }  
-        tr.universal { background-color: var(--universal-bg) !important; }  
-        tr.superador { background-color: var(--superador-bg) !important; }  
-        tr.universal td:first-child { background-color: var(--universal-bg) !important; }  
-        tr.superador td:first-child { background-color: var(--superador-bg) !important; }  
+        .filter-column select {
+            padding: 5px;
+            font-size: 10px;
+            background: var(--filter-bg);
+            color: var(--text-color);
+            border: 1px solid #bbb;
+            border-radius: 3px;
+        }
+        .button-row {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .button-row button {
+            padding: 5px 10px;
+            font-size: 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            min-width: 70px;
+        }
+        .button-row button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .button-row button:active {
+            transform: scale(0.95);
+        }
+        #apply-btn-filters {
+            background: #27AE60;
+            color: white;
+        }
+        #apply-btn-filters:hover {
+            background: #229954;
+        }
+        .reset-btn {
+            background: #E74C3C !important;
+            color: white;
+        }
+        .reset-btn:hover {
+            background: #C0392B !important;
+        }
+        .button-row label {
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin: 0;
+        }
         .search-container {  
             display: flex;  
             justify-content: center;  
-            margin-bottom: 20px;  
-            gap: 10px;  
+            margin-bottom: 15px;  
+            gap: 8px;  
         }  
         .search-container input {  
-            padding: 8px;  
-            border-radius: 4px;  
+            padding: 6px;  
+            border-radius: 3px;  
             border: 1px solid #bbb;  
-            width: 300px; background: var(--filter-bg); color: var(--text-color);  
+            width: 250px; 
+            background: var(--filter-bg); 
+            color: var(--text-color);  
+            font-size: 11px;
         }  
         .search-container button {  
             background: var(--reset-bg);  
             color: white;  
             border: none;  
-            padding: 8px 15px;  
-            border-radius: 4px;  
+            padding: 6px 12px;  
+            border-radius: 3px;  
             cursor: pointer;  
+            font-size: 10px;
         }  
         .search-container button:disabled {  
             background: #cccccc;  
@@ -190,9 +174,9 @@
             left: 15px;  
             background: rgba(73, 126, 118, 0.95);  
             color: white;  
-            padding: 10px 14px;  
-            border-radius: 8px;  
-            font-size: 13px;  
+            padding: 8px 10px;  
+            border-radius: 6px;  
+            font-size: 12px;  
             z-index: 1000;  
             box-shadow: 0 3px 10px rgba(0,0,0,0.3);  
             text-align: center;  
@@ -200,11 +184,11 @@
             font-weight: bold;  
             display: flex;  
             align-items: center;  
-            gap: 8px;  
+            gap: 6px;  
         }  
         .visitor-counter img {  
             vertical-align: middle;  
-            height: 20px;  
+            height: 16px;  
         }  
         .dataTables_filter {  
             display: none !important;  
@@ -232,11 +216,11 @@
         .modal-content {  
             background: var(--bg-color);  
             margin: 2% auto;  
-            padding: 25px;  
+            padding: 20px;  
             border: 1px solid var(--border-color);  
             width: 95%;  
             max-width: 1100px;  
-            border-radius: 8px;  
+            border-radius: 6px;  
             position: relative; 
             color: var(--text-color);  
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
@@ -244,168 +228,166 @@
         .close-btn {  
             position: absolute;  
             top: 10px;  
-            right: 20px;  
-            font-size: 28px;  
+            right: 15px;  
+            font-size: 24px;  
             cursor: pointer;  
             color: var(--text-color);  
             z-index: 10;
         }  
-        #stats-summary { margin-bottom: 20px; text-align: center; font-size: 16px; font-weight: bold; }  
-
+        #stats-summary { margin-bottom: 15px; text-align: center; font-size: 14px; font-weight: bold; }  
         #stats-container { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
-            gap: 30px; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 20px; 
             justify-items: center; 
             padding: 10px;
         }  
         #stats-container canvas { 
             max-width: 100%; 
-            height: 350px !important;
+            height: 300px !important;
             background: var(--chart-bg); 
-            border-radius: 8px;
-            padding: 10px;
+            border-radius: 6px;
+            padding: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }  
-
-        .loader { display: none; text-align: center; padding: 20px; color: var(--text-color); }  
+        table { font-size: 13px; }  
+        th, td {   
+            text-align: center;   
+            padding: 4px 6px !important;   
+            height: 24px !important; 
+            color: var(--text-color);  
+        }  
+        .dataTable thead .sorting,   
+        .dataTable thead .sorting_asc,   
+        .dataTable thead .sorting_desc {  
+            background-image: none !important;  
+        }  
+        .details-child { background: var(--details-bg); padding: 15px; color: var(--text-color); border-top: 2px solid var(--border-color); }  
+        .details-child table { width: 100%; border-collapse: collapse; }  
+        .details-child th, .details-child td { border: 1px solid var(--border-color); padding: 6px; color: var(--text-color); }  
+        .details-child th { background: var(--filter-bg); }  
+        .details-child td { background: var(--details-bg); }  
+        .practices-container {   
+            display: flex;   
+            flex-wrap: wrap;   
+            gap: 10px;   
+        }  
+        .practice-type-container {   
+            flex: 1 0 250px;   
+            background: var(--practice-bg);  
+            padding: 8px;   
+            border-radius: 4px; 
+            color: var(--text-color);  
+        }  
+        .practice-type-title {   
+            font-weight: bold;   
+            margin-bottom: 6px;   
+            text-align: center;  
+            color: var(--header-color);
+            font-size: 11px;
+        }  
+        .practice-list {   
+            padding-left: 15px;   
+            text-align: left; 
+            color: var(--text-color);
+            font-size: 10px;
+        }  
+        .map-container {   
+            height: 200px;   
+            width: 99%;   
+            margin-top:8px;   
+            border-radius: 4px;   
+            border: 1px solid var(--border-color);  
+        }  
+        tr.universal { background-color: var(--universal-bg) !important; }  
+        tr.superador { background-color: var(--superador-bg) !important; }  
+        tr.universal td:first-child { background-color: var(--universal-bg) !important; }  
+        tr.superador td:first-child { background-color: var(--superador-bg) !important; }  
         .mode-buttons {  
             display: flex;  
             justify-content: center;  
-            gap: 10px;  
-            margin-bottom: 20px;  
+            gap: 8px;  
+            margin-bottom: 15px;  
         }  
         .mode-buttons button {  
             background: var(--button-bg);  
             color: white;  
             border: none;  
-            padding: 8px 15px;  
-            border-radius: 4px;  
-            cursor: pointer;  
-        }  
-
-        #map-modal-content {  
-            max-width: 1000px;  
+            padding: 6px 12px;  
+            border-radius: 3px;  
+            cursor: pointer;
+            font-size: 11px;
         }  
         #general-map {  
             width: 100%;  
-            height: 550px;
-            border-radius: 8px;  
+            height: 500px;
+            border-radius: 6px;  
             border: 1px solid var(--border-color);  
         }  
         .map-legend {  
-            margin-top: 15px;  
-            font-size: 13px;  
+            margin-top: 12px;  
+            font-size: 11px;  
             display: flex;  
             flex-wrap: wrap;  
-            gap: 10px;  
+            gap: 8px;  
             justify-content: center;
         }  
         .map-legend-item {  
             display: flex;  
             align-items: center;  
-            gap: 5px;  
+            gap: 4px;  
         }  
         .legend-color-box {  
-            width: 14px;  
-            height: 14px;  
-            border-radius: 3px;  
+            width: 12px;  
+            height: 12px;  
+            border-radius: 2px;  
             border: 1px solid #555;  
         }
-
-        #contactForm { max-width:500px; margin:auto; padding:1rem; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 8px; }
-        #contactForm label{ display:block; margin-top:.75rem; font-weight:bold; }
+        #contactForm { 
+            max-width: 450px; 
+            margin: auto; 
+            padding: 15px; 
+            background-color: var(--bg-color); 
+            border: 1px solid var(--border-color); 
+            border-radius: 6px; 
+        }
+        #contactForm label{ 
+            display: block; 
+            margin-top: 8px; 
+            font-weight: bold;
+            font-size: 11px;
+        }
         #contactForm input, #contactForm textarea{
-            width:100%; padding:.5rem; border:1px solid #ccc; background-color: #fff;
-            border-radius:4px; box-sizing:border-box; color: #000;
+            width: 100%; 
+            padding: 6px; 
+            border: 1px solid #ccc; 
+            background-color: #fff;
+            border-radius: 3px; 
+            box-sizing: border-box; 
+            color: #000;
+            font-size: 10px;
         }
-        #contactForm button{ margin-top:1rem; padding:.75rem 1.5rem; background:#497e76; color:#fff; border:none; cursor:pointer; border-radius: 4px; }
-
-        .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px; }
-        .modal-title{ font-size:1.5rem; margin:0; color: var(--header-color); }
-
-        .filter-columns {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            width: 100%;
+        #contactForm button{ 
+            margin-top: 10px; 
+            padding: 6px 12px; 
+            background: #497e76; 
+            color: #fff; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 3px;
+            font-size: 10px;
         }
-
-        .filter-column {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+        .modal-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 12px; 
         }
-
-        .filter-column-title {
-            font-weight: bold;
-            color: var(--header-color);
-            margin-bottom: 5px;
-            font-size: 13px;
+        .modal-title{ 
+            font-size: 1.3rem; 
+            margin: 0; 
+            color: var(--header-color); 
         }
-
-        .filter-list {
-            max-height: 180px;
-            overflow-y: auto;
-            border: 1px solid #bbb;
-            padding: 8px;
-            border-radius: 4px;
-            background: var(--details-bg);
-        }
-
-        .button-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .button-row label {
-            flex: 0 1 auto;
-        }
-
-        .button-row button {
-            padding: 8px 16px;
-            font-size: 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            min-width: 100px;
-        }
-
-        #apply-btn-esp {
-            background: #27AE60;
-            color: white;
-        }
-
-        #apply-btn-esp:hover {
-            background: #229954;
-            transform: scale(1.08);
-            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.4);
-        }
-
-        #apply-btn-esp:active {
-            transform: scale(0.96);
-        }
-
-        #clear-filters-btn {
-            background: #E74C3C;
-            color: white;
-        }
-
-        #clear-filters-btn:hover {
-            background: #C0392B;
-            transform: scale(1.08);
-            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
-        }
-
-        #clear-filters-btn:active {
-            transform: scale(0.96);
-        }
-
     </style>  
 </head>  
 <body>  
@@ -413,76 +395,31 @@
     <h1>Tabla de Prestadores Médicos</h1>  
 
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad...">
-        <button id="clear-all-btn" disabled>Borrar todo</button>
+        <input type="text" id="search-input" placeholder="Buscar...">
+        <button id="clear-search-btn">Limpiar búsqueda</button>
     </div>
 
     <div class="mode-buttons">
         <button id="stats-btn">Ver Estadísticas</button>
-        <button id="map-btn">Ver Mapa de Prestadores</button>
+        <button id="map-btn">Ver Mapa</button>
     </div>
 
     <div class="filtros-container">
-        <div class="filtros-group" style="flex: 1 1 100%;">
-            <h3>Filtros Combinatorios</h3>
-            <div style="display: flex; flex-direction: column; gap: 15px;">
-                <!-- Grupo 1: Ubicación y Plan -->
-                <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px;">
-                    <div style="font-weight: bold; color: var(--header-color); margin-bottom: 10px; font-size: 12px;">UBICACIÓN Y PLAN</div>
-                    <div class="filter-columns" style="grid-template-columns: repeat(2, 1fr);">
-                        <div class="filter-column">
-                            <div class="filter-column-title">Seccional</div>
-                            <div class="filter-list" id="filtro-seccional-list"></div>
-                        </div>
-                        <div class="filter-column">
-                            <div class="filter-column-title">Plan</div>
-                            <div class="filter-list" id="filtro-plan-list"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Grupo 2: Clasificación -->
-                <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px;">
-                    <div style="font-weight: bold; color: var(--header-color); margin-bottom: 10px; font-size: 12px;">CLASIFICACIÓN</div>
-                    <div class="filter-columns" style="grid-template-columns: 1fr;">
-                        <div class="filter-column">
-                            <div class="filter-list" id="filtro-clasificacion-list"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Grupo 3: Prestación -->
-                <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px;">
-                    <div style="font-weight: bold; color: var(--header-color); margin-bottom: 10px; font-size: 12px;">PRESTACIONES</div>
-                    <div class="filter-columns" style="grid-template-columns: repeat(3, 1fr);">
-                        <div class="filter-column">
-                            <div class="filter-column-title">Guardia</div>
-                            <div class="filter-list" id="filtro-guardia-list"></div>
-                        </div>
-                        <div class="filter-column">
-                            <div class="filter-column-title">Tipo de Prestador</div>
-                            <div class="filter-list" id="filtro-tipo-list"></div>
-                        </div>
-                        <div class="filter-column">
-                            <div class="filter-column-title">Especialidad</div>
-                            <div class="filter-list" id="filtro-especialidad-list"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="filtros-group">
+            <h3>FILTROS</h3>
+            <div class="filter-columns" id="all-filters"></div>
             <div class="button-row">
-                <label style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                <label>
                     <input type="checkbox" id="mostrar-asociados" checked>
-                    <span>Mostrar Prestadores Asociados</span>
+                    Mostrar Asociados
                 </label>
-                <button id="apply-btn-esp" type="button">Aplicar</button>
-                <button id="clear-filters-btn" type="button" class="reset-btn">Limpiar Filtros</button>
+                <button id="apply-btn-filters" type="button">Aplicar</button>
+                <button id="clear-all-btn-filters" type="button" class="reset-btn">Limpiar Filtros</button>
             </div>
         </div>
     </div>
 
-    <table id="tabla-prestadores" class="display" columns-center style="width:100%;">  
+    <table id="tabla-prestadores" class="display" style="width:100%;">  
         <thead>  
             <tr>  
                 <th></th>  
@@ -517,31 +454,32 @@
 
     <!-- MODAL MAPA -->
     <div id="map-modal" class="modal">
-        <div class="modal-content" id="map-modal-content">
+        <div class="modal-content">
             <span class="close-btn" id="close-map">&times;</span>
-            <h2 class="modal-title">Mapa de Prestadores (según filtros actuales)</h2>
-            <div style="margin-bottom: 12px;">
-                <label style="display: inline-flex; align-items: center; gap: 8px; background: var(--filter-bg); padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 13px;">
-                    <input type="checkbox" id="map-mostrar-asociados" checked style="cursor: pointer;">
-                    <span style="color: var(--text-color);">Mostrar Prestadores Asociados</span>
+            <h2 class="modal-title">Mapa de Prestadores</h2>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                <label style="font-size: 11px; display: flex; align-items: center; gap: 5px;">
+                    <input type="checkbox" id="mostrar-asociados-mapa" checked>
+                    Mostrar Prestadores Asociados
                 </label>
+                <button id="update-map-btn" style="padding: 5px 10px; font-size: 10px; background: #27AE60; color: white; border: none; border-radius: 3px; cursor: pointer;">Actualizar Mapa</button>
             </div>
             <div id="general-map"></div>
             <div class="map-legend">
-                <div class="map-legend-item"><div class="legend-color-box" style="background:#E74C3C;"></div> Clinicas y Sanatorios</div>
-                <div class="map-legend-item"><div class="legend-color-box" style="background:#B5E6A2;"></div> Diagnostico y Tratamiento</div>
-                <div class="map-legend-item"><div class="legend-color-box" style="background:#27AE60;"></div> Rehabilitacion</div>
-                <div class="map-legend-item"><div class="legend-color-box" style="background:#F1C40F;"></div> Centros Medicos</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#E74C3C;"></div> Clínicas y Sanatorios</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#B5E6A2;"></div> Diagnóstico y Tratamiento</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#27AE60;"></div> Rehabilitación</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#F1C40F;"></div> Centros Médicos</div>
                 <div class="map-legend-item"><div class="legend-color-box" style="background:#E67E22;"></div> Especialistas</div>
-                <div class="map-legend-item"><div class="legend-color-box" style="background:#3498DB;"></div> Pediatria</div>
+                <div class="map-legend-item"><div class="legend-color-box" style="background:#3498DB;"></div> Pediatría</div>
                 <div class="map-legend-item"><div class="legend-color-box" style="background:#9B59B6;"></div> Salud Mental</div>
                 <div class="map-legend-item"><div class="legend-color-box" style="background:#afb3b0;"></div> Varios</div>
             </div>
         </div>
     </div>
 
-    <div style="text-align:center; margin-top:2rem;">
-        <button id="openContactBtn" style="padding:.75rem 1.5rem;background:#497e76;color:white;border: 2px solid #3a6159; border-radius:.25rem;font-size:1rem;cursor:pointer;">
+    <div style="text-align:center; margin-top:20px;">
+        <button id="openContactBtn" style="padding: 8px 16px; background: #497e76; color: white; border: 2px solid #3a6159; border-radius: 4px; font-size: 11px; cursor: pointer;">
             Ingresar Reclamo
         </button>
     </div>
@@ -589,19 +527,10 @@ themeToggle.addEventListener('click', () => {
     if (seccionalChart) seccionalChart.update();
     if (planChart) planChart.update();
     if (clasificacionChart) clasificacionChart.update();
-
-    if (tabla) {
-        tabla.rows().every(function() {
-            if (this.child.isShown()) {
-                this.child.hide();
-                this.nodes().to$().removeClass('shown');
-            }
-        });
-    }
 });
 
 // ============================================================
-// CÓDIGO PRINCIPAL
+// DATOS DE ESPECIALIDADES
 // ============================================================
 const tipoEspecialidad = {  
     "GuardiaActiva": ["Cardiologica","Clinica","Gastroenterologia","Ginecologica","Obstetrica","Odontologica","Oftalmologica","Otorrinolaringologia","Pediatrica","Por Electrocucion","Por envenenamiento","Por intoxicacion","Por mordedura de animales","Psiquiatrica","Quemados","Quirurgica","Traumatologica"],  
@@ -611,15 +540,55 @@ const tipoEspecialidad = {
     "Cirugias": ["Artroscopica","Cabeza y Cuello","Cardiaca","Cardiaca Infantil","Endoscopica","General","Ginecologia","Infantil","Laparoscopica","Miembro Superior y Mano","Nariz y oido","Neurocirugia","Oftalmologica","Pierna y Pie","Plastica Reparadora","Toracica","Traumatologica","Urologia","Vascular Periferica"],  
     "DiagnosticoyTratamiento": ["Anatomia Patologia","Audiometria","Camara Gamma - Medicina Nuclear - Radioisotopos","Campo visual computarizado","Colposcopia","Densitometria Osea","Drenaje Linfatico","Eco Estres","Eco-Doppler","Ecografia","Ecografia 4D/5D","Ecografia Infantil","Ecografia TN","Electrocardiograma","Electroencefalograma","Electromiograma","Endoscopia Digestiva","Endoscopia Ginecologica","Endoscopia Respiratoria","Endoscopia Urologica","Ergometria","Espinograma","Espirometria","Espirometria Infantil","Estudios Cardiologicos","Estudios Gastroenterologicos","Estudios Ginecologicos","Estudios Mamarios","Estudios Oftalmologicos","Holter","Infiltraciones","Laboratorio","Mapeo Cerebral","Monitoreo Fetal","PET","Polisomnografia","Potenciales Evocados","Presurometria","Psicoprofilaxis del parto","Puncion Mamaria","Puncion Tiroide","Quimioterapia","Radiologia","Radiologia Infantil","Radioterapia","Rehabilitacion Neurologica","Rehabilitacion Vestibular","Resonador abierto","Resonancia Magnetica Nuclear","RPG","Tomografia Computada","Tomografo abierto","Urodinamia","Urodinamia Infantil"]  
 };  
+
 const seccionales = ["BAHIA BLANCA","BUENOS AIRES ZONA 1","BUENOS AIRES ZONA 2","BUENOS AIRES ZONA 3","CAPITAL","CATAMARCA","CHACO","CHUBUT","CORDOBA","CORRIENTES","ENTRE RIOS","FORMOSA","GBA NOROESTE","GBA NORTE","GBA OESTE","GBA SUR","JUJUY","LA PAMPA","LA PLATA","LA RIOJA","MAR DEL PLATA","MENDOZA","MISIONES","NEUQUEN","RIO NEGRO","ROSARIO","SALTA","SAN JUAN","SAN LUIS","SANTA CRUZ","SANTA FE","SANTIAGO DEL ESTERO","TIERRA DEL FUEGO","TRENQUE LAUQUEN","TUCUMAN"];  
 
 $(function() {  
     let providersCompact = [], datosFiltrados = [];  
     let uniqueClasificaciones = new Set();  
+    let uniquePlans = new Set();
+    let selectedFilters = {
+        seccional: [],
+        plan: [],
+        clasificacion: [],
+        guardia: [],
+        tipo: [],
+        especialidad: []
+    };
 
     // ============================================================
-    // CARGAR CSV Y PROCESAR DATOS
+    // CREAR FILTROS CON SELECT MÚLTIPLE
     // ============================================================
+    function createFilterSelect(label, items, filterId) {
+        const col = document.createElement('div');
+        col.className = 'filter-column';
+        
+        const labelEl = document.createElement('label');
+        labelEl.textContent = label;
+        
+        const select = document.createElement('select');
+        select.id = filterId;
+        select.multiple = true;
+        select.size = 4;
+        
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = '--- Ninguno ---';
+        select.appendChild(option);
+        
+        const sortedItems = Array.from(items).sort();
+        sortedItems.forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item;
+            opt.textContent = item;
+            select.appendChild(opt);
+        });
+        
+        col.appendChild(labelEl);
+        col.appendChild(select);
+        return col;
+    }
+
     Papa.parse("Data_geocoded.csv", {  
         download: true,  
         header: true,  
@@ -633,7 +602,6 @@ $(function() {
             });
 
             const providersMap = {};  
-            const uniquePlans = new Set();  
 
             datosFiltrados.forEach(row => {  
                 const key = `${row.CUIT}-${row.Domicilio}`;  
@@ -685,164 +653,22 @@ $(function() {
                 if (aIsSuperador && !bIsSuperador) return 1;  
                 if (!aIsSuperador && bIsSuperador) return -1;  
                 return a.Nombre.localeCompare(b.Nombre);  
-            });  
-
-            // ============================================================
-            // RENDERIZAR CHECKBOXES DINÁMICAMENTE
-            // ============================================================
-            function renderCheckboxes(items, containerId, filterKey) {
-                const container = document.getElementById(containerId);
-                container.innerHTML = '';
-                const sortedItems = Array.from(items).sort();
-                sortedItems.forEach(item => {
-                    const checkbox = document.createElement('div');
-                    checkbox.className = 'checkbox-item';
-                    checkbox.innerHTML = `
-                        <input type="checkbox" value="${item}" data-filter="${filterKey}">
-                        <label>${item}</label>
-                    `;
-                    const input = checkbox.querySelector('input');
-                    input.addEventListener('change', () => {
-                        // Actualizar especialidades cuando cambia tipo
-                        if (filterKey === 'tipo') {
-                            // Inicializar Especialidad
-            updateEspecialidadOptions();
-            
-            // Event listener para cambios en Tipo
-            document.addEventListener('change', function(e) {
-                if (e.target.dataset.filter === 'tipo') {
-                    updateEspecialidadOptions();
-                }
             });
-                        }
-                    });
-                    container.appendChild(checkbox);
-                });
-            }
+
+            // Renderizar filtros
+            const filterContainer = document.getElementById('all-filters');
+            filterContainer.appendChild(createFilterSelect('Seccional', seccionales, 'select-seccional'));
+            filterContainer.appendChild(createFilterSelect('Plan', Array.from(uniquePlans), 'select-plan'));
+            filterContainer.appendChild(createFilterSelect('Clasificación', Array.from(uniqueClasificaciones), 'select-clasificacion'));
             
-            function updateEspecialidadOptions() {
-                const selectedTipos = Array.from(document.querySelectorAll('input[data-filter="tipo"]:checked')).map(cb => cb.value);
-                const especialidadContainer = document.getElementById('filtro-especialidad-list');
-                
-                // Si se selecciona más de un tipo, NO mostrar especialidades (evitar mezcla)
-                if (selectedTipos.length > 1) {
-                    especialidadContainer.innerHTML = '<div style="color:#999;padding:8px;font-size:12px;">Selecciona un solo Tipo</div>';
-                    return;
-                }
-                
-                let allEspecialidades = [];
-                
-                if (selectedTipos.length === 1) {
-                    const tipo = selectedTipos[0];
-                    if (tipoEspecialidad[tipo]) {
-                        allEspecialidades = Array.from(tipoEspecialidad[tipo]).sort();
-                    }
-                }
-                
-                especialidadContainer.innerHTML = '';
-                
-                if (allEspecialidades.length === 0) {
-                    especialidadContainer.innerHTML = '<div style="color:#999;padding:8px;font-size:12px;">Selecciona un Tipo</div>';
-                    return;
-                }
-                
-                allEspecialidades.forEach(esp => {
-                    const checkbox = document.createElement('div');
-                    checkbox.className = 'checkbox-item';
-                    checkbox.innerHTML = `
-                        <input type="checkbox" value="${esp}" data-filter="especialidad">
-                        <label>${esp}</label>
-                    `;
-                    const input = checkbox.querySelector('input');
-                    input.addEventListener('change', applyFilters);
-                    especialidadContainer.appendChild(checkbox);
-                });
-            }
-
-            // Separar Guardías de otros tipos
-            const tiposNoGuardia = Object.keys(tipoEspecialidad).filter(t => !t.includes('Guardia'));
             const tiposGuardia = Object.keys(tipoEspecialidad).filter(t => t.includes('Guardia'));
+            filterContainer.appendChild(createFilterSelect('Guardia', tiposGuardia, 'select-guardia'));
+            
+            const tiposNoGuardia = Object.keys(tipoEspecialidad).filter(t => !t.includes('Guardia'));
+            filterContainer.appendChild(createFilterSelect('Tipo de Prestador', tiposNoGuardia, 'select-tipo'));
+            filterContainer.appendChild(createFilterSelect('Especialidad', [], 'select-especialidad'));
 
-            renderCheckboxes(seccionales, 'filtro-seccional-list', 'seccional');
-            renderCheckboxes(Array.from(uniquePlans), 'filtro-plan-list', 'plan');
-            renderCheckboxes(Array.from(uniqueClasificaciones), 'filtro-clasificacion-list', 'clasificacion');
-            renderCheckboxes(tiposGuardia, 'filtro-guardia-list', 'tipo');
-            renderCheckboxes(tiposNoGuardia, 'filtro-tipo-list', 'tipo');
-
-            // ============================================================
-            // FUNCIÓN PARA APLICAR FILTROS COMBINATORIOS
-            // ============================================================
-            function getSelectedFilters() {
-                const filters = {
-                    seccional: [],
-                    plan: [],
-                    clasificacion: [],
-                    tipo: [],
-                    especialidad: []
-                };
-
-                document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
-                    if (checkbox.checked && checkbox.value) {
-                        filters[checkbox.dataset.filter].push(checkbox.value);
-                    }
-                });
-
-                return filters;
-            }
-
-            function applyFilters() {
-                const filters = getSelectedFilters();
-                const mostrarAsociados = document.getElementById('mostrar-asociados').checked;
-                const searchTerm = $('#search-input').val().toLowerCase();
-
-                const filteredData = providersCompact.filter(provider => {
-                    // Filtro de seguridad preexistente
-                    if (provider.Clasificacion === 'Clinicas y Sanatorios' &&  
-                       provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento')) {  
-                        return false;  
-                    }
-
-                    // Filtro de Prestadores Asociados
-                    if (!mostrarAsociados && provider.NroPrestador.includes('-')) {
-                        return false;
-                    }
-
-                    // Filtro por Seccional (OR - cualquiera que coincida)
-                    if (filters.seccional.length > 0 && !filters.seccional.includes(provider.Seccional)) {
-                        return false;
-                    }
-
-                    // Filtro por Plan (OR - cualquiera que coincida)
-                    if (filters.plan.length > 0) {
-                        const hasMatchingPlan = filters.plan.some(plan => provider.Plan.includes(plan));
-                        if (!hasMatchingPlan) return false;
-                    }
-
-                    // Filtro por Clasificación (OR)
-                    if (filters.clasificacion.length > 0 && !filters.clasificacion.includes(provider.Clasificacion)) {
-                        return false;
-                    }
-
-                    // Filtro por Tipo y Especialidad (combinados)
-                    if (filters.tipo.length > 0 || filters.especialidad.length > 0) {
-                        const hasMatchingPractice = provider.practices.some(p => {
-                            const matchTipo = filters.tipo.length === 0 || filters.tipo.includes(p.tipo);
-                            const matchEspecialidad = filters.especialidad.length === 0 || filters.especialidad.includes(p.especialidad);
-                            return matchTipo && matchEspecialidad;
-                        });
-                        if (!hasMatchingPractice) return false;
-                    }
-
-                    return true;
-                });
-
-                tabla.clear().rows.add(filteredData).draw();
-                updateClearAllButton();
-            }
-
-            // ============================================================
-            // DATATABLE
-            // ============================================================
+            // Inicializar tabla
             tabla = $('#tabla-prestadores').DataTable({  
                 data: providersCompact.filter(provider => {
                     return !(provider.Clasificacion === 'Clinicas y Sanatorios' &&
@@ -862,10 +688,10 @@ $(function() {
                 searching: true,  
                 dom: 'Bfrtip',  
                 buttons: [  
-                    { extend: 'copyHtml5', title: () => 'Prestadores Médicos' },  
-                    { extend: 'excelHtml5', title: () => 'Prestadores Médicos' },  
-                    { extend: 'csvHtml5', title: () => 'Prestadores Médicos' },  
-                    { extend: 'pdfHtml5', title: () => 'Prestadores Médicos' }  
+                    { extend: 'copyHtml5', title: 'Prestadores Médicos' },  
+                    { extend: 'excelHtml5', title: 'Prestadores Médicos' },  
+                    { extend: 'csvHtml5', title: 'Prestadores Médicos' },  
+                    { extend: 'pdfHtml5', title: 'Prestadores Médicos' }  
                 ],  
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
@@ -873,52 +699,119 @@ $(function() {
                     } else if (data.Plan.includes('Superador')) {  
                         $(row).addClass('superador');  
                     }  
-                },  
-                drawCallback: function() {  
-                    $('tr.universal td:first-child').css('background-color', 'var(--universal-bg)');  
-                    $('tr.superador td:first-child').css('background-color', 'var(--superador-bg)');  
-                    updateClearAllButton();  
                 }  
             });  
 
-            // ============================================================
-            // EVENTOS DE FILTROS
-            // ============================================================
-            document.getElementById('apply-btn-esp').addEventListener('click', applyFilters);
-            
-            document.getElementById('clear-filters-btn').addEventListener('click', function() {
-                document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
-                    checkbox.checked = false;
+            // Eventos de filtros
+            function applyFilters() {
+                selectedFilters = {
+                    seccional: Array.from(document.getElementById('select-seccional').selectedOptions).map(o => o.value),
+                    plan: Array.from(document.getElementById('select-plan').selectedOptions).map(o => o.value),
+                    clasificacion: Array.from(document.getElementById('select-clasificacion').selectedOptions).map(o => o.value),
+                    guardia: Array.from(document.getElementById('select-guardia').selectedOptions).map(o => o.value),
+                    tipo: Array.from(document.getElementById('select-tipo').selectedOptions).map(o => o.value),
+                    especialidad: Array.from(document.getElementById('select-especialidad').selectedOptions).map(o => o.value)
+                };
+
+                const mostrarAsociados = document.getElementById('mostrar-asociados').checked;
+
+                const filteredData = providersCompact.filter(provider => {
+                    if (provider.Clasificacion === 'Clinicas y Sanatorios' &&
+                        provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento')) {
+                        return false;
+                    }
+
+                    if (!mostrarAsociados && provider.NroPrestador.includes('-')) {
+                        return false;
+                    }
+
+                    if (selectedFilters.seccional.length > 0 && !selectedFilters.seccional.includes(provider.Seccional)) {
+                        return false;
+                    }
+
+                    if (selectedFilters.plan.length > 0 && !selectedFilters.plan.some(p => provider.Plan.includes(p))) {
+                        return false;
+                    }
+
+                    if (selectedFilters.clasificacion.length > 0 && !selectedFilters.clasificacion.includes(provider.Clasificacion)) {
+                        return false;
+                    }
+
+                    const tipos = [...selectedFilters.guardia, ...selectedFilters.tipo];
+                    if (tipos.length > 0) {
+                        const hasPractice = provider.practices.some(p => tipos.includes(p.tipo));
+                        if (!hasPractice) return false;
+                    }
+
+                    if (selectedFilters.especialidad.length > 0) {
+                        const hasEspecialidad = provider.practices.some(p => selectedFilters.especialidad.includes(p.especialidad));
+                        if (!hasEspecialidad) return false;
+                    }
+
+                    return true;
                 });
-                document.getElementById('mostrar-asociados').checked = true;
-                $('#search-input').val('');
+
+                tabla.clear().rows.add(filteredData).draw();
                 updateEspecialidadOptions();
-                tabla.clear().rows.add(providersCompact).draw();
-                updateClearAllButton();
-            });
+            }
 
-            document.getElementById('mostrar-asociados').addEventListener('change', applyFilters);
+            function updateEspecialidadOptions() {
+                const tiposSeleccionados = [
+                    ...Array.from(document.getElementById('select-guardia').selectedOptions).map(o => o.value),
+                    ...Array.from(document.getElementById('select-tipo').selectedOptions).map(o => o.value)
+                ];
 
-            document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
-                if (checkbox.dataset.filter !== 'tipo') {
-                    checkbox.addEventListener('change', applyFilters);
+                const selectEspecialidad = document.getElementById('select-especialidad');
+                const currentValues = Array.from(selectEspecialidad.selectedOptions).map(o => o.value);
+
+                if (tiposSeleccionados.length !== 1) {
+                    selectEspecialidad.innerHTML = '<option value="">--- Ninguno ---</option><option disabled>Selecciona un solo Tipo</option>';
+                } else {
+                    const tipoSeleccionado = tiposSeleccionados[0];
+                    const especialidades = tipoEspecialidad[tipoSeleccionado] || [];
+                    
+                    selectEspecialidad.innerHTML = '<option value="">--- Ninguno ---</option>';
+                    especialidades.sort().forEach(esp => {
+                        const opt = document.createElement('option');
+                        opt.value = esp;
+                        opt.textContent = esp;
+                        selectEspecialidad.appendChild(opt);
+                    });
+
+                    Array.from(currentValues).forEach(val => {
+                        if (val && especialidades.includes(val)) {
+                            const opt = selectEspecialidad.querySelector(`option[value="${val}"]`);
+                            if (opt) opt.selected = true;
+                        }
+                    });
                 }
+            }
+
+            document.getElementById('apply-btn-filters').addEventListener('click', applyFilters);
+            document.getElementById('clear-all-btn-filters').addEventListener('click', () => {
+                document.getElementById('select-seccional').selectedIndex = -1;
+                document.getElementById('select-plan').selectedIndex = -1;
+                document.getElementById('select-clasificacion').selectedIndex = -1;
+                document.getElementById('select-guardia').selectedIndex = -1;
+                document.getElementById('select-tipo').selectedIndex = -1;
+                document.getElementById('select-especialidad').selectedIndex = -1;
+                document.getElementById('mostrar-asociados').checked = true;
+                applyFilters();
             });
 
-            $('#search-input').on('keyup', function() {  
-                tabla.search(this.value).draw();  
-                updateClearAllButton();  
-            });  
+            document.getElementById('select-guardia').addEventListener('change', updateEspecialidadOptions);
+            document.getElementById('select-tipo').addEventListener('change', updateEspecialidadOptions);
 
-            $('#clear-all-btn').click(function() {  
-                $('#search-input').val('');  
-                tabla.search('').draw();  
-                updateClearAllButton();  
-            });  
+            $('#search-input').on('keyup', function() {
+                tabla.search(this.value).draw();
+            });
 
-            // ============================================================
-            // DETALLES Y MAPA INDIVIDUAL
-            // ============================================================
+            document.getElementById('clear-search-btn').addEventListener('click', function() {
+                document.getElementById('search-input').value = '';
+                tabla.search('').draw();
+            });
+
+            // Detalles de filas
             $('#tabla-prestadores tbody').on('click', 'button.details-control', function () {  
                 const tr = $(this).closest('tr');  
                 const row = tabla.row(tr);  
@@ -977,9 +870,7 @@ $(function() {
                     row.child(detalleHtml).show();  
                     tr.addClass('shown');  
 
-                    const hasCoords =
-                        rowData.lat != null && rowData.lon != null &&
-                        !isNaN(rowData.lat) && !isNaN(rowData.lon);
+                    const hasCoords = rowData.lat != null && rowData.lon != null && !isNaN(rowData.lat) && !isNaN(rowData.lon);
 
                     if (hasCoords) {
                         const map = L.map(mapId).setView([rowData.lat, rowData.lon], 16);
@@ -987,15 +878,12 @@ $(function() {
                         const address = [rowData.Domicilio, rowData.Localidad, rowData.Partido, rowData.Provincia].filter(Boolean).join(", ");
                         L.marker([rowData.lat, rowData.lon]).addTo(map).bindPopup(address).openPopup();
                     } else {
-                        document.getElementById(mapId).innerHTML =
-                            "<div style='color:#b71c1c;padding:30px;text-align:center;'>Sin coordenadas (lat/lon) en Data_geocoded.csv.</div>";
+                        document.getElementById(mapId).innerHTML = "<div style='color:#b71c1c;padding:20px;text-align:center;'>Sin coordenadas.</div>";
                     }
                 }  
-            });  
+            });
 
-            // ============================================================
-            // ESTADÍSTICAS
-            // ============================================================
+            // Estadísticas
             const statsModal = document.getElementById('stats-modal');  
             const statsBtn = document.getElementById('stats-btn');  
             const closeStats = document.getElementById('close-stats');  
@@ -1012,44 +900,35 @@ $(function() {
                 filteredData.forEach(p => seccionalCount[p.Seccional] = (seccionalCount[p.Seccional] || 0) + 1);  
                 const topSeccional = Object.entries(seccionalCount).sort((a, b) => b[1] - a[1])[0] || ['N/A', 0];  
                 document.getElementById('stats-summary').innerHTML = `  
-                    Total Prestadores: ${totalPrestadores} | Universal: ${universalCount} | Superador: ${superadorCount} |  
-                    Top Seccional: ${topSeccional[0]} (${topSeccional[1]})  
+                    Total: ${totalPrestadores} | Universal: ${universalCount} | Superador: ${superadorCount} | Top: ${topSeccional[0]} (${topSeccional[1]})
                 `;  
 
                 const seccionalLabels = Object.keys(seccionalCount);  
                 const seccionalData = Object.values(seccionalCount);  
                 const chartTextColor = isDark ? '#fff' : '#000';  
-                const chartBgColors = seccionalLabels.map(() => isDark ? '#76b8a8' : '#497e76');  
 
                 if (!seccionalChart) {  
                     seccionalChart = new Chart(document.getElementById('seccional-chart'), {  
                         type: 'bar',  
-                        data: { labels: seccionalLabels, datasets: [{ label: 'Prestadores por Seccional', data: seccionalData, backgroundColor: chartBgColors }] },  
+                        data: { labels: seccionalLabels, datasets: [{ label: 'Prestadores', data: seccionalData, backgroundColor: isDark ? '#76b8a8' : '#497e76' }] },  
                         options: { scales: { y: { beginAtZero: true, ticks: { color: chartTextColor } }, x: { ticks: { color: chartTextColor } } }, plugins: { legend: { labels: { color: chartTextColor } } } }  
                     });  
                 } else {  
                     seccionalChart.data.labels = seccionalLabels;  
                     seccionalChart.data.datasets[0].data = seccionalData;  
-                    seccionalChart.data.datasets[0].backgroundColor = chartBgColors;  
-                    seccionalChart.options.scales.y.ticks.color = chartTextColor;  
-                    seccionalChart.options.scales.x.ticks.color = chartTextColor;  
-                    seccionalChart.options.plugins.legend.labels.color = chartTextColor;  
                     seccionalChart.update();  
                 }  
 
                 const planCount = { Universal: universalCount, Superador: superadorCount };  
-                const planBgColors = isDark ? ['#3a6159', '#5e3a4d'] : ['#e6f7e6', '#f0e6ff'];  
 
                 if (!planChart) {  
                     planChart = new Chart(document.getElementById('plan-chart'), {  
                         type: 'pie',  
-                        data: { labels: ['Universal', 'Superador'], datasets: [{ data: [planCount.Universal, planCount.Superador], backgroundColor: planBgColors }] },  
+                        data: { labels: ['Universal', 'Superador'], datasets: [{ data: [planCount.Universal, planCount.Superador], backgroundColor: isDark ? ['#3a6159', '#5e3a4d'] : ['#e6f7e6', '#f0e6ff'] }] },  
                         options: { plugins: { legend: { labels: { color: chartTextColor } } } }  
                     });  
                 } else {  
                     planChart.data.datasets[0].data = [planCount.Universal, planCount.Superador];  
-                    planChart.data.datasets[0].backgroundColor = planBgColors;  
-                    planChart.options.plugins.legend.labels.color = chartTextColor;  
                     planChart.update();  
                 }  
 
@@ -1060,32 +939,25 @@ $(function() {
                 const sortedClasif = Object.entries(clasificacionCount).sort((a, b) => b[1] - a[1]).slice(0, 5);  
                 const clasifLabels = sortedClasif.map(([key]) => key);  
                 const clasifData = sortedClasif.map(([, value]) => value);  
-                const clasifBgColors = clasifLabels.map(() => isDark ? '#b85a5a' : '#8c4a4a');  
 
                 if (!clasificacionChart) {  
                     clasificacionChart = new Chart(document.getElementById('clasificacion-chart'), {  
                         type: 'bar',  
-                        data: { labels: clasifLabels, datasets: [{ label: 'Top 5 Clasificaciones', data: clasifData, backgroundColor: clasifBgColors }] },  
+                        data: { labels: clasifLabels, datasets: [{ label: 'Top 5', data: clasifData, backgroundColor: isDark ? '#b85a5a' : '#8c4a4a' }] },  
                         options: { scales: { y: { beginAtZero: true, ticks: { color: chartTextColor } }, x: { ticks: { color: chartTextColor } } }, plugins: { legend: { labels: { color: chartTextColor } } } }  
                     });  
                 } else {  
                     clasificacionChart.data.labels = clasifLabels;  
                     clasificacionChart.data.datasets[0].data = clasifData;  
-                    clasificacionChart.data.datasets[0].backgroundColor = clasifBgColors;  
-                    clasificacionChart.options.scales.y.ticks.color = chartTextColor;  
-                    clasificacionChart.options.scales.x.ticks.color = chartTextColor;  
-                    clasificacionChart.options.plugins.legend.labels.color = chartTextColor;  
                     clasificacionChart.update();  
                 }  
             };  
 
             closeStats.onclick = function() {  
                 statsModal.style.display = 'none';  
-            };  
+            };
 
-            // ============================================================
-            // MAPA GENERAL
-            // ============================================================
+            // Mapa General
             const mapModal = document.getElementById('map-modal');
             const mapBtn = document.getElementById('map-btn');
             const closeMap = document.getElementById('close-map');
@@ -1102,35 +974,25 @@ $(function() {
                 if (c.includes('pedia')) return '#3498DB';
                 if (c.includes('especial')) return '#E67E22';
                 if (c.includes('salud')) return '#9B59B6';
-                if (c.includes('vario')) return '#afb3b0';
-                return '#666666';
+                return '#afb3b0';
             }
 
             function createColoredIcon(color) {
                 return L.divIcon({
                     className: 'custom-marker',
-                    html: `<div style="
-                        width:14px;height:14px;border-radius:50%;
-                        background:${color};border:2px solid #ffffff;
-                        box-shadow:0 0 4px rgba(0,0,0,0.6);"></div>`,
-                    iconSize: [14, 14],
-                    iconAnchor: [7, 7]
+                    html: `<div style="width:12px;height:12px;border-radius:50%;background:${color};border:2px solid #ffffff;box-shadow:0 0 4px rgba(0,0,0,0.6);"></div>`,
+                    iconSize: [12, 12],
+                    iconAnchor: [6, 6]
                 });
             }
 
             function buildGeneralMap() {
-                const mostrarAsociados = document.getElementById('map-mostrar-asociados').checked;
-                let rows = tabla.rows({search:'applied'}).data().toArray();
-                
-                if (!mostrarAsociados) {
-                    rows = rows.filter(provider => !provider.NroPrestador.includes('-'));
-                }
+                const rows = tabla.rows({search:'applied'}).data().toArray();
+                const mostrarAsociados = document.getElementById('mostrar-asociados-mapa').checked;
 
                 if (!generalMap) {
                     generalMap = L.map('general-map').setView([-34.6, -58.4], 4);
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: 'OpenStreetMap'
-                    }).addTo(generalMap);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: 'OpenStreetMap'}).addTo(generalMap);
                 }
 
                 if (generalMarkersLayer) {
@@ -1141,12 +1003,12 @@ $(function() {
                 const bounds = [];
 
                 for (const provider of rows) {
+                    if (!mostrarAsociados && provider.NroPrestador.includes('-')) continue;
+
                     const lat = provider.lat;
                     const lon = provider.lon;
 
-                    if (lat == null || lon == null || isNaN(lat) || isNaN(lon)) {
-                        continue;
-                    }
+                    if (lat == null || lon == null || isNaN(lat) || isNaN(lon)) continue;
 
                     const color = getColorByClasificacion(provider.Clasificacion);
                     const icon = createColoredIcon(color);
@@ -1178,28 +1040,17 @@ $(function() {
                     if (generalMap) generalMap.invalidateSize();
                 }, 150);
             };
-            
-            document.addEventListener('change', function(e) {
-                if (e.target.id === 'map-mostrar-asociados' && generalMap) {
-                    buildGeneralMap();
-                }
-            });
 
             closeMap.onclick = function() {
                 mapModal.style.display = 'none';
             };
 
+            document.getElementById('update-map-btn').addEventListener('click', buildGeneralMap);
+
             window.onclick = function(event) {  
                 if (event.target == statsModal) statsModal.style.display = 'none';  
                 if (event.target == mapModal) mapModal.style.display = 'none';  
-            };  
-
-            function updateClearAllButton() {  
-                const hasFilters = $('#search-input').val() !== '';  
-                $('#clear-all-btn').prop('disabled', !hasFilters);  
-            }
-            
-            updateEspecialidadOptions();
+            };
         }  
     });  
 });
@@ -1212,44 +1063,43 @@ const publicKey = 'gGaNST8Xed0QDePFj';
 emailjs.init(publicKey);
 
 function sendEmail(data) {
-    const params = {
-        name: data.name,
-        contact_email: data.email,
-        message: data.message,
-        time: new Date().toLocaleString()
-    };
+  const params = {
+    name: data.name,
+    contact_email: data.email,
+    message: data.message,
+    time: new Date().toLocaleString()
+  };
 
-    emailjs.send(serviceID, templateID, params)
-        .then((response) => {
-            console.log('✅ Correo enviado:', response.status);
-            alert('¡Mensaje enviado! Gracias por contactarnos.');
-            closeModal();
-        })
-        .catch((err) => {
-            console.error('❌ Error al enviar:', err);
-            alert('Hubo un problema. Inténtalo de nuevo.');
-        });
+  emailjs.send(serviceID, templateID, params)
+    .then((response) => {
+      alert('¡Mensaje enviado! Gracias por contactarnos.');
+      closeModal();
+    })
+    .catch((err) => {
+      console.error('Error:', err);
+      alert('Hubo un problema. Inténtalo de nuevo.');
+    });
 }
 
 const contactModal = document.getElementById('contact-modal');
 
-function openModal()  { contactModal.style.display = 'flex'; }
+function openModal() { contactModal.style.display = 'flex'; }
 function closeModal() { contactModal.style.display = 'none'; }
 
 document.getElementById('openContactBtn').addEventListener('click', openModal);
-document.querySelector('#contact-modal .close-btn')
-    .addEventListener('click', closeModal);
+document.querySelector('#contact-modal .close-btn').addEventListener('click', closeModal);
 
 window.addEventListener('click', (e) => {
-    if (e.target === contactModal) closeModal();
+  if (e.target === contactModal) closeModal();
 });
 
 document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const formData = new FormData(this);
-    const dataObj = Object.fromEntries(formData.entries());
-    sendEmail(dataObj);
+  e.preventDefault();
+  const formData = new FormData(this);
+  const dataObj = Object.fromEntries(formData.entries());
+  sendEmail(dataObj);
 });
 </script>
-</body>
+
+</body>  
 </html>
