@@ -19,7 +19,6 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
 
     <style>  
         :root {  
@@ -128,15 +127,7 @@
         .dataTable thead .sorting_desc {  
             background-image: none !important;  
         }  
-        .details-child { 
-            background: var(--details-bg); 
-            padding: 18px; 
-            color: var(--text-color); 
-            border-top: 2px solid var(--border-color);
-            border-radius: 8px;
-            margin: 10px 0;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }  
+        .details-child { background: var(--details-bg); padding: 18px; color: var(--text-color); border-top: 2px solid var(--border-color); border-radius: 8px; margin: 12px 0; }  
         .details-child table { width: 100%; border-collapse: collapse; }  
         .details-child th, .details-child td { border: 1px solid var(--border-color); padding: 8px; color: var(--text-color); }  
         .details-child th { background: var(--filter-bg); }  
@@ -144,13 +135,14 @@
         .practices-container {   
             display: flex;   
             flex-wrap: wrap;   
-            gap: 15px;   
+            gap: 12px;
+            margin-top: 10px;
         }  
         .practice-type-container {   
-            flex: 1 0 300px;   
+            flex: 1 0 280px;   
             background: var(--practice-bg);  
             padding: 12px;   
-            border-radius: 8px; 
+            border-radius: 8px;
             color: var(--text-color);
             border: 1px solid var(--border-color);
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -160,102 +152,57 @@
             margin-bottom: 10px;   
             text-align: center;  
             color: var(--header-color);
+            font-size: 13px;
             padding-bottom: 8px;
             border-bottom: 2px solid var(--border-color);
         }  
         .practice-list {   
             padding-left: 20px;   
-            text-align: left; 
-            color: var(--text-color);  
+            text-align: left; color: var(--text-color);  
         }  
         .map-container {   
             height: 220px;   
             width: 99%;   
             margin-top:10px;   
-            border-radius:8px;   
+            border-radius:6px;   
             border:1px solid var(--border-color);  
         }  
         tr.universal { background-color: var(--universal-bg) !important; }  
         tr.superador { background-color: var(--superador-bg) !important; }  
         tr.universal td:first-child { background-color: var(--universal-bg) !important; }  
         tr.superador td:first-child { background-color: var(--superador-bg) !important; }  
-        .search-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .search-container input {
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #bbb;
-            width: 280px;
-            background: var(--filter-bg);
-            color: var(--text-color);
+        .search-container {  
+            display: flex;  
+            justify-content: center;  
+            margin-bottom: 12px;  
+            gap: 8px;  
+        }  
+        .search-container input {  
+            padding: 6px;  
+            border-radius: 4px;  
+            border: 1px solid #bbb;  
+            width: 280px; background: var(--filter-bg); color: var(--text-color);  
             font-size: 12px;
-            height: 32px;
-            box-sizing: border-box;
-        }
-        .search-container button {
-            background: #E74C3C;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
+        }  
+        .search-container button {  
+            background: #E74C3C;  
+            color: white;  
+            border: none;  
+            padding: 6px 12px;  
+            border-radius: 4px;  
+            cursor: pointer;  
             font-size: 11px;
             font-weight: bold;
-            transition: all 0.3s ease;
-            height: 32px;
-            min-width: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
+            transition: all 0.2s ease;
         }
         .search-container button:hover {
-            transform: scale(1.08);
-            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
-        }
-        .search-container button:active {
-            transform: scale(0.96);
-        }
-        .search-container button:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            opacity: 0.6;
-        }
-        #copy-btn {
-            background: #3498DB !important;
-        }
-        #copy-btn:hover {
-            background: #2980B9 !important;
-            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4) !important;
-        }
-        #excel-btn {
-            background: #27AE60 !important;
-        }
-        #excel-btn:hover {
-            background: #229954 !important;
-            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.4) !important;
-        }
-        #csv-btn {
-            background: #F39C12 !important;
-        }
-        #csv-btn:hover {
-            background: #D68910 !important;
-            box-shadow: 0 4px 10px rgba(243, 156, 18, 0.4) !important;
-        }
-        #pdf-btn {
-            background: #E74C3C !important;
-        }
-        #pdf-btn:hover {
-            background: #C0392B !important;
-            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4) !important;
-        }
+            background: #C0392B;
+            transform: scale(1.05);
+        }  
+        .search-container button:disabled {  
+            background: #cccccc;  
+            cursor: not-allowed;  
+        }  
         .visitor-counter {  
             position: fixed;  
             bottom: 15px;  
@@ -320,13 +267,8 @@
             font-size: 28px;  
             cursor: pointer;  
             color: var(--text-color);  
-            z-index: 10;  
-            transition: all 0.2s ease;
-        }
-        .close-btn:hover {
-            transform: scale(1.2);
-            color: #E74C3C;
-        }
+            z-index: 10;
+        }  
         #stats-summary { margin-bottom: 20px; text-align: center; font-size: 16px; font-weight: bold; }  
 
         #stats-container { 
@@ -356,19 +298,16 @@
             background: var(--button-bg);  
             color: white;  
             border: none;  
-            padding: 8px 14px;  
+            padding: 6px 12px;  
             border-radius: 4px;  
             cursor: pointer;  
             font-size: 12px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
         .mode-buttons button:hover {
-            transform: scale(1.08);
-            box-shadow: 0 4px 10px rgba(73, 126, 118, 0.4);
-        }
-        .mode-buttons button:active {
-            transform: scale(0.96);
-        }
+            transform: scale(1.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }  
 
         #map-modal-content {  
             max-width: 1000px;  
@@ -405,9 +344,7 @@
             width:100%; padding:.5rem; border:1px solid #ccc; background-color: #fff;
             border-radius:4px; box-sizing:border-box; color: #000;
         }
-        #contactForm button{ margin-top:1rem; padding:.75rem 1.5rem; background:#497e76; color:#fff; border:none; cursor:pointer; border-radius: 4px; transition: all 0.3s ease; }
-        #contactForm button:hover { background: #3a6159; transform: scale(1.05); box-shadow: 0 4px 10px rgba(73, 126, 118, 0.4); }
-        #contactForm button:active { transform: scale(0.96); }
+        #contactForm button{ margin-top:1rem; padding:.75rem 1.5rem; background:#497e76; color:#fff; border:none; cursor:pointer; border-radius: 4px; }
 
         .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px; }
         .modal-title{ font-size:1.5rem; margin:0; color: var(--header-color); }
@@ -457,7 +394,7 @@
         }
 
         .button-row button {
-            padding: 8px 12px;
+            padding: 6px 12px;
             font-size: 11px;
             border: none;
             border-radius: 4px;
@@ -465,7 +402,6 @@
             font-weight: bold;
             transition: all 0.3s ease;
             min-width: auto;
-            height: 32px;
         }
 
         #apply-btn-esp {
@@ -572,10 +508,6 @@
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad...">
         <button id="clear-all-btn" disabled>Borrar todo</button>
-        <button id="copy-btn"><i class="fas fa-copy"></i> Copiar</button>
-        <button id="excel-btn"><i class="fas fa-file-excel"></i> Excel</button>
-        <button id="csv-btn"><i class="fas fa-file-csv"></i> CSV</button>
-        <button id="pdf-btn"><i class="fas fa-file-pdf"></i> PDF</button>
     </div>
 
     <table id="tabla-prestadores" class="display" columns-center style="width:100%;">  
@@ -637,7 +569,7 @@
     </div>
 
     <div style="text-align:center; margin-top:2rem;">
-        <button id="openContactBtn" style="padding:.75rem 1.5rem;background:#497e76;color:white;border: 2px solid #3a6159; border-radius:.25rem;font-size:1rem;cursor:pointer;transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 10px rgba(73, 126, 118, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+        <button id="openContactBtn" style="padding:.75rem 1.5rem;background:#497e76;color:white;border: 2px solid #3a6159; border-radius:.25rem;font-size:1rem;cursor:pointer;">
             Ingresar Reclamo
         </button>
     </div>
@@ -657,6 +589,8 @@
             </form>
         </div>
     </div>
+
+</body>
 
 <script>
 // ============================================================
@@ -956,7 +890,13 @@ $(function() {
                 pageLength: 25,  
                 ordering: false,  
                 searching: true,  
-                dom: 'frtip',  
+                dom: 'Bfrtip',  
+                buttons: [  
+                    { extend: 'copyHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'excelHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'csvHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'pdfHtml5', title: () => 'Prestadores Médicos' }  
+                ],  
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
                         $(row).addClass('universal');  
@@ -970,137 +910,6 @@ $(function() {
                     updateClearAllButton();  
                 }  
             });  
-
-            // ============================================================
-            // FUNCIONES DE EXPORTACIÓN
-            // ============================================================
-            function getTableData() {
-                const rows = tabla.rows({search: 'applied'}).data().toArray();
-                const headers = ['Nombre', 'Nro Prestador', 'Seccional', 'Localidad', 'Plan'];
-                const data = [
-                    headers,
-                    ...rows.map(r => [
-                        r.Nombre,
-                        r.NroPrestador,
-                        r.Seccional,
-                        r.Localidad,
-                        r.Plan
-                    ])
-                ];
-                return { headers, data, rows };
-            }
-
-            // COPIAR
-            document.getElementById('copy-btn').addEventListener('click', function() {
-                const { data } = getTableData();
-                const text = data.map(row => row.join('\t')).join('\n');
-                navigator.clipboard.writeText(text).then(() => {
-                    const originalHTML = this.innerHTML;
-                    this.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
-                    setTimeout(() => {
-                        this.innerHTML = originalHTML;
-                    }, 2000);
-                }).catch(err => console.error('Error copiando:', err));
-            });
-
-            // EXCEL
-            document.getElementById('excel-btn').addEventListener('click', function() {
-                const { headers, data, rows } = getTableData();
-                const ws = XLSX.utils.aoa_to_sheet(data);
-                const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, 'Prestadores');
-                
-                // Aplicar estilos básicos
-                const range = XLSX.utils.decode_range(ws['!ref']);
-                for (let R = range.s.r; R <= range.e.r; ++R) {
-                    for (let C = range.s.c; C <= range.e.c; ++C) {
-                        const cellAddress = XLSX.utils.encode_cell({r: R, c: C});
-                        if (!ws[cellAddress]) continue;
-                        if (R === 0) {
-                            ws[cellAddress].s = {
-                                font: { bold: true, color: { rgb: 'FFFFFF' } },
-                                fill: { fgColor: { rgb: '497E76' } },
-                                alignment: { horizontal: 'center', vertical: 'center' }
-                            };
-                        }
-                    }
-                }
-                
-                // Auto-ajustar ancho de columnas
-                ws['!cols'] = [
-                    { wch: 35 },
-                    { wch: 15 },
-                    { wch: 20 },
-                    { wch: 20 },
-                    { wch: 20 }
-                ];
-                
-                XLSX.writeFile(wb, `Prestadores_${new Date().toISOString().slice(0,10)}.xlsx`);
-            });
-
-            // CSV
-            document.getElementById('csv-btn').addEventListener('click', function() {
-                const { data } = getTableData();
-                const csv = data.map(row => 
-                    row.map(cell => `"${(cell || '').toString().replace(/"/g, '""')}"`).join(';')
-                ).join('\n');
-                
-                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = `Prestadores_${new Date().toISOString().slice(0,10)}.csv`;
-                link.click();
-            });
-
-            // PDF
-            document.getElementById('pdf-btn').addEventListener('click', function() {
-                const { headers, data, rows } = getTableData();
-                const docDefinition = {
-                    pageSize: 'A4',
-                    pageOrientation: 'landscape',
-                    pageMargins: [20, 20, 20, 20],
-                    content: [
-                        {
-                            text: 'Tabla de Prestadores Médicos',
-                            fontSize: 16,
-                            bold: true,
-                            alignment: 'center',
-                            margin: [0, 0, 0, 15]
-                        },
-                        {
-                            text: `Exportado: ${new Date().toLocaleString()}`,
-                            fontSize: 10,
-                            alignment: 'right',
-                            margin: [0, 0, 0, 10],
-                            color: '#666666'
-                        },
-                        {
-                            table: {
-                                headerRows: 1,
-                                widths: ['*', 'auto', 'auto', 'auto', 'auto'],
-                                body: data
-                            },
-                            layout: 'lightHorizontalLines'
-                        }
-                    ],
-                    styles: {
-                        tableHeader: {
-                            bold: true,
-                            fontSize: 11,
-                            color: 'white',
-                            fillColor: '#497E76'
-                        },
-                        tableBody: {
-                            fontSize: 9
-                        }
-                    },
-                    defaultStyle: {
-                        font: 'Helvetica'
-                    }
-                };
-                
-                pdfMake.createPdf(docDefinition).download(`Prestadores_${new Date().toISOString().slice(0,10)}.pdf`);
-            });
 
             // ============================================================
             // EVENTOS DE FILTROS
@@ -1162,22 +971,22 @@ $(function() {
                         }   
                     });  
 
-                    let practicesHtml = '<div class="practices-container">  
+                    let practicesHtml = '<div class="practices-container">';  
                     Object.keys(practicesByType).forEach(tipo => {  
                         practicesHtml += `  
                         <div class="practice-type-container">  
                             <div class="practice-type-title">${tipo}</div>  
-                            <ul class="practice-list">`;
+                            <ul class="practice-list">`;  
                         practicesByType[tipo].forEach(especialidad => {  
                             practicesHtml += `<li>${especialidad}</li>`;  
                         });  
                         practicesHtml += `  
                             </ul>  
-                        </div>`;
+                        </div>`;  
                     });  
                     practicesHtml += '</div>';  
 
-                    const mapId = `mapa-${(rowData.CUIT).replace(/\W/g,'')}-${(rowData.Domicilio).replace(/\W/g,'')}`;
+                    const mapId = `mapa-${(rowData.CUIT).replace(/\W/g,'')}-${(rowData.Domicilio).replace(/\W/g,'')}`;  
                     let detalleHtml = `  
                     <div class="details-child">  
                         <table class="details-table">  
@@ -1194,7 +1003,7 @@ $(function() {
                                 </td>  
                             </tr>  
                         </table>  
-                    </div>`;
+                    </div>`;  
                     row.child(detalleHtml).show();  
                     tr.addClass('shown');  
 
@@ -1472,6 +1281,4 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
     sendEmail(dataObj);
 });
 </script>
-
-</body>
 </html>
