@@ -138,11 +138,42 @@
             font-size: 13px;
             vertical-align: middle;
         }  
-        th:nth-child(2),
-        td:nth-child(2) {
-            min-width: 220px;
-            text-align: center;
+                #tabla-prestadores {
+            table-layout: fixed;
+            width: 100% !important;
+        }
+
+        #tabla-prestadores th:nth-child(2),
+        #tabla-prestadores td:nth-child(2) {
+            width: 25% !important;
+            min-width: 220px !important;
+            text-align: left !important;
             padding-left: 12px !important;
+        }
+
+        #tabla-prestadores th:nth-child(1),
+        #tabla-prestadores td:nth-child(1) {
+            width: 5% !important;
+        }
+
+        #tabla-prestadores th:nth-child(3),
+        #tabla-prestadores td:nth-child(3) {
+            width: 15% !important;
+        }
+
+        #tabla-prestadores th:nth-child(4),
+        #tabla-prestadores td:nth-child(4) {
+            width: 15% !important;
+        }
+
+        #tabla-prestadores th:nth-child(5),
+        #tabla-prestadores td:nth-child(5) {
+            width: 20% !important;
+        }
+
+        #tabla-prestadores th:nth-child(6),
+        #tabla-prestadores td:nth-child(6) {
+            width: 20% !important;
         }
         
         .dataTable thead .sorting,   
