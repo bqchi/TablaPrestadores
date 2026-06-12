@@ -127,7 +127,15 @@
         .dataTable thead .sorting_desc {  
             background-image: none !important;  
         }  
-        .details-child { background: var(--details-bg); padding: 18px; color: var(--text-color); border-top: 2px solid var(--border-color); border-radius: 8px; margin: 12px 0; }  
+        .details-child { 
+            background: var(--details-bg); 
+            padding: 18px; 
+            color: var(--text-color); 
+            border-top: 2px solid var(--border-color);
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }  
         .details-child table { width: 100%; border-collapse: collapse; }  
         .details-child th, .details-child td { border: 1px solid var(--border-color); padding: 8px; color: var(--text-color); }  
         .details-child th { background: var(--filter-bg); }  
@@ -135,14 +143,13 @@
         .practices-container {   
             display: flex;   
             flex-wrap: wrap;   
-            gap: 12px;
-            margin-top: 10px;
+            gap: 15px;   
         }  
         .practice-type-container {   
-            flex: 1 0 280px;   
+            flex: 1 0 300px;   
             background: var(--practice-bg);  
             padding: 12px;   
-            border-radius: 8px;
+            border-radius: 8px; 
             color: var(--text-color);
             border: 1px solid var(--border-color);
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -152,57 +159,102 @@
             margin-bottom: 10px;   
             text-align: center;  
             color: var(--header-color);
-            font-size: 13px;
             padding-bottom: 8px;
             border-bottom: 2px solid var(--border-color);
         }  
         .practice-list {   
             padding-left: 20px;   
-            text-align: left; color: var(--text-color);  
+            text-align: left; 
+            color: var(--text-color);  
         }  
         .map-container {   
             height: 220px;   
             width: 99%;   
             margin-top:10px;   
-            border-radius:6px;   
+            border-radius:8px;   
             border:1px solid var(--border-color);  
         }  
         tr.universal { background-color: var(--universal-bg) !important; }  
         tr.superador { background-color: var(--superador-bg) !important; }  
         tr.universal td:first-child { background-color: var(--universal-bg) !important; }  
         tr.superador td:first-child { background-color: var(--superador-bg) !important; }  
-        .search-container {  
-            display: flex;  
-            justify-content: center;  
-            margin-bottom: 12px;  
-            gap: 8px;  
-        }  
-        .search-container input {  
-            padding: 6px;  
-            border-radius: 4px;  
-            border: 1px solid #bbb;  
-            width: 280px; background: var(--filter-bg); color: var(--text-color);  
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .search-container input {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #bbb;
+            width: 280px;
+            background: var(--filter-bg);
+            color: var(--text-color);
             font-size: 12px;
-        }  
-        .search-container button {  
-            background: #E74C3C;  
-            color: white;  
-            border: none;  
-            padding: 6px 12px;  
-            border-radius: 4px;  
-            cursor: pointer;  
+            height: 32px;
+            box-sizing: border-box;
+        }
+        .search-container button {
+            background: #E74C3C;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
             font-size: 11px;
             font-weight: bold;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            height: 32px;
+            min-width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
         .search-container button:hover {
-            background: #C0392B;
-            transform: scale(1.05);
-        }  
-        .search-container button:disabled {  
-            background: #cccccc;  
-            cursor: not-allowed;  
-        }  
+            transform: scale(1.08);
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+        }
+        .search-container button:active {
+            transform: scale(0.96);
+        }
+        .search-container button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            opacity: 0.6;
+        }
+        #copy-btn {
+            background: #3498DB !important;
+        }
+        #copy-btn:hover {
+            background: #2980B9 !important;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4) !important;
+        }
+        #excel-btn {
+            background: #27AE60 !important;
+        }
+        #excel-btn:hover {
+            background: #229954 !important;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.4) !important;
+        }
+        #csv-btn {
+            background: #F39C12 !important;
+        }
+        #csv-btn:hover {
+            background: #D68910 !important;
+            box-shadow: 0 4px 10px rgba(243, 156, 18, 0.4) !important;
+        }
+        #pdf-btn {
+            background: #E74C3C !important;
+        }
+        #pdf-btn:hover {
+            background: #C0392B !important;
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4) !important;
+        }
         .visitor-counter {  
             position: fixed;  
             bottom: 15px;  
@@ -267,8 +319,13 @@
             font-size: 28px;  
             cursor: pointer;  
             color: var(--text-color);  
-            z-index: 10;
-        }  
+            z-index: 10;  
+            transition: all 0.2s ease;
+        }
+        .close-btn:hover {
+            transform: scale(1.2);
+            color: #E74C3C;
+        }
         #stats-summary { margin-bottom: 20px; text-align: center; font-size: 16px; font-weight: bold; }  
 
         #stats-container { 
@@ -298,16 +355,19 @@
             background: var(--button-bg);  
             color: white;  
             border: none;  
-            padding: 6px 12px;  
+            padding: 8px 14px;  
             border-radius: 4px;  
             cursor: pointer;  
             font-size: 12px;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
         .mode-buttons button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }  
+            transform: scale(1.08);
+            box-shadow: 0 4px 10px rgba(73, 126, 118, 0.4);
+        }
+        .mode-buttons button:active {
+            transform: scale(0.96);
+        }
 
         #map-modal-content {  
             max-width: 1000px;  
@@ -344,7 +404,9 @@
             width:100%; padding:.5rem; border:1px solid #ccc; background-color: #fff;
             border-radius:4px; box-sizing:border-box; color: #000;
         }
-        #contactForm button{ margin-top:1rem; padding:.75rem 1.5rem; background:#497e76; color:#fff; border:none; cursor:pointer; border-radius: 4px; }
+        #contactForm button{ margin-top:1rem; padding:.75rem 1.5rem; background:#497e76; color:#fff; border:none; cursor:pointer; border-radius: 4px; transition: all 0.3s ease; }
+        #contactForm button:hover { background: #3a6159; transform: scale(1.05); box-shadow: 0 4px 10px rgba(73, 126, 118, 0.4); }
+        #contactForm button:active { transform: scale(0.96); }
 
         .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px; }
         .modal-title{ font-size:1.5rem; margin:0; color: var(--header-color); }
@@ -394,7 +456,7 @@
         }
 
         .button-row button {
-            padding: 6px 12px;
+            padding: 8px 12px;
             font-size: 11px;
             border: none;
             border-radius: 4px;
@@ -402,6 +464,7 @@
             font-weight: bold;
             transition: all 0.3s ease;
             min-width: auto;
+            height: 32px;
         }
 
         #apply-btn-esp {
@@ -508,6 +571,10 @@
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad...">
         <button id="clear-all-btn" disabled>Borrar todo</button>
+        <button id="copy-btn"><i class="fas fa-copy"></i> Copiar</button>
+        <button id="excel-btn"><i class="fas fa-file-excel"></i> Excel</button>
+        <button id="csv-btn"><i class="fas fa-file-csv"></i> CSV</button>
+        <button id="pdf-btn"><i class="fas fa-file-pdf"></i> PDF</button>
     </div>
 
     <table id="tabla-prestadores" class="display" columns-center style="width:100%;">  
@@ -569,7 +636,7 @@
     </div>
 
     <div style="text-align:center; margin-top:2rem;">
-        <button id="openContactBtn" style="padding:.75rem 1.5rem;background:#497e76;color:white;border: 2px solid #3a6159; border-radius:.25rem;font-size:1rem;cursor:pointer;">
+        <button id="openContactBtn" style="padding:.75rem 1.5rem;background:#497e76;color:white;border: 2px solid #3a6159; border-radius:.25rem;font-size:1rem;cursor:pointer;transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 10px rgba(73, 126, 118, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
             Ingresar Reclamo
         </button>
     </div>
@@ -589,8 +656,6 @@
             </form>
         </div>
     </div>
-
-</body>
 
 <script>
 // ============================================================
