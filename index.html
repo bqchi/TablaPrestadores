@@ -127,7 +127,7 @@
         .dataTable thead .sorting_desc {  
             background-image: none !important;  
         }  
-        .details-child { background: var(--details-bg); padding: 18px; color: var(--text-color); border-top: 2px solid var(--border-color); }  
+        .details-child { background: var(--details-bg); padding: 18px; color: var(--text-color); border-top: 2px solid var(--border-color); border-radius: 8px; margin: 12px 0; }  
         .details-child table { width: 100%; border-collapse: collapse; }  
         .details-child th, .details-child td { border: 1px solid var(--border-color); padding: 8px; color: var(--text-color); }  
         .details-child th { background: var(--filter-bg); }  
@@ -135,19 +135,26 @@
         .practices-container {   
             display: flex;   
             flex-wrap: wrap;   
-            gap: 15px;   
+            gap: 12px;
+            margin-top: 10px;
         }  
         .practice-type-container {   
-            flex: 1 0 300px;   
+            flex: 1 0 280px;   
             background: var(--practice-bg);  
-            padding: 10px;   
-            border-radius: 6px; color: var(--text-color);  
+            padding: 12px;   
+            border-radius: 8px;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }  
         .practice-type-title {   
             font-weight: bold;   
-            margin-bottom: 8px;   
+            margin-bottom: 10px;   
             text-align: center;  
-            color: var(--header-color);  
+            color: var(--header-color);
+            font-size: 13px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
         }  
         .practice-list {   
             padding-left: 20px;   
@@ -584,7 +591,6 @@
     </div>
 
 </body>
-</html>
 
 <script>
 // ============================================================
