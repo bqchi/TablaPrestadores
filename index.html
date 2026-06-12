@@ -573,6 +573,24 @@
             transform: scale(0.96);
         }
 
+        .details-control {
+            background: none !important;
+            border: none !important;
+            color: #3498DB !important;
+            font-size: 18px !important;
+            cursor: pointer !important;
+            padding: 0 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: all 0.2s ease;
+        }
+        
+        .details-control:hover {
+            color: #2980B9 !important;
+            transform: scale(1.2);
+        }
+
     </style>  
 </head>  
 <body>  
@@ -1001,7 +1019,7 @@ $(function() {
                             provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento'));
                 }),  
                 columns: [  
-                    {data: null, defaultContent: '<button class="details-control"><i class="fas fa-info-circle"></i></button>', orderable: false },
+                    {data: null, defaultContent: '<button class="details-control" style="background: none; border: none; color: #3498DB; font-size: 18px; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center;"><i class="fas fa-info-circle"></i></button>', orderable: false },
                     {data: 'Nombre', defaultContent: '' },  
                     {data: 'NroPrestador', defaultContent: '' },  
                     {data: 'Seccional', defaultContent: '' },  
