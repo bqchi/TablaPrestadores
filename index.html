@@ -51,9 +51,82 @@
             --chart-bg: #333;  
             --chart-text: #fff;  
         }  
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {  
-            font-family: Arial, sans-serif; margin:20px; background:var(--bg-color); color:var(--text-color); position: relative; min-height: 100vh; transition: background 0.3s;  
+            font-family: Arial, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            position: relative;
+            min-height: 100vh;
+            transition: background 0.3s;
+            margin-top: 60px;
+            padding: 20px;
         }  
+
+        /* NUEVO HEADER COMPACTO Y FIJO */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-color);
+            border-bottom: 2px solid var(--header-color);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+            flex: 1;
+            color: var(--header-color);
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .header-buttons button {
+            padding: 8px 16px;
+            background: var(--button-bg);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .header-buttons button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        #theme-toggle {
+            position: relative;
+            top: auto;
+            right: auto;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 0;
+        }
+
         h1 { color: var(--header-color); }  
         .filtros-container {   
             margin-bottom: 12px;   
@@ -139,11 +212,6 @@
             vertical-align: middle;
         }  
         #tabla-prestadores {
-        table-layout: fixed;
-        width: 100% !important;
-        }
-
-                #tabla-prestadores {
             table-layout: fixed;
             width: 100% !important;
             border-collapse: collapse;
@@ -319,15 +387,6 @@
         .dataTables_filter {  
             display: none !important;  
         }  
-        .theme-toggle {  
-            position: absolute;  
-            top: 20px;  
-            right: 20px;  
-            background: none;  
-            border: none;  
-            cursor: pointer;  
-            font-size: 24px;  
-        }  
         .modal {  
             display: none;  
             position: fixed;  
@@ -379,26 +438,6 @@
         }  
 
         .loader { display: none; text-align: center; padding: 20px; color: var(--text-color); }  
-        .mode-buttons {  
-            display: flex;  
-            justify-content: center;  
-            gap: 10px;  
-            margin-bottom: 12px;  
-        }  
-        .mode-buttons button {  
-            background: var(--button-bg);  
-            color: white;  
-            border: none;  
-            padding: 6px 12px;  
-            border-radius: 4px;  
-            cursor: pointer;  
-            font-size: 12px;
-            transition: all 0.2s ease;
-        }
-        .mode-buttons button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }  
 
         #map-modal-content {  
             max-width: 1000px;  
@@ -528,13 +567,15 @@
     </style>  
 </head>  
 <body>  
-    <button class="theme-toggle" id="theme-toggle">☀️</button>  
-    <h1 tect-center>Tabla de Prestadores Médicos</h1>  
-
-    <div class="mode-buttons">
-        <button id="stats-btn">Ver Estadísticas</button>
-        <button id="map-btn">Ver Mapa de Prestadores</button>
-    </div>
+    <!-- HEADER COMPACTO Y FIJO -->
+    <header>
+        <h1>Tabla de Prestadores Médicos</h1>
+        <div class="header-buttons">
+            <button id="stats-btn">Ver Estadísticas</button>
+            <button id="map-btn">Ver Mapa de Prestadores</button>
+        </div>
+        <button class="theme-toggle" id="theme-toggle">☀️</button>
+    </header>
 
     <div class="filtros-container">
         <div class="filtros-group" style="flex: 1 1 100%;">
@@ -681,8 +722,6 @@
         </div>
     </div>
 
-</body>
-
 <script>
 // ============================================================
 // MODO OSCURO
@@ -824,17 +863,8 @@ $(function() {
                     `;
                     const input = checkbox.querySelector('input');
                     input.addEventListener('change', () => {
-                        // Actualizar especialidades cuando cambia tipo
                         if (filterKey === 'tipo') {
-                            // Inicializar Especialidad
-            updateEspecialidadOptions();
-            
-            // Event listener para cambios en Tipo
-            document.addEventListener('change', function(e) {
-                if (e.target.dataset.filter === 'tipo') {
-                    updateEspecialidadOptions();
-                }
-            });
+                            updateEspecialidadOptions();
                         }
                     });
                     container.appendChild(checkbox);
@@ -845,7 +875,6 @@ $(function() {
                 const selectedTipos = Array.from(document.querySelectorAll('input[data-filter="tipo"]:checked')).map(cb => cb.value);
                 const especialidadContainer = document.getElementById('filtro-especialidad-list');
                 
-                // Si se selecciona más de un tipo, NO mostrar especialidades (evitar mezcla)
                 if (selectedTipos.length > 1) {
                     especialidadContainer.innerHTML = '<div style="color:#999;padding:8px;font-size:12px;">Selecciona un solo Tipo</div>';
                     return;
@@ -880,7 +909,6 @@ $(function() {
                 });
             }
 
-            // Separar Guardías de otros tipos
             const tiposNoGuardia = Object.keys(tipoEspecialidad).filter(t => !t.includes('Guardia'));
             const tiposGuardia = Object.keys(tipoEspecialidad).filter(t => t.includes('Guardia'));
 
@@ -917,34 +945,28 @@ $(function() {
                 const searchTerm = $('#search-input').val().toLowerCase();
 
                 const filteredData = providersCompact.filter(provider => {
-                    // Filtro de seguridad preexistente
                     if (provider.Clasificacion === 'Clinicas y Sanatorios' &&  
                        provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento')) {  
                         return false;  
                     }
 
-                    // Filtro de Prestadores Asociados
                     if (!mostrarAsociados && provider.NroPrestador.includes('-')) {
                         return false;
                     }
 
-                    // Filtro por Seccional (OR - cualquiera que coincida)
                     if (filters.seccional.length > 0 && !filters.seccional.includes(provider.Seccional)) {
                         return false;
                     }
 
-                    // Filtro por Plan (OR - cualquiera que coincida)
                     if (filters.plan.length > 0) {
                         const hasMatchingPlan = filters.plan.some(plan => provider.Plan.includes(plan));
                         if (!hasMatchingPlan) return false;
                     }
 
-                    // Filtro por Clasificación (OR)
                     if (filters.clasificacion.length > 0 && !filters.clasificacion.includes(provider.Clasificacion)) {
                         return false;
                     }
 
-                    // Filtro por Tipo y Especialidad (combinados)
                     if (filters.tipo.length > 0 || filters.especialidad.length > 0) {
                         const hasMatchingPractice = provider.practices.some(p => {
                             const matchTipo = filters.tipo.length === 0 || filters.tipo.includes(p.tipo);
