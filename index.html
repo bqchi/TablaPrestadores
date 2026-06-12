@@ -1001,7 +1001,7 @@ $(function() {
                             provider.practices.some(p => p.tipo === 'DiagnosticoyTratamiento'));
                 }),  
                 columns: [  
-                    {data: null, defaultContent: '<button class="details-control">+</button>', orderable: false },  
+                    {data: null, defaultContent: '<button class="details-control"><i class="fas fa-info-circle"></i></button>', orderable: false },
                     {data: 'Nombre', defaultContent: '' },  
                     {data: 'NroPrestador', defaultContent: '' },  
                     {data: 'Seccional', defaultContent: '' },  
@@ -1010,7 +1010,7 @@ $(function() {
                 ],  
                 language: {url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'},  
                 pageLength: 25,  
-                ordering: true,  
+                ordering: false,  
                 searching: true,  
                 dom: 'Bfrtip',  
                 buttons: [  
@@ -1079,9 +1079,9 @@ $(function() {
                 if (row.child.isShown()) {  
                     row.child.hide();  
                     tr.removeClass('shown');  
-                    $(this).text('+');  
+                    $(this).html('<i class="fas fa-info-circle"></i>'); 
                 } else {  
-                    $(this).text('-');  
+                    $(this).html('<i class="fas fa-minus-circle"></i>');  
                     const practicesByType = {};  
 
                     rowData.practices.forEach(practice => {  
