@@ -191,16 +191,16 @@
         }  
         table { font-size: 14px; }  
         th {
-            text-align: center;
-            padding: 4px 6px !important;
-            height: auto !important;
-            color: var(--text-color);
-            line-height: 1.4 !important;
-            font-size: 12px;
-            font-weight: bold;
-            vertical-align: middle;
-            background: var(--filter-bg) !important;
-        }
+                text-align: center;
+                padding: 4px 6px !important;
+                height: auto !important;
+                color: #ffffff !important;
+                line-height: 1.4 !important;
+                font-size: 12px;
+                font-weight: bold;
+                vertical-align: middle;
+                background: var(--filter-bg) !important;
+            }
         
         td {   
             text-align: center;   
@@ -287,10 +287,21 @@
             background-image: none !important;  
         }  
         .details-child { background: var(--details-bg); padding: 18px; color: var(--text-color); border-top: 2px solid var(--border-color); border-radius: 8px; margin: 12px 0; }  
-        .details-child table { width: 100%; border-collapse: collapse; }  
+        .details-child table { 
+            width: 100%; 
+            border-collapse: collapse;
+            color: var(--text-color);
+        }
         .details-child th, .details-child td { border: 1px solid var(--border-color); padding: 8px; color: var(--text-color); }  
-        .details-child th { background: var(--filter-bg); }  
-        .details-child td { background: var(--details-bg); }  
+        .details-child th { 
+            background: var(--filter-bg); 
+            color: var(--header-color) !important;
+            font-weight: bold;
+        }  
+        .details-child td { 
+            background: var(--details-bg); 
+            color: var(--text-color) !important;
+        }  
         .practices-container {   
             display: flex;   
             flex-wrap: wrap;   
