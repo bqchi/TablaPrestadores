@@ -1026,7 +1026,7 @@ $(function() {
                 tabla.clear().rows.add(filteredData).draw();
                 updateClearAllButton();
             }
-            // ============================================================
+           // ============================================================
             // DATATABLE
             // ============================================================
             tabla = $('#tabla-prestadores').DataTable({  
@@ -1045,8 +1045,8 @@ $(function() {
                 language: {url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'},  
                 pageLength: 25,  
                 ordering: false,  
-                searching: true,  
-                dom: '<"row"<"col-sm-6"f><"col-sm-6"B>>rtip',
+                searching: false,  
+                dom: '<"row"<"col-sm-6"<"search-container"><input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad..."><button id="clear-all-btn" disabled>Borrar todo</button>><"col-sm-6"B>>rtip',
                 buttons: [  
                     { 
                         extend: 'excelHtml5', 
@@ -1074,8 +1074,6 @@ $(function() {
                     updateClearAllButton();  
                 }  
             });
-
-
             // ============================================================
             // EVENTOS DE FILTROS
             // ============================================================
