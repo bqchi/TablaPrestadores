@@ -110,7 +110,28 @@
             font-weight: bold;
             transition: all 0.3s ease;
         }
-
+        .btn-copypdf {
+            padding: 8px 16px;
+            background: var(--button-bg);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .btn-copyexcel {
+            padding: 8px 16px;
+            background: var(--button-bg);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
         .header-buttons button:hover {
             transform: scale(1.05);
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
@@ -1031,13 +1052,13 @@ $(function() {
                       { 
                         extend: 'excelHtml5', 
                         title: () => 'Prestadores Médicos',
-                        className: 'btn btn-success',
+                        className: 'btn btn-copyexcel',
                         text: '<i class="fas fa-file-excel"></i> Excel'
                       },  
                       { 
                         extend: 'pdfHtml5', 
                         title: () => 'Prestadores Médicos',
-                        className: 'btn btn-danger',
+                        className: 'btn btn-copypdf',
                         text: '<i class="fas fa-file-pdf"></i> PDF'
                       } 
                 ],  
