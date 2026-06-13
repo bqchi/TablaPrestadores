@@ -1027,23 +1027,20 @@ $(function() {
                 searching: true,  
                 dom: 'Bfrtip',  
                 buttons: [  
-                            { 
-                              extend: 'excelHtml5',
-                              title: () => 'Prestadores Médicos',
-                              text: '<i class="fas fa-file-excel"></i> EXCEL',
-                              init: function(api, node) {
-                                $(node).css({'background-color': '#6ba59a', 'color': 'white'});
-                              }
-                            },  
-                            { 
-                              extend: 'copyHtml5',
-                              title: () => 'Prestadores Médicos',
-                              text: '<i class="fas fa-copy"></i> COPIAR',
-                              init: function(api, node) {
-                                $(node).css({'background-color': '#6ba59a', 'color': 'white'});
-                              }
-                            },    
-                        ]      
+                    
+                    { extend: 'excelHtml5',
+                      title: () => 'Prestadores Médicos',
+                      text: '<i class="fas fa-file-excel"></i> EXCEL',
+                      style: 'backround-color: #6ba59a color:white border:none padding: 8px 16px; border-radius: 3px;'
+                      
+                      
+                    },  
+                    { extend: 'copyHtml5',
+                      title: () => 'Prestadores Médicos',
+                      text: '<i class="fas fa-copy"></i> COPIAR'
+                    },    
+                ],    
+                           
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
                         $(row).addClass('universal');  
