@@ -1028,21 +1028,14 @@ $(function() {
                 searching: true,  
                 dom: 'Bfrtip',  
                 buttons: [  
-                    { extend: 'copyHtml5',
+                    { extend: 'excelHtml5',
+                      title: () => 'Prestadores Médicos',
+                      text: '<i class="fas fa-file-excel"></i> EXCEL'
+                    },  
+                    { extend: 'pdfHtml5',
                       title: () => 'Prestadores Médicos',
                       text: '<i class="fas fa-file-pdf"></i> PDF'
-                    },  
-                    { extend: 'excelHtml5', title: () => 'Prestadores Médicos' },  
-                    { extend: 'csvHtml5', title: () => 'Prestadores Médicos' },  
-                    { extend: 'pdfHtml5', title: () => 'Prestadores Médicos' }  
-
-
-
-
-
-
-
-
+                    },    
                 ],  
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
