@@ -1027,19 +1027,15 @@ $(function() {
                 searching: true,  
                 dom: 'Bfrtip',  
                 buttons: [  
-                    
-                    { extend: 'excelHtml5',
-                      title: () => 'Prestadores Médicos',
-                      text: '<i class="fas fa-file-excel"></i> EXCEL',
-                      style: 'backround-color: #6ba59a color:white border:none padding: 8px 16px; border-radius: 3px;'
-                      
-                      
-                    },  
-                    { extend: 'copyHtml5',
-                      title: () => 'Prestadores Médicos',
-                      text: '<i class="fas fa-copy"></i> COPIAR'
-                    },    
-                ],    
+                            { extend: 'excelHtml5',
+                              title: () => 'Prestadores Médicos',
+                              text: '<i class="fas fa-file-excel"></i> EXCEL'
+                            },  
+                            { extend: 'copyHtml5',
+                              title: () => 'Prestadores Médicos',
+                              text: '<i class="fas fa-copy"></i> COPIAR'
+                            }    
+                ],     
                            
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
@@ -1054,7 +1050,13 @@ $(function() {
                     updateClearAllButton();  
                 }  
             });  
-
+            $('.dt-button').css({
+                'background-color': '#6ba59a',
+                'color': 'white',
+                'border': 'none',
+                'padding': '8px 16px',
+                'border-radius': '3px'
+            });
             // ============================================================
             // EVENTOS DE FILTROS
             // ============================================================
