@@ -110,28 +110,7 @@
             font-weight: bold;
             transition: all 0.3s ease;
         }
-        .btn-copypdf {
-            padding: 8px 16px;
-            background: var(--button-bg);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        .btn-copyexcel {
-            padding: 8px 16px;
-            background: var(--button-bg);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
+
         .header-buttons button:hover {
             transform: scale(1.05);
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
@@ -221,7 +200,7 @@
                 vertical-align: middle;
                 background: var(--filter-bg) !important;
             }
-        
+
         td {   
             text-align: center;   
             padding: 1px 4px !important;   
@@ -299,7 +278,7 @@
         #tabla-prestadores td:nth-child(2) {
             text-align: left !important;
         }
-        
+
         .dataTable thead .sorting,   
         .dataTable thead .sorting_asc,   
         .dataTable thead .sorting_desc {  
@@ -606,7 +585,7 @@
             justify-content: center !important;
             transition: all 0.2s ease;
         }
-        
+
         .details-control:hover {
             color: #2980B9 !important;
             transform: scale(1.2);
@@ -643,13 +622,13 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Grupo 2: Clasificación -->
                 <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px;">
                     <div style="font-weight: bold; color: var(--header-color); margin-bottom: 10px; font-size: 12px;">CLASIFICACIÓN</div>
                     <div class="filter-list" id="filtro-clasificacion-list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; max-height: none;"></div>
                 </div>
-                
+
                 <!-- Grupo 3: Prestación -->
                 <div style="border-bottom: 2px solid var(--border-color); padding-bottom: 12px;">
                     <div style="font-weight: bold; color: var(--header-color); margin-bottom: 10px; font-size: 12px;">PRESTACIONES</div>
@@ -914,32 +893,32 @@ $(function() {
                     container.appendChild(checkbox);
                 });
             }
-            
+
             function updateEspecialidadOptions() {
                 const selectedTipos = Array.from(document.querySelectorAll('input[data-filter="tipo"]:checked')).map(cb => cb.value);
                 const especialidadContainer = document.getElementById('filtro-especialidad-list');
-                
+
                 if (selectedTipos.length > 1) {
                     especialidadContainer.innerHTML = '<div style="color:#999;padding:8px;font-size:12px;">Selecciona un solo Tipo</div>';
                     return;
                 }
-                
+
                 let allEspecialidades = [];
-                
+
                 if (selectedTipos.length === 1) {
                     const tipo = selectedTipos[0];
                     if (tipoEspecialidad[tipo]) {
                         allEspecialidades = Array.from(tipoEspecialidad[tipo]).sort();
                     }
                 }
-                
+
                 especialidadContainer.innerHTML = '';
-                
+
                 if (allEspecialidades.length === 0) {
                     especialidadContainer.innerHTML = '<div style="color:#999;padding:8px;font-size:12px;">Selecciona un Tipo</div>';
                     return;
                 }
-                
+
                 allEspecialidades.forEach(esp => {
                     const checkbox = document.createElement('div');
                     checkbox.className = 'checkbox-item';
@@ -1026,7 +1005,7 @@ $(function() {
                 tabla.clear().rows.add(filteredData).draw();
                 updateClearAllButton();
             }
-            
+
             // ============================================================
             // DATATABLE
             // ============================================================
@@ -1049,18 +1028,18 @@ $(function() {
                 searching: true,  
                 dom: 'Bfrtip',  
                 buttons: [  
-                      { 
-                        extend: 'excelHtml5', 
-                        title: () => 'Prestadores Médicos',
-                        className: 'btn btn-copyexcel',
-                        text: '<i class="fas fa-file-excel"></i> Excel'
-                      },  
-                      { 
-                        extend: 'pdfHtml5', 
-                        title: () => 'Prestadores Médicos',
-                        className: 'btn btn-copypdf',
-                        text: '<i class="fas fa-file-pdf"></i> PDF'
-                      } 
+                    { extend: 'copyHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'excelHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'csvHtml5', title: () => 'Prestadores Médicos' },  
+                    { extend: 'pdfHtml5', title: () => 'Prestadores Médicos' }  
+
+
+
+
+
+
+
+
                 ],  
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
@@ -1074,8 +1053,42 @@ $(function() {
                     $('tr.superador td:first-child').css('background-color', 'var(--superador-bg)');  
                     updateClearAllButton();  
                 }  
+            });  
+
+            // ============================================================
+            // EVENTOS DE FILTROS
+            // ============================================================
+            document.getElementById('apply-btn-esp').addEventListener('click', applyFilters);
+
+            document.getElementById('clear-filters-btn').addEventListener('click', function() {
+                document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                document.getElementById('mostrar-asociados').checked = true;
+                $('#search-input').val('');
+                updateEspecialidadOptions();
+                tabla.clear().rows.add(providersCompact).draw();
+                updateClearAllButton();
             });
-            
+
+            document.getElementById('mostrar-asociados').addEventListener('change', applyFilters);
+
+            document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
+                if (checkbox.dataset.filter !== 'tipo') {
+                    checkbox.addEventListener('change', applyFilters);
+                }
+            });
+
+            $('#search-input').on('keyup', function() {  
+                tabla.search(this.value).draw();  
+                updateClearAllButton();  
+            });  
+
+            $('#clear-all-btn').click(function() {  
+                $('#search-input').val('');  
+                tabla.search('').draw();  
+                updateClearAllButton();  
+            });  
 
             // ============================================================
             // DETALLES Y MAPA INDIVIDUAL
@@ -1282,7 +1295,7 @@ $(function() {
             function buildGeneralMap() {
                 const mostrarAsociados = document.getElementById('map-mostrar-asociados').checked;
                 let rows = tabla.rows({search:'applied'}).data().toArray();
-                
+
                 if (!mostrarAsociados) {
                     rows = rows.filter(provider => !provider.NroPrestador.includes('-'));
                 }
@@ -1339,7 +1352,7 @@ $(function() {
                     if (generalMap) generalMap.invalidateSize();
                 }, 150);
             };
-            
+
             document.addEventListener('change', function(e) {
                 if (e.target.id === 'map-mostrar-asociados' && generalMap) {
                     buildGeneralMap();
@@ -1359,7 +1372,7 @@ $(function() {
                 const hasFilters = $('#search-input').val() !== '';  
                 $('#clear-all-btn').prop('disabled', !hasFilters);  
             }
-            
+
             updateEspecialidadOptions();
         }  
     });  
