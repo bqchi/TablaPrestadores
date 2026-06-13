@@ -1046,8 +1046,8 @@ $(function() {
                 language: {url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json'},  
                 pageLength: 25,  
                 ordering: false,  
-                searching: true,  
-                dom: '<"row"<"col-sm-6"<div class="search-container"><input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad..."><button id="clear-all-btn" disabled>Borrar todo</button></div>><"col-sm-6"B>>rtip',
+                searching: false,  
+                dom: 'Brtip',
                 buttons: [  
                     { 
                         extend: 'excelHtml5', 
@@ -1073,8 +1073,13 @@ $(function() {
                     $('tr.universal td:first-child').css('background-color', 'var(--universal-bg)');  
                     $('tr.superador td:first-child').css('background-color', 'var(--superador-bg)');  
                     updateClearAllButton();  
-                }  
-            });  
+                },
+                initComplete: function() {
+                    // Insertar el search-container en la misma fila que los botones
+                    $('<div class="search-container"><input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad..."><button id="clear-all-btn" disabled>Borrar todo</button></div>')
+                        .prependTo($('.dt-buttons').parent());
+                }
+            });
 
             // ============================================================
             // DETALLES Y MAPA INDIVIDUAL
