@@ -1031,16 +1031,16 @@ $(function() {
                               extend: 'excelHtml5',
                               title: () => 'Prestadores Médicos',
                               text: '<i class="fas fa-file-excel"></i> EXCEL',
-                              attr: {
-                                style: 'background-color: #6ba59a; color: white; border: none; padding: 8px 16px; border-radius: 3px;'
+                              init: function(api, node) {
+                                $(node).css({'background-color': '#6ba59a', 'color': 'white'});
                               }
                             },  
                             { 
                               extend: 'copyHtml5',
                               title: () => 'Prestadores Médicos',
                               text: '<i class="fas fa-copy"></i> COPIAR',
-                              attr: {
-                                style: 'background-color: #6ba59a; color: white; border: none; padding: 8px 16px; border-radius: 3px;'
+                              init: function(api, node) {
+                                $(node).css({'background-color': '#6ba59a', 'color': 'white'});
                               }
                             },    
                         ]      
