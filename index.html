@@ -1030,11 +1030,13 @@ $(function() {
                 buttons: [  
                     { extend: 'excelHtml5',
                       title: () => 'Prestadores Médicos',
-                      text: '<i class="fas fa-file-excel"></i> EXCEL'
+                      text: '<i class="fas fa-file-excel"></i> EXCEL',
+                      className: header-buttons,
                     },  
                     { extend: 'copyHtml5',
                       title: () => 'Prestadores Médicos',
-                      text: '<i class="fas fa-file-copy"></i> COPIAR'
+                      text: '<i class="fas fa-file-copy"></i> COPIAR',
+                      className: header-buttons,
                     },    
                 ],  
                 createdRow: function(row, data) {  
