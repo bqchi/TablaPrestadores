@@ -1047,20 +1047,20 @@ $(function() {
                 pageLength: 25,  
                 ordering: false,  
                 searching: true,  
-                dom: '<"row"<"col-sm-6"<div class="search-container"><input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad..."><button id="clear-all-btn" disabled>Borrar todo</button></div>><"col-sm-6"B>>rtip',
+                dom: 'Bfrtip',  
                 buttons: [  
-                    { 
+                      { 
                         extend: 'excelHtml5', 
                         title: () => 'Prestadores Médicos',
                         className: 'btn btn-copyexcel',
                         text: '<i class="fas fa-file-excel"></i> Excel'
-                    },  
-                    { 
+                      },  
+                      { 
                         extend: 'pdfHtml5', 
                         title: () => 'Prestadores Médicos',
                         className: 'btn btn-copypdf',
                         text: '<i class="fas fa-file-pdf"></i> PDF'
-                    } 
+                      } 
                 ],  
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
@@ -1074,7 +1074,12 @@ $(function() {
                     $('tr.superador td:first-child').css('background-color', 'var(--superador-bg)');  
                     updateClearAllButton();  
                 }  
-            });  
+
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad...">
+                        <button id="clear-all-btn" disabled>Borrar todo</button>
+                    </div>
+                });  
 
             // ============================================================
             // DETALLES Y MAPA INDIVIDUAL
