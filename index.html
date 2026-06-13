@@ -1047,20 +1047,20 @@ $(function() {
                 pageLength: 25,  
                 ordering: false,  
                 searching: true,  
-                dom: 'Bfrtip',  
+                dom: '<"row"<"col-sm-6"<div class="search-container"><input type="text" id="search-input" placeholder="Buscar por Nombre, Nro Prestador, Seccional o Localidad..."><button id="clear-all-btn" disabled>Borrar todo</button></div>><"col-sm-6"B>>rtip',
                 buttons: [  
-                      { 
+                    { 
                         extend: 'excelHtml5', 
                         title: () => 'Prestadores Médicos',
                         className: 'btn btn-copyexcel',
                         text: '<i class="fas fa-file-excel"></i> Excel'
-                      },  
-                      { 
+                    },  
+                    { 
                         extend: 'pdfHtml5', 
                         title: () => 'Prestadores Médicos',
                         className: 'btn btn-copypdf',
                         text: '<i class="fas fa-file-pdf"></i> PDF'
-                      } 
+                    } 
                 ],  
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
@@ -1074,41 +1074,6 @@ $(function() {
                     $('tr.superador td:first-child').css('background-color', 'var(--superador-bg)');  
                     updateClearAllButton();  
                 }  
-            });
-            
-            // ============================================================
-            // EVENTOS DE FILTROS
-            // ============================================================
-            document.getElementById('apply-btn-esp').addEventListener('click', applyFilters);
-            
-            document.getElementById('clear-filters-btn').addEventListener('click', function() {
-                document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
-                    checkbox.checked = false;
-                });
-                document.getElementById('mostrar-asociados').checked = true;
-                $('#search-input').val('');
-                updateEspecialidadOptions();
-                tabla.clear().rows.add(providersCompact).draw();
-                updateClearAllButton();
-            });
-
-            document.getElementById('mostrar-asociados').addEventListener('change', applyFilters);
-
-            document.querySelectorAll('input[type="checkbox"][data-filter]').forEach(checkbox => {
-                if (checkbox.dataset.filter !== 'tipo') {
-                    checkbox.addEventListener('change', applyFilters);
-                }
-            });
-
-            $('#search-input').on('keyup', function() {  
-                tabla.search(this.value).draw();  
-                updateClearAllButton();  
-            });  
-
-            $('#clear-all-btn').click(function() {  
-                $('#search-input').val('');  
-                tabla.search('').draw();  
-                updateClearAllButton();  
             });  
 
             // ============================================================
