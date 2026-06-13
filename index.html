@@ -1028,10 +1028,18 @@ $(function() {
                 searching: true,  
                 dom: 'Bfrtip',  
                 buttons: [  
-                    { extend: 'copyHtml5', title: () => 'Prestadores Médicos' },  
-                    { extend: 'excelHtml5', title: () => 'Prestadores Médicos' },  
-                    { extend: 'csvHtml5', title: () => 'Prestadores Médicos' },  
-                    { extend: 'pdfHtml5', title: () => 'Prestadores Médicos' }  
+                      { 
+                        extend: 'excelHtml5', 
+                        title: () => 'Prestadores Médicos',
+                        className: 'btn btn-success',
+                        text: '<i class="fas fa-file-excel"></i> Excel'
+                      },  
+                      { 
+                        extend: 'pdfHtml5', 
+                        title: () => 'Prestadores Médicos',
+                        className: 'btn btn-danger',
+                        text: '<i class="fas fa-file-pdf"></i> PDF'
+                      } 
                 ],  
                 createdRow: function(row, data) {  
                     if (data.Plan.includes('Universal')) {  
